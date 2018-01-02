@@ -69,24 +69,12 @@ textarea {
     resize: vertical;
 }
 
-
+a {
+  text-decoration: none;
+}
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -107,4 +95,110 @@ textarea {
 }
 
 
+/* ==========================================================================
+   HEADER, TOP SLIDER classes
+   ========================================================================== */
+header {
+  height: 100vh;
+  min-height: 680px;
+  position: relative;
 
+  background-color: #ccc;
+}
+.header__logo {
+  width: 143px;
+  height: 120px;
+  position: absolute;
+  top: 50px;
+  left: 70px;
+  z-index: 10;
+}
+.header__logo img {
+  width: 143px;
+  height: 120px; 
+}
+.header__reservation {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+.header__reservation a {
+  display: block;
+  width: 255px;
+  height: 80px;
+  background-color: #ffdeb9;
+  font: bold 11px/80px 'Gotham Pro';
+  color: #000;
+  text-align: center;
+  text-transform: uppercase; 
+}
+.header__contacts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 33px;
+  right: 325px;
+  z-index: 10;
+}
+.header__contacts li {
+  float: left;
+}
+.header__contacts li.tel {
+  font: bold 11px/16px 'Gotham Pro';
+  color: #fff;
+  margin-right: 65px;
+}
+.header__contacts li.f {
+  margin-right: 34px;
+}
+.header__contacts li.f a {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: url('../img/facebook.svg') no-repeat center / auto 14px;
+}
+.header__contacts li.t a {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: url('../img/instagram.svg') no-repeat center / auto 16px;
+}
+.topslider {
+  height: 100%;
+}
+.topslider__slide {
+  height: 100%;
+  position: relative;  
+}
+.topslider__slide_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; 
+  z-index: 0;
+}
+.topslider__slide_bg::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.topslider__slide_title {  
+  font: 90px/82px 'Bodoni';
+  color: #fff;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 95px;
+  transform: translateY(-50%);
+  letter-spacing: -1px;
+}
