@@ -11,7 +11,7 @@
    ========================================================================== */
 
 html {
-    color: #222;
+    color: #2a2a2a;
     font-size: 1em;
     line-height: 1.4;
 }
@@ -129,7 +129,7 @@ header {
   height: 80px;
   background-color: #ffdeb9;
   font: bold 11px/80px 'Gotham Pro';
-  color: #000;
+  color: #373737;
   text-align: center;
   text-transform: uppercase; 
   transition: all 300ms ease;
@@ -181,7 +181,7 @@ header {
   height: 100%;
 }
 .topslider .swiper-wrapper {
-  transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  transition-timing-function: cubic-bezier(0.9, 0.03, 0.65, 0.43);
 }
 .topslider__slide {
   height: 100%;
@@ -216,15 +216,11 @@ header {
   position: absolute;
   z-index: 1;
   top: 50%;
-  left: 95px;
-  transform: translate(0, -80%);
-  opacity: 0;
-  letter-spacing: -1px;
-  transition: all 1000ms ease 850ms;
+  left: 95px;  
+  letter-spacing: -1px;  
 }
 .swiper-slide-active .topslider__slide_title {
-  transform: translate(0, -50%);
-  opacity: 1;
+  
 }
 .topslider-button-prev {
   width: 100px;
@@ -576,4 +572,102 @@ header {
         -o-transform: scale(1, 0);
         transform: scale(1, 0);
     }
+}
+
+/* ==========================================================================
+   MAIN classes
+   ========================================================================== */
+main {
+  width: 1140px;
+  margin: auto;
+}
+article.castle {
+  margin-top: 100px;
+  position: relative;
+}
+.castle__photo {
+  float: left;
+  width: 570px;  
+}
+.castle__photo img {
+  width: 570px;
+  height: 270px;
+}
+.castle__text {
+  float: right;
+  width: 490px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.castle__text h3 {
+  margin: 0 0 40px 0;
+  padding: 0 0 30px 0;
+  font: 24px/1 'Bodoni';
+  position: relative;  
+}
+.castle__text h3::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100px;
+  background-color: #000;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.castle__text_desc {
+  font: 300 14px/24px 'Gotham Pro';  
+}
+.surrounding {
+  margin-top: 120px;
+}
+.surrounding h2 {
+  margin: 0 auto 30px auto;
+  padding: 0 0 50px 0;
+  font: 72px/60px 'Bodoni';
+  letter-spacing: -1px;
+  text-align: center;
+  width: 380px;
+  position: relative;
+}
+.surrounding ul {
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+  display: table;  
+}
+.surrounding ul li {
+  float: left;
+  width: 263px;
+  margin-right: 80px;
+  position: relative;
+}
+.surrounding ul li:last-child {
+  margin-right: 0;
+}
+.surrounding ul li:first-child,
+.surrounding ul li:last-child {
+  transform: translate(0, -80px);
+}
+.surrounding ul li::before {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100px;
+  background-color: #000;
+  position: absolute;
+  left: 50%;
+  top: -30px;
+  transform: translate(-50%, 0); 
+}
+.surrounding ul li img {
+  display: block;
+  width: 263px;
+}
+.surrounding__title {
+  margin-top: 30px;
+  text-align: center;
+  font: 24px/1 'Bodoni';
 }

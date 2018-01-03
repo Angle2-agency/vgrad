@@ -10,7 +10,7 @@ var app = {
 	},
 	topSliderInit : function(){
 		app.data.topSlider = new Swiper('.swiper-container', {
-			speed : 1000,
+			speed : 700,
 			parallax : false,
 			//loop : true,
       		navigation: {      			
