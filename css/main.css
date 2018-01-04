@@ -671,3 +671,286 @@ article.castle {
   text-align: center;
   font: 24px/1 'Bodoni';
 }
+.roomselect {
+  margin-bottom: 100px;
+}
+.roomselect__description {
+  width: 400px;
+  float: left;
+}
+.roomselect__description h2 {
+  margin: 0 0 28px 0;
+  padding: 0;
+  font: 72px/60px 'Bodoni';
+  letter-spacing: -1px;
+}
+.roomselect__description_text {
+  margin: 0 0 60px 96px;
+  font: 300 14px/24px 'Gotham Pro';
+}
+.roomselect__description_title {
+  margin: 0 0 30px 96px;
+  font: 24px/1 'Bodoni'; 
+}
+.roomselect__description_button {
+  width: 255px;
+  height: 80px;
+  margin: 0 0 0 96px;
+}
+.roomselect__description_button a {
+  display: block;
+  width: 253px;
+  height: 78px;
+  background-color: #ffdeb9;
+  border: 1px solid #ffdeb9;
+  font: bold 11px/80px 'Gotham Pro';
+  color: #373737;
+  text-align: center;
+  text-transform: uppercase; 
+  transition: all 300ms ease;
+}
+.roomselect__description_button a:hover {
+  background-color: #22201f;
+  color: #ffdeb9;
+}
+.roomselect__slider {
+  float: right;
+  position: relative;
+  width: 670px;
+}
+.roomselect__slider .slide {
+  width: 670px; 
+}
+.roomselect__slider .slide img {
+  width: 670px; 
+}
+.roomselect__slider-pagination {
+  position: absolute;
+  bottom: -27px;
+  left: 370px;
+}
+.roomselect__slider-pagination .current {
+  font: 130px/1 'Bodoni'; 
+  color: #fff;
+}
+.roomselect__slider-pagination i,
+.roomselect__slider-pagination .length {
+  font: bold 10px/1 'Gotham Pro';
+  color: #fff;
+  display: inline-block;
+  transform: translate(-6px, -45px);
+}
+
+.roomselect__slider-button-prev {
+  width: 100px;
+  height: 80px;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+.roomselect__slider-button-prev::before {
+  content: "";
+  background: url('../img/arrow_slide.svg') no-repeat center;
+  display: block;
+  width: 13px;
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(180deg);  
+}
+.roomselect__slider-button-prev::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 40px;
+  background-color: #000;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+}
+.roomselect__slider-button-prev.swiper-button-disabled:hover,
+.roomselect__slider-button-next.swiper-button-disabled:hover {
+  background-color: #fff!important;
+}
+.roomselect__slider-button-prev.swiper-button-disabled::before,
+.roomselect__slider-button-next.swiper-button-disabled::before {
+  background: url('../img/arrow_slide-hover.svg') no-repeat center;
+}
+.roomselect__slider-button-next {
+  width: 100px;
+  height: 80px;
+  background: #fff;
+  position: absolute;
+  left: 100px;
+  bottom: 0;
+  z-index: 1;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+.roomselect__slider-button-next::before {
+  content: "";
+  background: url('../img/arrow_slide.svg') no-repeat center;
+  display: block;
+  width: 13px;
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  
+}
+.roomselect__slider-button-prev:hover,
+.roomselect__slider-button-next:hover {
+  background-color: #ffdeb9;
+}
+.spaservices {
+  margin-top: 120px;
+}
+.spaservices__slider {
+  float: left;
+  width: 670px;
+  position: relative;
+}
+.spaservices__slider .slide {
+  width: 670px; 
+}
+.spaservices__slider .slide img {
+  width: 670px; 
+}
+.spaservices__slider-pagination {
+  position: absolute;
+  bottom: -27px;
+  left: 370px;
+}
+.spaservices__slider-pagination .current {
+  font: 130px/1 'Bodoni';
+  color: #fff;
+}
+.spaservices__slider-pagination i,
+.spaservices__slider-pagination .length {
+  font: bold 10px/1 'Gotham Pro';
+  color: #fff;
+  display: inline-block;
+  transform: translate(-6px, -45px);
+}
+
+.spaservices__slider-button-prev {
+  width: 100px;
+  height: 80px;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+.spaservices__slider-button-prev::before {
+  content: "";
+  background: url('../img/arrow_slide.svg') no-repeat center;
+  display: block;
+  width: 13px;
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(180deg);  
+}
+.spaservices__slider-button-prev::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 40px;
+  background-color: #000;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+}
+.spaservices__slider-button-prev.swiper-button-disabled:hover,
+.spaservices__slider-button-next.swiper-button-disabled:hover {
+  background-color: #fff!important;
+}
+.spaservices__slider-button-prev.swiper-button-disabled::before,
+.spaservices__slider-button-next.swiper-button-disabled::before {
+  background: url('../img/arrow_slide-hover.svg') no-repeat center;
+}
+.spaservices__slider-button-next {
+  width: 100px;
+  height: 80px;
+  background: #fff;
+  position: absolute;
+  left: 100px;
+  bottom: 0;
+  z-index: 1;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+.spaservices__slider-button-next::before {
+  content: "";
+  background: url('../img/arrow_slide.svg') no-repeat center;
+  display: block;
+  width: 13px;
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  
+}
+.spaservices__slider-button-prev:hover,
+.spaservices__slider-button-next:hover {
+  background-color: #ffdeb9;
+}
+.spaservices__description {
+  width: 365px;
+  float: right;
+}
+.spaservices__description h2 {
+  margin: 0 0 28px 0;
+  padding: 0;
+  font: 72px/60px 'Bodoni';
+  letter-spacing: -1px;
+}
+.roomselect__description_text {
+  margin: 0 0 60px 96px;
+  font: 300 14px/24px 'Gotham Pro';
+}
+.roomselect__description_title {
+  margin: 0 0 30px 96px;
+  font: 24px/1 'Bodoni';
+}
+.uniqueoffers {
+  margin-top: 120px;
+}
+.uniqueoffers h2 {
+  margin: 0 0 60px 0;
+  padding: 0;
+  font: 72px/60px 'Bodoni';
+  letter-spacing: -1px; 
+}
+.uniqueoffers ul {
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  display: table;
+}
+.uniqueoffers ul li {
+  float: left;
+  width: 263px;
+  margin-right: 80px;
+}
+.uniqueoffers ul li:last-child {
+  margin: 0;
+}
+.uniqueoffers ul li img {  
+  width: 263px;  
+}
+.uniqueoffers__title {  
+  font: 24px/1 'Bodoni';
+  margin-top: 30px;
+}
