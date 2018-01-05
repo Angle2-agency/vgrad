@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/swiper.min.css">
         <link rel="stylesheet" href="css/fonts.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/main.css?version=1">
     </head>
     <body>
         <header>
@@ -37,15 +37,21 @@
             <div class="swiper-container topslider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide topslider__slide">
-                        <div class="topslider__slide_bg" data-swiper-parallax="0" style="background-image: url('img/slides/1.jpg');"></div>
+                        <div class="topslider__slide_bg">
+                            <div class="topslider__slide_bg-img" style="background-image: url('./img/slides/1.jpg');"></div>                            
+                        </div>
                         <h1 class="topslider__slide_title">Ваш комфортный<br>загородный<br>отдых</h1>
                     </div>
                     <div class="swiper-slide topslider__slide">
-                        <div class="topslider__slide_bg" data-swiper-parallax="0" style="background-image: url('img/slides/2.jpg');"></div>
+                        <div class="topslider__slide_bg">
+                            <div class="topslider__slide_bg-img" style="background-image: url('./img/slides/2.jpg');"></div>                            
+                        </div>
                         <h1 class="topslider__slide_title">Ваш комфортный<br>загородный<br>отдых</h1>
                     </div>
                     <div class="swiper-slide topslider__slide">
-                        <div class="topslider__slide_bg" data-swiper-parallax="0" style="background-image: url('img/slides/3.jpg');"></div>
+                        <div class="topslider__slide_bg">
+                            <div class="topslider__slide_bg-img" style="background-image: url('./img/slides/3.jpg');"></div>                            
+                        </div>
                         <h1 class="topslider__slide_title">Ваш комфортный<br>загородный<br>отдых</h1>
                     </div>
                 </div>
@@ -314,8 +320,9 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-        <script src="js/vendor/swiper.min.js"></script>        
-        <script src="js/main.js"></script>
+        <script src="js/vendor/swiper.min.js"></script>
+        <script src="js/vendor/TweenMax.min.js"></script>        
+        <script src="js/main.js?version=1"></script>
         
     </body>
 </html>

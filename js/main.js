@@ -12,7 +12,7 @@ var app = {
 	},
 	init : function() {
 		app.slidersInit();
-		app.mapInit();
+		app.mapInit();		
 	},
 	slidersInit : function(){
 		app.data.topSlider = new Swiper('.topslider', {
@@ -28,6 +28,9 @@ var app = {
 					var length = this.slides.length;
 					$(this.$el).find('.topslider-pagination span.current').html('01');
 					$(this.$el).find('.topslider-pagination span.length').html(length < 10 ? '0'+length : length);
+					$('.topslider__slide').mousemove(function(e){
+						app.parallaxIt(e, $(this), -100);						
+					});
 				},
 				slideChange : function(){
 					var slide = this.activeIndex + 1;
@@ -118,6 +121,7 @@ var app = {
 		var mapOptions = {
 	        // How zoomed in you want the map to start at (always required)
 	        zoom: 17,
+	        scrollwheel: false,
 	        // The latitude and longitude to center the map (always required)
 	        center: new google.maps.LatLng(50.606248, 30.469001),
 	        // How you would like to style the map. 
@@ -143,6 +147,23 @@ var app = {
                 title: 'Vishegrad'
             }
         );
+	},
+	parallaxIt : function(e, target){
+		var img = target.find('.topslider__slide_bg-img');
+		var title = target.find('h1');
+		console.log(title);
+		var imgX = e.pageX - img.offset().left;
+		var imgY = e.pageY - img.offset().top;
+		var titleX = e.pageX - title.offset().left;
+		var titleY = e.pageY - title.offset().top;
+		TweenMax.to(img, 1, {
+			x: (imgX - img.width()/2) / img.width() * 40,
+			y: (imgY - img.height()/2) / img.height() * 40
+		});
+		TweenMax.to(title, 1, {
+			x: (titleX - title.width()/2) / title.width() * 50,
+			y: (titleY - title.height()/2) / title.height() * 50
+		});
 	}
 }
 

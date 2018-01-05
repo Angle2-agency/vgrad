@@ -220,16 +220,32 @@ header {
   position: relative;
   overflow: hidden; 
 }
+.topslider__slide::before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.05em;
+}
 .topslider__slide_bg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
+  height: 100%;  
+  overflow: hidden;
+  z-index: 0;
+  transition: transform 10s linear;
+}
+.topslider__slide_bg-img {
+  width: 100%;
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center; 
-  z-index: 0;
+}
+.swiper-slide-active .topslider__slide_bg {
+  transform: scale(1.2);
 }
 .topslider__slide_bg::before {
   content: "";
@@ -239,18 +255,18 @@ header {
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.25);
+  z-index: 1;
 }
 .topslider__slide_title {  
   font: 90px/82px 'Bodoni';
-  margin: 0;
+  margin: 0 0 0 95px;
   padding: 0;
-  color: #fff;
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 95px;  
+  color: #fff;  
+  z-index: 1;  
   letter-spacing: -1px;
-  transform: translate(0, -50%);
+  display: inline-block;
+  vertical-align: middle;
+
 }
 .swiper-slide-active .topslider__slide_title {
   
