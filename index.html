@@ -22,7 +22,7 @@
                 <img src="./img/logo_vgrad.svg" alt="">
             </div>
             <div class="header__reservation">
-                <a href="">Забронировать</a>
+                <a href="" data-text="Забронировать"></a>
             </div>
             <ul class="header__contacts clearfix">
                 <li class="tel">044 371 7575</li>
@@ -57,7 +57,9 @@
                 </div>
              
                 <!-- If we need navigation buttons -->
-                <div class="topslider-button-prev"></div>
+                <div class="topslider-button-prev">
+                    <i></i>
+                </div>
                 <div class="topslider-button-next"></div>
             </div>
             <div id="scroll-down">
@@ -100,38 +102,67 @@
                     <div class="roomselect__description_text">Cделает ваш отдых действительно индивидуальным!</div>
                     <div class="roomselect__description_title">Стандарт</div>
                     <div class="roomselect__description_button">
-                        <a href="">Забронировать</a>
+                        <a href="" data-text="Забронировать"></a>
                     </div>
                 </section>
                 <section class="roomselect__slider">
-                    <div class="slide">
-                        <img src="./img/roomselect-1.jpg" alt="">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide slide">
+                            <img src="./img/roomselect-1.jpg" alt="">
+                        </div>
+                        <div class="swiper-slide slide">
+                            <img src="./img/roomselect-1.jpg" alt="">
+                        </div>
+                        <div class="swiper-slide slide">
+                            <img src="./img/roomselect-1.jpg" alt="">
+                        </div>
+                        <div class="swiper-slide slide">
+                            <img src="./img/roomselect-1.jpg" alt="">
+                        </div>
+                        <div class="swiper-slide slide">
+                            <img src="./img/roomselect-1.jpg" alt="">
+                        </div>
                     </div>
-
-
                     <div class="roomselect__slider-pagination">
                         <span class="current">01</span>
                         <i>/</i>
                         <span class="length">07</span>
                     </div>             
                     <!-- If we need navigation buttons -->
-                    <div class="main__slider-button-prev"></div>
+                    <div class="main__slider-button-prev">
+                        <i></i>
+                    </div>
                     <div class="main__slider-button-next"></div>
                 </section>
             </article>
             <article class="spaservices clearfix">
                 <section class="spaservices__slider">
-                    <div class="slide">
-                        <img src="./img/spaservices-1.jpg" alt="">
+                    <div class="swiper-wrapper">
+                        <div class="slide swiper-slide">
+                            <img src="./img/spaservices-1.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/spaservices-1.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/spaservices-1.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/spaservices-1.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/spaservices-1.jpg" alt="">
+                        </div>
                     </div>
-
                     <div class="spaservices__slider-pagination">
                         <span class="current">03</span>
                         <i>/</i>
                         <span class="length">07</span>
                     </div>             
                     <!-- If we need navigation buttons -->
-                    <div class="main__slider-button-prev"></div>
+                    <div class="main__slider-button-prev">
+                        <i></i>
+                    </div>
                     <div class="main__slider-button-next"></div>
                 </section>
                 <section class="spaservices__description">
@@ -160,36 +191,54 @@
             <article class="ourclients">
                 <h2>Наши Клиенты</h2>
                 <div class="ourclients__text">Которые любят у нас проводить время</div>
-                <section class="ourclients__slider clearfix">
-                    <div class="slide">
-                        <img src="./img/clients/1.png" alt="">
-                    </div>
-                    <div class="slide">
-                        <img src="./img/clients/2.png" alt="">
-                    </div>
-                    <div class="slide">
-                        <img src="./img/clients/3.png" alt="">
-                    </div>
-                    <div class="slide">
-                        <img src="./img/clients/4.png" alt="">
-                    </div>
-                    <div class="slide">
-                        <img src="./img/clients/5.png" alt="">
-                    </div>
-
-                    <div class="ourclients__slider-button-prev"></div>
-                    <div class="ourclients__slider-button-next"></div>
-                </section>
+                <div class="ourclients__slider_output">
+                    <section class="ourclients__slider clearfix">
+                        <div class="swiper-wrapper">
+                            <div class="slide swiper-slide">
+                                <img src="./img/clients/1.png" alt="">
+                            </div>
+                            <div class="slide swiper-slide">
+                                <img src="./img/clients/2.png" alt="">
+                            </div>
+                            <div class="slide swiper-slide">
+                                <img src="./img/clients/3.png" alt="">
+                            </div>
+                            <div class="slide swiper-slide">
+                                <img src="./img/clients/4.png" alt="">
+                            </div>
+                            <div class="slide swiper-slide">
+                                <img src="./img/clients/5.png" alt="">
+                            </div>
+                            <div class="slide swiper-slide">
+                                <img src="./img/clients/1.png" alt="">
+                            </div>
+                            <div class="slide swiper-slide">
+                                <img src="./img/clients/2.png" alt="">
+                            </div>
+                            <div class="slide swiper-slide">
+                                <img src="./img/clients/3.png" alt="">
+                            </div>
+                            <div class="slide swiper-slide">
+                                <img src="./img/clients/4.png" alt="">
+                            </div>
+                            <div class="slide swiper-slide">
+                                <img src="./img/clients/5.png" alt="">
+                            </div>
+                        </div>                    
+                    </section>
+                    <div class="main__slider-button-prev" id="ourclients__slider-button-prev"></div>
+                    <div class="main__slider-button-next" id="ourclients__slider-button-next"></div>
+                </div>                
             </article>
             <article class="subscribe">
                 <ul class="clearfix">
                     <li class="left">Подпишитесь чтобы не пропустить уникальные предложения от нас</li>
                     <li class="right clearfix">
                         <div class="subscribe__input">
-                            <input type="text" placeholder="Введите E-mail" />
+                            <input type="mail" placeholder="Введите E-mail" />
                         </div>
                         <div class="subscribe__button">
-                            <button>подписаться</button>
+                            <button data-text="подписаться"></button>
                         </div>
                     </li>
                 </ul>
@@ -203,26 +252,69 @@
                     <div class="walking__descr_text">Пару слов об удобном местоположении / инфраструктуре/ себе современный комфорт цивилизации со сказочным и таинственным духом средневековья.</div>
                 </div>
             </article>
-            <article class="reviews">
+            <article class="reviews clearfix">
                 <div class="reviews__descr">
                     <h2>Отзывы наших постояльцев</h2>
                     <div class="reviews__descr_text">Некоторых из них, мы уже знаем 12 лет!</div>
                 </div>
                 <section class="reviews__slider">
-                    <div class="slide">
-                        <img src="./img/reviews.jpg" alt="">
+                    <div class="swiper-wrapper">
+                        <div class="slide swiper-slide">
+                            <img src="./img/reviews.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/reviews.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/reviews.jpg" alt="">
+                        </div>
                     </div>
-
-                    <div class="main__slider-button-prev"></div>
+                    <div class="reviews__slider-pagination">
+                        <span class="current">03</span>
+                        <i>/</i>
+                        <span class="length">07</span>
+                    </div>
+                    <div class="main__slider-button-prev">
+                        <i></i>
+                    </div>
                     <div class="main__slider-button-next"></div>
                 </section>                
             </article>
+            <article class="enjoy clearfix">
+                <div class="enjoy__text">
+                    <h2>Насладитесь отдыхом,</h2>
+                    <div class="enjoy__sub">а об остальном мы позаботимся!</div>
+                </div>                
+                <div class="enjoy__button" data-text="Забронировать">
+                    <i></i>
+                </div>
+            </article>             
         </main>
+        <footer>
+            <section class="contacts">
+                <div id="map"></div>
+                <div class="contacts__info">
+                    <div class="label">Звоните нам</div>
+                    <div class="info">044 331 75 75</div>
+                    <div class="label">E - mail адрес</div>
+                    <div class="info">vyshegrad@gmail.com</div>
+                    <div class="label">Наш адрес</div>
+                    <div class="info">ул.Спасская, 25, г. Вышгород</div>
+                </div>
+            </section>
+            <section class="copyright clearfix">
+                <div class="left">© 2017 Отельный комплекс ‘’Вышеград‘’</div>
+                <div class="right">by                    
+                    <img src="./img/angle2.svg" alt="">
+                </div>
+            </section>
+        </footer>
         
         
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
-        <script src="js/vendor/swiper.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+        <script src="js/vendor/swiper.min.js"></script>        
         <script src="js/main.js"></script>
         
     </body>
