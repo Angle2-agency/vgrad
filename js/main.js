@@ -8,11 +8,80 @@ var app = {
 		spaservicesSlider : null,
 		ourclientsSlider : null,
 		reviewsSlider : null,
-		map : null
+		map : null,
+		pickFrom : null,
+		pickTo : null
 	},
 	init : function() {
 		app.slidersInit();
-		app.mapInit();		
+		app.mapInit();
+		app.datePickerInit();
+		app.computed.init();
+		app.eventsInit();
+	},
+	eventsInit : function(){
+		$(document).click(function(e) {
+			if ($(e.target).closest(".popup__rooms_select").length) return;
+			$('.popup__rooms_select ul').fadeOut(150);			
+			e.stopPropagation();
+		});
+		$('.typeofhotel__tabs li').click(function(e){
+			var target = $(this).attr('class');			
+			if(target == 'mini'){
+				TweenMax.to('.typeofhotel__tabs li.line', 0.4, {
+					ease: Power2.easeIn,
+					width : 312,
+					onComplete : function(){
+						TweenMax.to('.typeofhotel__tabs li.line', 0.4, {
+							ease: Power2.easeIn,
+							x : $('.typeofhotel__tabs li.mini').position().left
+						})
+					}
+				});
+				TweenMax.to('.typeofhotel__tabs_body-slider', 0.4, {
+					ease: Power2.easeIn,
+					x : -312,
+					delay : 0.4
+				});
+			}
+			if(target == 'standart'){
+				TweenMax.to('.typeofhotel__tabs li.line', 0.4, {
+					ease: Power2.easeIn,
+					x : 0,
+					onComplete : function(){
+						TweenMax.to('.typeofhotel__tabs li.line', 0.4, {
+							ease: Power2.easeIn,
+							width : $('.typeofhotel__tabs li.standart').width()
+						});			
+					}
+				});
+				TweenMax.to('.typeofhotel__tabs_body-slider', 0.4, {
+					ease: Power2.easeIn,
+					x : 0,
+					delay : 0.4
+				});
+			}
+		});
+		$('.bedtype__list input').click(function(e){
+			var type = $(this).attr('id');
+			if(type == 'double'){
+				$('.bedtype__list').removeClass('twin').addClass('double');
+			}else{
+				$('.bedtype__list').removeClass('double').addClass('twin');
+			}
+		});
+		$('.popup__rooms_select span').click(function(e) {			
+			if($('.popup__rooms_select ul').is(':hidden')){
+				$('.popup__rooms_select ul').fadeIn(150);
+			}else{
+				$('.popup__rooms_select ul').fadeOut(150);
+			}
+		});
+		$('.popup__rooms_select ul li').click(function(e) {
+			var type = $(this).attr('data-target');
+			$('.popup__rooms_select span b').html(type);
+			$('.popup__rooms_select ul').fadeOut(150);
+		});
 	},
 	slidersInit : function(){
 		app.data.topSlider = new Swiper('.topslider', {
@@ -116,6 +185,15 @@ var app = {
 				}
 			}
     	});
+    	app.spaservicesSlider = new Swiper('.popup__rooms_slider', {
+			speed : 700,
+			parallax : false,
+			//loop : true,
+      		navigation: {      			
+        		nextEl: '.main__slider-button-next',
+        		prevEl: '.main__slider-button-prev',
+      		}
+    	});
 	},
 	mapInit : function(){
 		var mapOptions = {
@@ -164,6 +242,40 @@ var app = {
 			x: (titleX - title.width()/2) / title.width() * 50,
 			y: (titleY - title.height()/2) / title.height() * 50
 		});
+	},
+	datePickerInit : function(){
+		$.extend( $.fn.pickadate.defaults, {
+			monthsFull: [ 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря' ],
+			monthsShort: [ 'янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек' ],
+			weekdaysFull: [ 'воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота' ],
+			weekdaysShort: [ 'вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб' ],
+			today: 'сегодня',
+			clear: 'удалить',
+			close: 'закрыть',
+			firstDay: 1,
+			format: 'd mmmm yyyy г.',
+			formatSubmit: 'yyyy/mm/dd'
+		});
+		var pickFrom = $('#date-from').pickadate({
+			format: 'от dd.mm.yyyy',
+			min: new Date()
+		});
+		var pickTo = $('#date-to').pickadate({
+			format: 'до dd.mm.yyyy',
+			min: new Date()
+		});
+		app.data.pickFrom = pickFrom.pickadate('picker');
+		app.data.pickTo = pickTo.pickadate('picker');
+		//app.data.pickFrom.set('select', new Date());
+		//app.data.pickTo.set('select', new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
+	},
+	computed : {
+		init : function(){			
+			setTimeout(function(){
+				$('.typeofhotel__tabs li.line').width($('.typeofhotel__tabs li.standart').width());
+			}, 100)
+			
+		}
 	}
 }
 

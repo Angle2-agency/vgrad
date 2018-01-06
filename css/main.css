@@ -99,6 +99,12 @@ input {
 .clearfix:after {
     clear: both;
 }
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
 
 
 /* ==========================================================================
@@ -1399,6 +1405,10 @@ article.subscribe {
   top: 50%;
   margin-top: -1px;
 }
+
+/* ==========================================================================
+   FOOTER classes
+   ========================================================================== */
 footer {
   margin-top: 120px;
 }
@@ -1444,4 +1454,448 @@ footer .copyright .right {
 }
 footer .copyright .right img {
   width: 65px;
+}
+
+/* ==========================================================================
+   POPUP classes
+   ========================================================================== */
+.popupform {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #fff;
+  z-index: 10;  
+}
+.popupform__close {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 32px;
+  right: 32px;  
+  cursor: pointer;  
+}
+.popupform__close::before {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 1px;
+  background-color: #2a2a2a;
+  position: absolute;
+  top: 0;
+  left: 8px;
+  transform: rotate(45deg) translate(0px, 11px);
+  transition: all 250ms ease;
+}
+.popupform__close::after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 1px;
+  background-color: #2a2a2a;
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  transform: rotate(-45deg) translate(0px, -11px);
+  transition: all 250ms ease;
+}
+.popupform__close:hover::before,
+.popupform__close:hover::after {
+  background-color: #ffdebc;
+}
+.popupform .wrapper {
+  width: 1140px;
+  margin: auto;
+  padding: 60px 0;
+}
+.popup__options {
+  float: left;
+  width: 312px;
+  margin-right: 78px;
+}
+.popupform h3 {
+  margin: 00;
+  padding: 0 0 30px 0;
+  font: 24px/1 'Bodoni';
+  position: relative;
+}
+.popupform h3::before {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100px;
+  background-color: #000;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+section {
+  margin-top: 40px;
+}
+.popupform h4 {
+  margin: 0 0 20px 0;
+  padding: 0;
+  font: bold 12px/1 'Gotham Pro';
+}
+.popup__options_block .calendar {
+  width: 147px;
+}
+.popup__options_block .calendar input {
+  width: 100%;
+  height: 38px;
+  background-color: #fff;
+  border: 1px solid #ffdeb9;
+  font: 300 14px/38px 'Gotham Pro';
+  padding:0 25px 0 17px;
+  background: url('../img/icon_arrow.svg') no-repeat 120px center / 7px 4px;
+
+}
+.picker__holder {
+  border-color: #ffdeb9;
+  font-family: 'Gotham Pro';
+  outline: none;
+  color: #2a2a2a;
+}
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+    background: #ffdeb9;
+    color: #2a2a2a;
+    font-weight: bold;
+}
+.typeofhotel {
+
+}
+.typeofhotel__tabs {
+  border-bottom: 1px solid #ffdeb9;
+}
+.typeofhotel__tabs ul {
+  padding: 0 0 20px 0;
+  margin: 0 0 -1px 0;
+  list-style: none;
+  display: table;
+  position: relative;
+  overflow: hidden;
+}
+.typeofhotel__tabs ul .standart {
+  font: bold 12px/1 'Gotham Pro';
+  float: left;
+  margin-right: 35px;
+  cursor: pointer;
+  transition: all 250ms ease;
+}
+.typeofhotel__tabs ul .mini {
+  font: bold 12px/1 'Gotham Pro';
+  float: left;
+  cursor: pointer;
+  transition: all 250ms ease;
+}
+.typeofhotel__tabs ul .line {
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  background-color: #313131;
+  height: 1px;  
+}
+.typeofhotel__tabs ul li:hover {
+  color: #ffdeb9;
+}
+.typeofhotel__tabs_body {
+  margin-top: 20px;
+  overflow: hidden;
+}
+.typeofhotel__checkbox_title {
+  font: 300 14px/1 'Gotham Pro';
+}
+.typeofhotel__tabs_body-slider {
+  margin: 20px 0 0 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  position: relative;
+  width: 1000px;
+}
+.typeofhotel__tabs_body .mini,
+.typeofhotel__tabs_body .standart {
+  width: 312px;
+  float: left;  
+}
+.typeofhotel__checkbox_list {
+  overflow: hidden;
+}
+.typeofhotel__checkbox_list > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 150px;
+}
+.typeofhotel__checkbox_list > ul li {
+  margin-bottom: 20px;
+}
+
+
+
+
+/* Base for label styling */
+.popupform [type="checkbox"]:not(:checked),
+.popupform [type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+.popupform [type="checkbox"]:not(:checked) + label,
+.popupform [type="checkbox"]:checked + label {
+  position: relative;
+  padding-left: 40px;
+  padding-top: 3px;
+  height: 24px;
+  cursor: pointer;
+  font: 300 14px/18px 'Gotham Pro';
+  display: block;
+}
+
+/* checkbox aspect */
+.popupform [type="checkbox"]:not(:checked) + label:before,
+.popupform [type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 22px; height: 22px;
+  border: 1px solid #ffdeb9;
+  background: #fff;    
+}
+/* checked mark aspect */
+.popupform [type="checkbox"]:not(:checked) + label:after,
+.popupform [type="checkbox"]:checked + label:after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 22px;
+  height: 22px;
+  display: block;
+  background: url('../img/icon_check.svg') no-repeat center / 10px auto;  
+  transition: all .2s ease;
+  
+}
+/* checked mark aspect changes */
+.popupform [type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+.popupform [type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+/* disabled checkbox */
+.popupform [type="checkbox"]:disabled:not(:checked) + label:before,
+.popupform [type="checkbox"]:disabled:checked + label:before {
+  opacity: 0.5;  
+}
+
+
+/* hover style just for information */
+.popupform [type="checkbox"]:not(:checked) + label:hover:after {
+  background: url('../img/icon_check.svg') no-repeat center / 10px auto;
+  opacity: 0.3!important;
+  transform: scale(1)!important;
+}
+.popupform [type="checkbox"]:disabled  + label:hover:after {
+  background: none!important;
+}
+
+
+
+/* Base for label styling */
+.popupform [type="radio"]:not(:checked),
+.popupform [type="radio"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+.popupform [type="radio"]:not(:checked) + label,
+.popupform [type="radio"]:checked + label {
+  position: relative;
+  padding-left: 40px;
+  padding-top: 3px;
+  height: 24px;
+  cursor: pointer;
+  font: 300 14px/18px 'Gotham Pro';
+  display: block;
+}
+
+/* checkbox aspect */
+.popupform [type="radio"]:not(:checked) + label:before,
+.popupform [type="radio"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 22px; height: 22px;
+  border: 1px solid #ffdeb9;
+  border-radius: 50%;
+  background: #fff;    
+}
+/* checked mark aspect */
+.popupform [type="radio"]:not(:checked) + label:after,
+.popupform [type="radio"]:checked + label:after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  display: block;
+  background-color: #2a2a2a;
+  transition: all .2s ease;
+  
+}
+/* checked mark aspect changes */
+.popupform [type="radio"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+.popupform [type="radio"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+/* disabled checkbox */
+.popupform [type="radio"]:disabled:not(:checked) + label:before,
+.popupform [type="radio"]:disabled:checked + label:before {
+  opacity: 0.5;  
+}
+
+
+/* hover style just for information */
+.popupform [type="radio"]:not(:checked) + label:hover:after {  
+  opacity: 0.3!important;
+  transform: scale(1)!important;
+}
+.popupform [type="radio"]:disabled  + label:hover:after {
+  background: none!important;
+}
+
+
+
+.popupform .bedtype {
+
+}
+.bedtype__list {
+  margin: 20px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+.bedtype__list li.double {
+  width: 150px;
+  float: left;
+  padding-top: 57px;
+  background: url('../img/icon_double.svg') no-repeat 0 0 / 90px auto;
+}
+.bedtype__list li.twin {
+  width: 150px;
+  float: right;
+  padding-top: 57px;
+  background: url('../img/icon_twin.svg') no-repeat 0 0 / 90px auto;
+}
+.bedtype__list.double li.double {
+  background: url('../img/icon_double-active.svg') no-repeat 0 0 / 90px auto; 
+}
+.bedtype__list.twin li.twin {
+  background: url('../img/icon_twin-active.svg') no-repeat 0 0 / 90px auto; 
+}
+.popupform .addoptions .addoptions__item {
+  margin-top: 20px;
+}
+.popup__rooms {
+  float: left;
+  width: 360px;
+  margin-right: 78px; 
+}
+.popup__rooms_select {
+  position: relative;
+  margin-top: -6px;
+}
+.popup__rooms_select span {
+  font: 12px/1 'Gotham Pro'; 
+  cursor: pointer;
+  position: relative;
+  background: url(../img/icon_arrow.svg) no-repeat right center / 7px 4px;
+  padding-right: 15px;
+}
+.popup__rooms_select ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 33px;
+  left: 0;  
+  border: 1px solid #ffdebc;
+  display: none;
+  z-index: 10;
+  background-color: #fff;
+}
+.popup__rooms_select ul li {
+  padding: 0 15px;
+  cursor: pointer;
+  height: 38px;
+  font: 14px/38px 'Gotham Pro';
+  transition: all 250ms ease;
+}
+.popup__rooms_select ul li.active {
+  font-weight: bold;  
+}
+.popup__rooms_select ul li:hover {
+  background-color: #ffdebc;
+}
+.popup__rooms_slider {
+  width: 360px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+.popup__rooms_slider .swiper-wrapper {
+    transition-timing-function: cubic-bezier(0.9, 0.03, 0.65, 0.43);
+}
+.popup__rooms_slider .main__slider-button-prev {
+  width: 50px;
+  height: 40px;
+}
+.popup__rooms_slider .main__slider-button-next {
+  width: 50px;
+  height: 40px;
+  left: 50px;
+}
+.popup__rooms_slider .main__slider-button-prev i {
+  background-color: #e7e7e7;
+} 
+.popup__rooms_info {
+  margin-top: 13px;
+}
+.popup__rooms_number {
+  list-style: none;
+  margin: 20px 0 0 0;
+  padding: 0;
+}
+.popup__rooms_number-title {
+  font: 14px/41px 'Gotham Pro';
+  float: left;
+}
+.popup__rooms_number-select {
+  height: 41px;
+  float: right;
+}
+.popup__rooms_number-select .plus {
+  width: 41px;
+  height: 41px;
+  background-color: #ffdebc;
+  display: block;
+  position: relative;
+}
+.popup__rooms_number-select .plus::before {
+  content: "";
+  display: block;
+  width: 13px;
+  height: 1px;
+  background-color: #2a2a2a;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
