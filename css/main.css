@@ -18,6 +18,9 @@ html {
 * {
   box-sizing: border-box;
 }
+body {
+  overflow-x: hidden;
+}
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
@@ -77,6 +80,13 @@ a {
 
 input {
   outline: none;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
 }
 /* ==========================================================================
    Author's custom styles
@@ -1462,12 +1472,21 @@ footer .copyright .right img {
 .popupform {
   position: fixed;
   top: 0;
-  right: 0;
+  right: -100%;
   width: 100%;
   height: 100%;
   overflow: auto;
   background-color: #fff;
   z-index: 10;  
+}
+.popupform__animation {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: -100%;
+  background-color: #ffdebc;
+  z-index: 10;
 }
 .popupform__close {
   width: 16px;
@@ -1881,21 +1900,210 @@ section {
   height: 41px;
   float: right;
 }
+.popup__rooms_number-select .minus,
 .popup__rooms_number-select .plus {
   width: 41px;
   height: 41px;
   background-color: #ffdebc;
   display: block;
   position: relative;
+  float: left;
+  cursor: pointer;
+  border: 1px solid #ffdebc;
 }
+.popup__rooms_number-select .minus::after,
+.popup__rooms_number-select .plus::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #000;
+  width: 0%;
+  height: 100%;  
+  transition: all .3s ease-in-out;
+  z-index: 1;
+}
+.popup__rooms_number-select .minus:hover::after,
+.popup__rooms_number-select .plus:hover::after {
+  width: 100%;
+  right: initial;
+  left: 0;
+}
+.popup__rooms_number-select .minus.disabled,
+.popup__rooms_number-select .plus.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.popup__rooms_number-select .minus.disabled:hover::after,
+.popup__rooms_number-select .plus.disabled:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #000;
+  width: 0%;
+  height: 100%;  
+  transition: all .3s ease-in-out;
+  z-index: 1;
+}
+.popup__rooms_number-select .minus::before,
 .popup__rooms_number-select .plus::before {
   content: "";
   display: block;
-  width: 13px;
-  height: 1px;
-  background-color: #2a2a2a;
+  width: 41px;
+  height: 41px;  
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;  
+  transition: all .3s ease-in-out;
+  z-index: 2;  
+}
+.popup__rooms_number-select .minus::before {
+  background: url('../img/icon_minus.svg') no-repeat center;
+}
+.popup__rooms_number-select .plus::before {
+  background: url('../img/icon_plus.svg') no-repeat center;
+}
+.popup__rooms_number-select .minus:hover::before {
+  background: url('../img/icon_minus-hover.svg') no-repeat center;  
+}
+.popup__rooms_number-select .plus:hover::before {
+  background: url('../img/icon_plus-hover.svg') no-repeat center;  
+}
+.popup__rooms_number-select .minus.disabled:hover::before {
+  background: url('../img/icon_minus.svg') no-repeat center;
+}
+.popup__rooms_number-select .plus.disabled:hover::before {
+  background: url('../img/icon_plus.svg') no-repeat center;
+}
+.popup__rooms_number-select input {
+  background-color: #fff;
+  border: none;
+  width: 50px;
+  height: 41px;
+  text-align: center;
+  font: 14px/41px 'Gotham Pro';
+  float: left;
+  padding: 0 10px;
+}
+.popup__rooms_number-details {
+  margin-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e7e7e7;
+  overflow: hidden;
+}
+.popup__rooms_number-details .show-details {
+  float: left;
+  padding-right: 18px;
+  font: 14px/1 'Gotham Pro';
+  background: url(../img/icon_arrow.svg) no-repeat right center / 7px 4px;
+  cursor: pointer;
+}
+.popup__rooms_number-details .price {
+ font: 14px/1 'Gotham Pro';
+ float: right; 
+}
+.popup__payment {
+  width: 312px;
+  float: left;
+}
+.popup__payment_form-input {
+  margin-bottom: 10px;
+}
+.popup__payment_form-input input {
+  width: 100%;
+  height: 38px;
+  background-color: #fff;
+  border: 1px solid #ffdebc;
+  font: 14px/38px 'Gotham Pro';
+  padding: 0 15px;
+}
+.popup__payment_form-input input::-webkit-input-placeholder {
+  position: relative;
+  top: 0;
+  transition: all 250ms ease;
+}
+.popup__payment_form-input input:focus::-webkit-input-placeholder { /* Chrome/Opera/Safari */  
+  top: -50px;  
+}
+.popup__payment_form-input input::-moz-placeholder { /* Firefox 19+ */
+  position: relative;
+  top: 0;
+  transition: all 1000ms ease;
+}
+.popup__payment_form-input input:focus::-moz-placeholder { /* Firefox 19+ */
+  top: -100px;  
+}
+.popup__payment_form-input input:focus:-ms-input-placeholder { /* IE 10+ */
+  position: relative;
+  top: -100px;
+  transition: all 1000ms ease;
+}
+.popup__payment_form-input input:-ms-input-placeholder { /* IE 10+ */  
+  top: 0;  
+}
+.popup__payment_form-input input:-moz-placeholder { /* Firefox 18- */
+  position: relative;
+  top: 0;
+  transition: all 1000ms ease; 
+}
+.popup__payment_form-input input:focus:-moz-placeholder { /* Firefox 18- */  
+  top: -100px;  
+}
+.popup__payment_basket-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.popup__payment_basket-items li {
+  overflow: hidden;
+  margin-bottom: 20px;
+  font: 14px/1 'Gotham Pro';
+}
+
+.popup__payment_basket-button button {
+  display: block;
+  width: 253px;
+  height: 78px;
+  background-color: #ffdeb9;
+  border: 1px solid #ffdeb9;
+  font: bold 11px/80px 'Gotham Pro';
+  color: #373737;
+  text-align: center;
+  text-transform: uppercase; 
+  transition: all 300ms ease;
+  position: relative;
+  cursor: pointer;
+}
+.popup__payment_basket-button button::before {
+  content: attr(data-text);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  color: #373737;
+  z-index: 2;
+  transition: all .3s ease-in-out;
+}
+.popup__payment_basket-button button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #000;
+  width: 0%;
+  height: 100%;
+  z-index: 1;
+  transition: all .3s ease-in-out;
+}
+.popup__payment_basket-button button:hover::before {  
+  color: #ffdeb9;
+}
+.popup__payment_basket-button button:hover::after {
+  width: 100%;
+  right: initial;
+  left: 0;
 }

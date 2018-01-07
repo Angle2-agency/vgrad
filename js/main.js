@@ -12,6 +12,7 @@ var app = {
 		pickFrom : null,
 		pickTo : null
 	},
+
 	init : function() {
 		app.slidersInit();
 		app.mapInit();
@@ -19,12 +20,14 @@ var app = {
 		app.computed.init();
 		app.eventsInit();
 	},
+
 	eventsInit : function(){
 		$(document).click(function(e) {
 			if ($(e.target).closest(".popup__rooms_select").length) return;
 			$('.popup__rooms_select ul').fadeOut(150);			
 			e.stopPropagation();
 		});
+
 		$('.typeofhotel__tabs li').click(function(e){
 			var target = $(this).attr('class');			
 			if(target == 'mini'){
@@ -62,6 +65,7 @@ var app = {
 				});
 			}
 		});
+
 		$('.bedtype__list input').click(function(e){
 			var type = $(this).attr('id');
 			if(type == 'double'){
@@ -70,6 +74,7 @@ var app = {
 				$('.bedtype__list').removeClass('double').addClass('twin');
 			}
 		});
+
 		$('.popup__rooms_select span').click(function(e) {			
 			if($('.popup__rooms_select ul').is(':hidden')){
 				$('.popup__rooms_select ul').fadeIn(150);
@@ -77,12 +82,45 @@ var app = {
 				$('.popup__rooms_select ul').fadeOut(150);
 			}
 		});
+
 		$('.popup__rooms_select ul li').click(function(e) {
 			var type = $(this).attr('data-target');
 			$('.popup__rooms_select span b').html(type);
 			$('.popup__rooms_select ul').fadeOut(150);
 		});
+
+		$('.popup__rooms_number-select i').click(function(e) {
+			var input = $('.popup__rooms_number-select input');
+			var val = Number(input.val());
+			if($(this).hasClass('plus')){
+				val++;
+				input.val(val);
+				$('.popup__rooms_number-select .minus').removeClass('disabled');
+			}
+			if($(this).hasClass('minus') && !$(this).hasClass('disabled')){
+				val--;				
+				input.val(val);
+				if(val == 1)$(this).addClass('disabled');
+			}
+		});
+
+		$('[data-target="popupform"]').click(function(e) {
+			TweenMax.to('.popupform__animation', 0.8, {x : '-200%', ease: Power2.easeIn, onComplete : function(){				
+				$('html, body').css({
+					overflow : 'hidden'
+				});
+			}});
+			TweenMax.to('#popupform', 0.8, {x : '-100%', ease: Power2.easeIn});
+			return false;
+		});
+		$('.popupform__close').click(function(e) {
+			TweenMax.to('.popupform__animation', 0.8, {x : '0%', ease: Power2.easeIn, onComplete : function(){				
+				$('html, body').removeAttr('style');
+			}});
+			TweenMax.to('#popupform', 0.8, {x : '0%', ease: Power2.easeIn});
+		});
 	},
+
 	slidersInit : function(){
 		app.data.topSlider = new Swiper('.topslider', {
 			speed : 700,
@@ -109,6 +147,7 @@ var app = {
 				}
 			}
     	});
+
     	app.roomselectSlider = new Swiper('.roomselect__slider', {
 			speed : 700,
 			parallax : false,
@@ -130,6 +169,7 @@ var app = {
 				}
 			}
     	});
+
     	app.spaservicesSlider = new Swiper('.spaservices__slider', {
 			speed : 700,
 			parallax : false,
@@ -153,6 +193,7 @@ var app = {
 				}
 			}
     	});
+
     	app.ourclientsSlider = new Swiper('.ourclients__slider', {
 			speed : 600,
 			slidesPerView: 5,
@@ -162,6 +203,7 @@ var app = {
         		prevEl: '#ourclients__slider-button-prev',
       		}
     	});
+
     	app.spaservicesSlider = new Swiper('.reviews__slider', {
 			speed : 700,
 			parallax : false,
@@ -185,6 +227,7 @@ var app = {
 				}
 			}
     	});
+
     	app.spaservicesSlider = new Swiper('.popup__rooms_slider', {
 			speed : 700,
 			parallax : false,
@@ -195,6 +238,7 @@ var app = {
       		}
     	});
 	},
+
 	mapInit : function(){
 		var mapOptions = {
 	        // How zoomed in you want the map to start at (always required)
@@ -226,6 +270,7 @@ var app = {
             }
         );
 	},
+
 	parallaxIt : function(e, target){
 		var img = target.find('.topslider__slide_bg-img');
 		var title = target.find('h1');
@@ -239,10 +284,11 @@ var app = {
 			y: (imgY - img.height()/2) / img.height() * 40
 		});
 		TweenMax.to(title, 1, {
-			x: (titleX - title.width()/2) / title.width() * 50,
-			y: (titleY - title.height()/2) / title.height() * 50
+			x: (titleX - title.width()/2) / title.width() * 25,
+			y: (titleY - title.height()/2) / title.height() * 25
 		});
 	},
+
 	datePickerInit : function(){
 		$.extend( $.fn.pickadate.defaults, {
 			monthsFull: [ 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря' ],
@@ -269,12 +315,15 @@ var app = {
 		//app.data.pickFrom.set('select', new Date());
 		//app.data.pickTo.set('select', new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
 	},
+
+
+
+
 	computed : {
 		init : function(){			
 			setTimeout(function(){
 				$('.typeofhotel__tabs li.line').width($('.typeofhotel__tabs li.standart').width());
-			}, 100)
-			
+			}, 100);			
 		}
 	}
 }

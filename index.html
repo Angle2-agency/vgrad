@@ -5,7 +5,10 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title></title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">        
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
 
         <link rel="manifest" href="site.webmanifest">
         <link rel="apple-touch-icon" href="icon.png">
@@ -24,7 +27,7 @@
                 <img src="./img/logo_vgrad.svg" alt="">
             </div>
             <div class="header__reservation">
-                <a href="" data-text="Забронировать"></a>
+                <a href="" data-target="popupform" data-text="Забронировать"></a>
             </div>
             <ul class="header__contacts clearfix">
                 <li class="tel">044 371 7575</li>
@@ -110,7 +113,7 @@
                     <div class="roomselect__description_text">Cделает ваш отдых действительно индивидуальным!</div>
                     <div class="roomselect__description_title">Стандарт</div>
                     <div class="roomselect__description_button">
-                        <a href="" data-text="Забронировать"></a>
+                        <a href="" data-target="popupform" data-text="Забронировать"></a>
                     </div>
                 </section>
                 <section class="roomselect__slider">
@@ -293,7 +296,7 @@
                     <h2>Насладитесь отдыхом,</h2>
                     <div class="enjoy__sub">а об остальном мы позаботимся!</div>
                 </div>                
-                <div class="enjoy__button" data-text="Забронировать">
+                <div class="enjoy__button" data-target="popupform" data-text="Забронировать">
                     <i></i>
                 </div>
             </article>             
@@ -320,7 +323,7 @@
 
 
 
-        <div class="popupform" id="popupform">
+        <div class="popupform" id="popupform">            
             <div class="popupform__close"></div>
             <div class="wrapper clearfix">
                 <article class="popup__options">
@@ -442,49 +445,94 @@
                             </ul>
                         </div>
                     </section>
-                    <section class="popup__rooms_info">
-                        <h4>Стандарт</h4>
-                        <div class="popup__rooms_slider">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide slide">
-                                    <img src="./img/roomselect-1.jpg" alt="">
+                    <div class="popup__rooms_item">
+                        <section class="popup__rooms_info">
+                            <h4>Стандарт</h4>
+                            <div class="popup__rooms_slider">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide slide">
+                                        <img src="./img/roomselect-1.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide slide">
+                                        <img src="./img/roomselect-1.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide slide">
+                                        <img src="./img/roomselect-1.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide slide">
+                                        <img src="./img/roomselect-1.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide slide">
+                                        <img src="./img/roomselect-1.jpg" alt="">
+                                    </div>
+                                </div>                            
+                                <!-- If we need navigation buttons -->
+                                <div class="main__slider-button-prev">
+                                    <i></i>
                                 </div>
-                                <div class="swiper-slide slide">
-                                    <img src="./img/roomselect-1.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide slide">
-                                    <img src="./img/roomselect-1.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide slide">
-                                    <img src="./img/roomselect-1.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide slide">
-                                    <img src="./img/roomselect-1.jpg" alt="">
-                                </div>
-                            </div>                            
-                            <!-- If we need navigation buttons -->
-                            <div class="main__slider-button-prev">
-                                <i></i>
+                                <div class="main__slider-button-next"></div>
                             </div>
-                            <div class="main__slider-button-next"></div>
+                        </section>                    
+                        <ul class="popup__rooms_number clearfix">
+                            <li class="popup__rooms_number-title">Количество номеров</li>
+                            <li class="popup__rooms_number-select">
+                                <i class="minus disabled"></i>
+                                <input type="number" value="1" readonly="" />
+                                <i class="plus"></i>
+                            </li>
+                        </ul>                    
+                        <div class="popup__rooms_number-details">
+                            <div class="show-details">Подробнее</div>
+                            <div class="price">500 грн/ночь</div>
+                            <div class="details-text"></div>
                         </div>
-                    </section>                    
-                    <ul class="popup__rooms_number clearfix">
-                        <li class="popup__rooms_number-title">Количество номеров</li>
-                        <li class="popup__rooms_number-select">
-                            <i class="plus"></i>
-                            <input type="number" value="1" />
-                            <i class="minus"></i>
-                        </li>
-                    </ul>                    
-                    <div class="popup__rooms_number-details">
-                        <div>Подробнее</div>
-                        <div>500 грн/ночь</div>
-                        <div></div>
                     </div>
+                </article>
+                <article class="popup__payment">
+                    <h3>Оплата</h3>
+                    <section class="popup__payment_form">
+                        <h4>Персональные данные</h4>
+                        <div class="popup__payment_form-input">
+                            <input type="text" placeholder="Ваше Имя" />
+                        </div>
+                        <div class="popup__payment_form-input">
+                            <input type="text" placeholder="Ваше Фамилия" />
+                        </div>
+                        <div class="popup__payment_form-input">
+                            <input type="mail" placeholder="Ваш Email" />
+                        </div>
+                        <div class="popup__payment_form-input">
+                            <input type="mail" placeholder="Ваш телефон" />
+                        </div>
+                    </section>
+                    <section class="popup__payment_basket">
+                        <h4>Ваша корзина</h4>
+                        <ul class="popup__payment_basket-items">
+                            <li>
+                                <span class="fl">Тип номера</span>
+                                <b class="fr">Стандарт</b>
+                            </li>
+                            <li>
+                                <span class="fl">Тип кровати</span>
+                                 <b class="fr">Double</b>
+                            </li>
+                            <li>
+                                <span class="fl">Стоимость доп.опций</span>
+                                <b class="fr">500 грн</b>
+                            </li>
+                            <li>
+                                <span class="fl">Общая стоимость</span>
+                                <b class="fr">1500 грн</b>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class="popup__payment_basket-button">
+                        <button data-target="popupform" data-text="Забронировать"></button>
+                    </section>
                 </article>
             </div>
         </div>
+        <div class="popupform__animation"></div>
         
         
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
