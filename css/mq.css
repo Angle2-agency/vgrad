@@ -29,5 +29,12 @@
     font: 24px/1 'Bodoni';
     position: relative;
     float: left;
-}
+  }
+  .surrounding ul li {
+    width: 220px;
+    margin-right: 30px;    
+  }
+  .surrounding ul li img {
+    width: 220px;
+  }
 }
