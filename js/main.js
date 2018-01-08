@@ -10,7 +10,19 @@ var app = {
 		reviewsSlider : null,
 		map : null,
 		pickFrom : null,
-		pickTo : null
+		pickTo : null,
+		animDone : {
+			castle : false,
+			surrounding : false,
+			roomselect : false,
+			spaservices : false,
+			uniqueoffers : false,
+			ourclients : false,
+			subscribe : false,
+			walking : false,
+			reviews : false,
+			enjoy : false
+		}
 	},
 
 	init : function() {		
@@ -20,6 +32,33 @@ var app = {
 
 	animate : {
 		start : function(){
+			var opacityList = [
+				'.castle__photo',
+				'.castle__text h3',
+				'.castle__text_desc',
+				'.surrounding h2',
+				'.surrounding ul',
+				'.roomselect__description h2',
+				'.roomselect__description_text',
+				'.roomselect__description_title',
+				'.roomselect__description_button',
+				'.roomselect__slider',
+				'.spaservices__description h2',				
+				'.spaservices__slider',
+				'.uniqueoffers h2',
+				'.uniqueoffers ul li',
+				'.ourclients h2',
+				'.ourclients__text',
+				'.ourclients__slider_output',
+				'article.subscribe',
+				'.walking__photo',
+				'.walking__descr h2',
+				'.walking__descr_text',
+				'.reviews__descr h2',
+				'.reviews__descr_text',
+				'.reviews__slider'
+			];
+			TweenMax.set(opacityList, {opacity : 0});
 			TweenMax.fromTo('#loader .logo', 0.7, {opacity : 0, scale : 0.5}, {opacity : 1, scale : 1})
 			TweenMax.to('#loader', 1, {x : '-200%', ease: Power2.easeIn, delay : 1})
 			TweenMax.fromTo('.topslider', 1, {opacity : 0, x : '100%'},{opacity : 1, x : '0%', delay : 1.8, onComplete : function(){				
@@ -37,15 +76,28 @@ var app = {
 					}});
 				}});				
 			}});
+		},
+		castle : function(){
+			TweenMax.fromTo('.castle__photo', 1.4, {opacity : 0, x : -150}, {opacity : 1, x : 0, ease: Power2.easeOut});
+			TweenMax.staggerFromTo(['.castle__text h3', '.castle__text_desc'], 1, {opacity:0, y : 50}, {opacity:1, y : 0, ease: Back.easeInOut.config(2.5), delay : 0.1}, 0.15);
 		}
 	},
 
+	scroller : function(){
+		var st = $(window).scrollTop();
+		if(st > ($('article.castle').offset().top - ($(window).height() - ($(window).height() / 4.5))) && !app.data.animDone.castle){
+			app.data.animDone.castle = true;			
+			app.animate.castle();
+		}
+	},
 	eventsInit : function(){
 		$(document).click(function(e) {
 			if ($(e.target).closest(".popup__rooms_select").length) return;
 			$('.popup__rooms_select ul').fadeOut(150);			
 			e.stopPropagation();
 		});
+
+		$(document).scroll(app.scroller);
 
 		$('.typeofhotel__tabs li').click(function(e){
 			var target = $(this).attr('class');			
