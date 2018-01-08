@@ -14,21 +14,26 @@ var app = {
 	},
 
 	init : function() {		
-		app.animate.start();
-		//app.mapInit();
-		//app.datePickerInit();
-		app.computed.init();
-		//app.eventsInit();
+		app.animate.start();		
+		app.computed.init();		
 	},
 
 	animate : {
 		start : function(){
 			TweenMax.fromTo('#loader .logo', 0.7, {opacity : 0, scale : 0.5}, {opacity : 1, scale : 1})
 			TweenMax.to('#loader', 1, {x : '-200%', ease: Power2.easeIn, delay : 1})
-			TweenMax.fromTo('.topslider', 1, {opacity : 0, x : '100%'},{opacity : 1, x : '0%', delay : 1.8, onComplete : function(){
-				$('html').removeClass('start');
+			TweenMax.fromTo('.topslider', 1, {opacity : 0, x : '100%'},{opacity : 1, x : '0%', delay : 1.8, onComplete : function(){				
 				app.slidersInit();
-				TweenMax.staggerFromTo(['.topslider-button-prev, .topslider-button-next', '.topslider-pagination'], 1, {opacity:0, y : 200}, {opacity:1, y : 0}, 0.7);
+				TweenMax.to('.topslider-button-prev, .topslider-button-next', 0.7, {opacity : 1, y : 0, ease: Power2.easeIn});
+				TweenMax.to('.header__reservation', 0.7, {opacity : 1, y : 0, ease: Power2.easeIn, onComplete : function(){
+					TweenMax.fromTo('.header__contacts', 0.5, {opacity : 0, x : 300}, {opacity : 1, x : 0});
+					TweenMax.to('.header__logo, .topslider-pagination', 0.7, {opacity : 1, delay : 0.5, onComplete : function(){
+						$('html').removeClass('start');
+						app.mapInit();
+						app.datePickerInit();
+						app.eventsInit();
+					}});
+				}});				
 			}});
 		}
 	},
