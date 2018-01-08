@@ -27,7 +27,8 @@ var app = {
 
 	init : function() {		
 		app.animate.start();		
-		app.computed.init();		
+		app.computed.init();
+		SmoothScroll({ stepSize: 65});
 	},
 
 	animate : {
@@ -56,12 +57,13 @@ var app = {
 				'.walking__descr_text',
 				'.reviews__descr h2',
 				'.reviews__descr_text',
-				'.reviews__slider'
+				'.reviews__slider',
+				'.enjoy'
 			];
 			TweenMax.set(opacityList, {opacity : 0});
 			TweenMax.fromTo('#loader .logo', 0.7, {opacity : 0, scale : 0.5}, {opacity : 1, scale : 1})
 			TweenMax.to('#loader', 1, {x : '-200%', ease: Power2.easeIn, delay : 1})
-			TweenMax.fromTo('.topslider', 1, {opacity : 0, x : '100%'},{opacity : 1, x : '0%', delay : 1.8, onComplete : function(){				
+			TweenMax.fromTo('.topslider', 1, {opacity : 0, x : '100%'},{opacity : 1, x : '0%', ease: Power2.easeOut, delay : 2, onComplete : function(){				
 				app.slidersInit();
 				TweenMax.to('.topslider-button-prev, .topslider-button-next', 0.7, {opacity : 1, y : 0, ease: Power2.easeIn});
 				TweenMax.to('.header__reservation', 0.7, {opacity : 1, y : 0, ease: Power2.easeIn, onComplete : function(){
@@ -80,15 +82,92 @@ var app = {
 		castle : function(){
 			TweenMax.fromTo('.castle__photo', 1.4, {opacity : 0, x : -150}, {opacity : 1, x : 0, ease: Power2.easeOut});
 			TweenMax.staggerFromTo(['.castle__text h3', '.castle__text_desc'], 1, {opacity:0, y : 50}, {opacity:1, y : 0, ease: Back.easeInOut.config(2.5), delay : 0.1}, 0.15);
-		}
+		},
+		surrounding : function(){			
+			TweenMax.staggerFromTo(['.surrounding h2', '.surrounding ul'], 1.3, {opacity:0, y : 50}, {opacity:1, y : 0, ease: Back.easeInOut.config(2.5)}, 0.2);
+		},
+		roomselect : function(){			
+			TweenMax.fromTo('.roomselect__slider', 1.4, {opacity : 0, x : 150}, {opacity : 1, x : 0, ease: Power2.easeOut});
+			TweenMax.staggerFromTo(['.roomselect__description h2', '.roomselect .roomselect__description_text', '.roomselect .roomselect__description_title', '.roomselect .roomselect__description_button'], 1.2, {opacity:0, y : 50}, {opacity:1, y : 0, ease: Back.easeInOut.config(2.5)}, 0.2);
+		},
+		spaservices : function(){			
+			TweenMax.fromTo('.spaservices__slider', 1.4, {opacity : 0, x : -150}, {opacity : 1, x : 0, ease: Power2.easeOut});
+			TweenMax.staggerFromTo(['.spaservices h2', '.spaservices .roomselect__description_text', '.spaservices .roomselect__description_title'], 1.2, {opacity:0, y : 50}, {opacity:1, y : 0, ease: Back.easeInOut.config(2.5)}, 0.2);
+		},
+		uniqueoffers : function(){			
+			TweenMax.fromTo('.uniqueoffers h2', 1.4, {opacity : 0, x : 150}, {opacity : 1, x : 0, ease: Power2.easeOut});
+			TweenMax.staggerFromTo('.uniqueoffers li', 1.2, {opacity:0, y : 80}, {opacity:1, y : 0, ease: Back.easeInOut.config(2.5)}, 0.2);
+		},
+		ourclients : function(){						
+			TweenMax.staggerFromTo(['.ourclients h2', '.ourclients__text', '.ourclients__slider_output', '.subscribe'], 1.2, {opacity:0, y : 50}, {opacity:1, y : 0, ease: Back.easeInOut.config(2.5)}, 0.2);
+		},
+		walking : function(){						
+			TweenMax.fromTo('.walking__photo', 1.4, {opacity : 0, x : -150}, {opacity : 1, x : 0, ease: Power2.easeOut});
+			TweenMax.staggerFromTo(['.walking__descr h2', '.walking__descr_text'], 1, {opacity:0, y : 50}, {opacity:1, y : 0, ease: Back.easeInOut.config(2.5), delay : 0.1}, 0.15);
+		},
+		reviews : function(){						
+			TweenMax.fromTo('.reviews__slider', 1.4, {opacity : 0, x : 150}, {opacity : 1, x : 0, ease: Power2.easeOut});
+			TweenMax.staggerFromTo(['.reviews__descr h2', '.reviews__descr_text'], 1.2, {opacity:0, y : 50}, {opacity:1, y : 0, ease: Back.easeInOut.config(2.5)}, 0.2);
+		},
+		enjoy : function(){						
+			TweenMax.fromTo('.enjoy', 2, {opacity : 0}, {opacity : 1});
+		},
+		
+
+		
+
+		
+		
+		
 	},
 
 	scroller : function(){
 		var st = $(window).scrollTop();
-		if(st > ($('article.castle').offset().top - ($(window).height() - ($(window).height() / 4.5))) && !app.data.animDone.castle){
+		if(st > ($('article.castle').offset().top - ($(window).height() - ($(window).height() / 3))) && !app.data.animDone.castle){
 			app.data.animDone.castle = true;			
 			app.animate.castle();
 		}
+		if(st > ($('article.surrounding').offset().top - ($(window).height() - ($(window).height() / 3))) && !app.data.animDone.surrounding){
+			app.data.animDone.surrounding = true;			
+			app.animate.surrounding();
+		}
+		if(st > ($('article.roomselect').offset().top - ($(window).height() - ($(window).height() / 3))) && !app.data.animDone.roomselect){
+			app.data.animDone.roomselect = true;			
+			app.animate.roomselect();
+		}
+		if(st > ($('article.spaservices').offset().top - ($(window).height() - ($(window).height() / 3))) && !app.data.animDone.spaservices){
+			app.data.animDone.spaservices = true;			
+			app.animate.spaservices();
+		}
+		if(st > ($('article.uniqueoffers').offset().top - ($(window).height() - ($(window).height() / 3))) && !app.data.animDone.uniqueoffers){
+			app.data.animDone.uniqueoffers = true;			
+			app.animate.uniqueoffers();
+		}
+		if(st > ($('article.ourclients').offset().top - ($(window).height() - ($(window).height() / 3))) && !app.data.animDone.ourclients){
+			app.data.animDone.ourclients = true;			
+			app.animate.ourclients();
+		}
+		if(st > ($('article.walking').offset().top - ($(window).height() - ($(window).height() / 3))) && !app.data.animDone.walking){
+			app.data.animDone.walking = true;			
+			app.animate.walking();
+		}
+		if(st > ($('article.reviews').offset().top - ($(window).height() - ($(window).height() / 3))) && !app.data.animDone.reviews){
+			app.data.animDone.reviews = true;			
+			app.animate.reviews();
+		}
+		if(st > ($('article.enjoy').offset().top - ($(window).height() - ($(window).height() / 3))) && !app.data.animDone.enjoy){
+			app.data.animDone.enjoy = true;			
+			app.animate.enjoy();
+		}
+
+		
+
+
+		
+
+		
+
+		
 	},
 	eventsInit : function(){
 		$(document).click(function(e) {

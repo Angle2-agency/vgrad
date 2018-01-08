@@ -2067,6 +2067,10 @@ section {
   font: 14px/38px 'Gotham Pro';
   padding: 0 15px;
 }
+.popup__payment_form-input input.error {
+  border-color: #ee2a4a;
+  background: url('../img/bg-input-error.png') no-repeat 295px center;
+}
 .popup__payment_form-input input::-webkit-input-placeholder {
   position: relative;
   top: 0;
