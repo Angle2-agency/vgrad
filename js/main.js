@@ -13,12 +13,24 @@ var app = {
 		pickTo : null
 	},
 
-	init : function() {
-		app.slidersInit();
-		app.mapInit();
-		app.datePickerInit();
+	init : function() {		
+		app.animate.start();
+		//app.mapInit();
+		//app.datePickerInit();
 		app.computed.init();
-		app.eventsInit();
+		//app.eventsInit();
+	},
+
+	animate : {
+		start : function(){
+			TweenMax.fromTo('#loader .logo', 0.7, {opacity : 0, scale : 0.5}, {opacity : 1, scale : 1})
+			TweenMax.to('#loader', 1, {x : '-200%', ease: Power2.easeIn, delay : 1})
+			TweenMax.fromTo('.topslider', 1, {opacity : 0, x : '100%'},{opacity : 1, x : '0%', delay : 1.8, onComplete : function(){
+				$('html').removeClass('start');
+				app.slidersInit();
+				TweenMax.staggerFromTo(['.topslider-button-prev, .topslider-button-next', '.topslider-pagination'], 1, {opacity:0, y : 200}, {opacity:1, y : 0}, 0.7);
+			}});
+		}
 	},
 
 	eventsInit : function(){
@@ -142,8 +154,6 @@ var app = {
 				slideChange : function(){
 					var slide = this.activeIndex + 1;
 					$(this.$el).find('.topslider-pagination span.current').html(slide < 10 ? '0'+slide : slide);
-					console.log(this.slides);
-
 				}
 			}
     	});
@@ -157,8 +167,7 @@ var app = {
         		prevEl: '.main__slider-button-prev',
       		},      		
 			on: {
-				init: function () {
-					console.log(this.slides.length);
+				init: function () {					
 					var length = this.slides.length;
 					$(this.$el).find('.roomselect__slider-pagination span.current').html('01');
 					$(this.$el).find('.roomselect__slider-pagination span.length').html(length < 10 ? '0'+length : length);
@@ -179,8 +188,7 @@ var app = {
         		prevEl: '.main__slider-button-prev',
       		},      		
 			on: {
-				init: function () {
-					console.log(this.slides.length);
+				init: function () {					
 					var length = this.slides.length;
 					$(this.$el).find('.spaservices__slider-pagination span.current').html('01');
 					$(this.$el).find('.spaservices__slider-pagination span.length').html(length < 10 ? '0'+length : length);
@@ -188,8 +196,6 @@ var app = {
 				slideChange : function(){
 					var slide = this.activeIndex + 1;
 					$(this.$el).find('.spaservices__slider-pagination span.current').html(slide < 10 ? '0'+slide : slide);
-					console.log(this.slides);
-
 				}
 			}
     	});
@@ -213,8 +219,7 @@ var app = {
         		prevEl: '.main__slider-button-prev',
       		},      		
 			on: {
-				init: function () {
-					console.log(this.slides.length);
+				init: function () {					
 					var length = this.slides.length;
 					$(this.$el).find('.reviews__slider-pagination span.current').html('01');
 					$(this.$el).find('.reviews__slider-pagination span.length').html(length < 10 ? '0'+length : length);
@@ -222,8 +227,6 @@ var app = {
 				slideChange : function(){
 					var slide = this.activeIndex + 1;
 					$(this.$el).find('.reviews__slider-pagination span.current').html(slide < 10 ? '0'+slide : slide);
-					console.log(this.slides);
-
 				}
 			}
     	});
@@ -273,8 +276,7 @@ var app = {
 
 	parallaxIt : function(e, target){
 		var img = target.find('.topslider__slide_bg-img');
-		var title = target.find('h1');
-		console.log(title);
+		var title = target.find('h1');		
 		var imgX = e.pageX - img.offset().left;
 		var imgY = e.pageY - img.offset().top;
 		var titleX = e.pageX - title.offset().left;
@@ -329,4 +331,8 @@ var app = {
 }
 
 
-app.init();
+setTimeout(function(){
+	app.init();
+}, 10);
+
+

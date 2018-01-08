@@ -21,6 +21,11 @@ html {
 body {
   overflow-x: hidden;
 }
+html.start,
+html.start body {
+  height: 100%;
+  overflow: hidden;
+}
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
@@ -92,7 +97,17 @@ input[type=number]::-webkit-outer-spin-button {
    Author's custom styles
    ========================================================================== */
 
+.header__logo,
+.header__reservation,
+.header__contacts,
+.topslider,
+.topslider-button-prev,
+.topslider-button-next,
+.topslider-pagination
 
+ {
+  opacity: 0;
+}
 
 /* ==========================================================================
    Helper classes
@@ -117,15 +132,42 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
+#loader {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;  
+  z-index: 100;  
+}
+#loader .logo {
+  background: url('../img/logo-black.svg') no-repeat center / cover;
+  width: 143px;
+  height: 120px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  opacity: 0;
+}
+#loader .bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 100%;
+  z-index: 100;  
+  background-color: #ffdeb9;
+}
+
 /* ==========================================================================
    HEADER, TOP SLIDER classes
    ========================================================================== */
 header {
   height: 100vh;
   min-height: 680px;
-  position: relative;
-
-  background-color: #ccc;
+  position: relative;  
 }
 .header__logo {
   width: 143px;
@@ -282,6 +324,7 @@ header {
   letter-spacing: -1px;
   display: inline-block;
   vertical-align: middle;
+  position: relative;
 
 }
 .swiper-slide-active .topslider__slide_title {
