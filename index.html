@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="css/classic.css">
         <link rel="stylesheet" href="css/classic.date.css">
         <link rel="stylesheet" href="css/fonts.css">
-        <link rel="stylesheet" href="css/main.css?version=5">
+        <link rel="stylesheet" href="css/main.css?version=6">
         <link rel="stylesheet" href="css/mq.css">
     </head>
     <body>
@@ -350,14 +350,8 @@
                             </div>
                         </div>
                     </section>
-                    <section class="typeofhotel">
-                        <div class="typeofhotel__tabs">
-                            <ul class="clearfix">
-                                <li class="standart">Отель</li>
-                                <li class="mini">Мини-Отель</li>
-                                <li class="line"></li>
-                            </ul>
-                        </div>
+                    <section class="typeofhotel">                        
+                        <h4 class="standart">Отель</h4>
                         <div class="typeofhotel__tabs_body">
                             <div class="typeofhotel__checkbox_title">Выберите тип номера</div>
                             <ul class="typeofhotel__tabs_body-slider">
@@ -388,7 +382,13 @@
                                             </li>
                                         </ul> 
                                     </div>                                                                   
-                                </li>
+                                </li>                                
+                            </ul>
+                        </div>
+                        <h4 class="mini">Мини-Отель</h4>
+                        <div class="typeofhotel__tabs_body">
+                            <div class="typeofhotel__checkbox_title">Выберите тип номера</div>
+                            <ul class="typeofhotel__tabs_body-slider">                                
                                 <li class="mini">
                                     <div class="typeofhotel__checkbox_list">
                                         <ul class="fl">
@@ -422,47 +422,14 @@
                                     </div>                                                                   
                                 </li>
                             </ul>
-                        </div>                                                                  
-                    </section>
-                    <section class="bedtype">
-                        <h4>Тип кровати</h4>
-                        <ul class="bedtype__list clearfix double">
-                            <li class="double">
-                                <input checked="" type="radio" name="bedtype" id="double" />
-                                <label for="double">Double</label>
-                            </li>
-                            <li class="twin">
-                                <input type="radio" name="bedtype" id="twin" />
-                                <label for="twin">Twin</label>
-                            </li>
-                        </ul>
-                    </section>
-                    <section class="addoptions">
-                        <h4>Дополнительные опции</h4>
-                        <div class="addoptions__item">
-                            <input type="checkbox" name="extra-bed" id="extra-bed" />
-                            <label for="extra-bed">Дополнительная кровать</label>
-                        </div>
-                        <div class="addoptions__item">
-                            <input type="checkbox" name="animals" id="animals" />
-                            <label for="animals">Проживание с животными</label>
-                        </div>
-                    </section>
+                        </div> 
+                    </section>                    
                 </article>
                 <article class="popup__rooms">
-                    <h3>Выбранных номеров: <span>1</span></h3>
-                    <section>
-                        <div class="popup__rooms_select">
-                            <span>Номера в <b>Отеле</b></span>
-                            <ul>
-                                <li data-target="Отеле">Отель</li>
-                                <li data-target="Мини-Отеле">Мини-Отель</li>
-                            </ul>
-                        </div>
-                    </section>
+                    <h3>Выбранных номеров: <span>1</span></h3>                    
                     <div class="popup__rooms_item">
                         <section class="popup__rooms_info">
-                            <h4>Стандарт</h4>
+                            <h4>Стандарт | Отель</h4>
                             <div class="popup__rooms_slider">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide slide">
@@ -492,14 +459,114 @@
                             <li class="popup__rooms_number-title">Количество номеров</li>
                             <li class="popup__rooms_number-select">
                                 <i class="minus disabled"></i>
-                                <input type="number" value="1" readonly="" />
+                                <input type="number" class="no-spinners" value="1" readonly="" />
                                 <i class="plus"></i>
                             </li>
                         </ul>                    
                         <div class="popup__rooms_number-details">
                             <div class="show-details">Подробнее</div>
                             <div class="price">500 грн/ночь</div>
-                            <div class="details-text"></div>
+                            <div class="details-descr">
+                                <section class="bedtype">
+                                    <h4>Тип кровати</h4>
+                                    <ul class="bedtype__list clearfix double">
+                                        <li class="double">
+                                            <input checked="" data-type="double" type="radio" name="bedtype" id="double" />
+                                            <label for="double">Double</label>
+                                        </li>
+                                        <li class="twin">
+                                            <input type="radio"  data-type="twin" name="bedtype" id="twin" />
+                                            <label for="twin">Twin</label>
+                                        </li>
+                                    </ul>                        
+                                </section>
+                                <section class="addoptions">
+                                    <h4>Дополнительные опции</h4>
+                                    <div class="addoptions__item">
+                                        <input type="checkbox" name="extra-bed" id="extra-bed" />
+                                        <label for="extra-bed">Дополнительная кровать</label>
+                                    </div>
+                                    <div class="addoptions__item">
+                                        <input type="checkbox" name="animals" id="animals" />
+                                        <label for="animals">Проживание с животными</label>
+                                    </div>
+                                </section>
+                                <section>
+                                    <h4>Описание номера</h4>
+                                    <div class="details-text">The offer includes accommodation in a room of the chosen category, breakfast 'a la carte' in Coffemania restaurant, Wi-Fi and gym access. Your booking is considered to be successful in case of a full payment for the first night at our hotel. </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup__rooms_item">
+                        <section class="popup__rooms_info">
+                            <h4>Стандарт | Отель</h4>
+                            <div class="popup__rooms_slider">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide slide">
+                                        <img src="./img/roomselect-1.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide slide">
+                                        <img src="./img/roomselect-1.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide slide">
+                                        <img src="./img/roomselect-1.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide slide">
+                                        <img src="./img/roomselect-1.jpg" alt="">
+                                    </div>
+                                    <div class="swiper-slide slide">
+                                        <img src="./img/roomselect-1.jpg" alt="">
+                                    </div>
+                                </div>                            
+                                <!-- If we need navigation buttons -->
+                                <div class="main__slider-button-prev">
+                                    <i></i>
+                                </div>
+                                <div class="main__slider-button-next"></div>
+                            </div>
+                        </section>                    
+                        <ul class="popup__rooms_number clearfix">
+                            <li class="popup__rooms_number-title">Количество номеров</li>
+                            <li class="popup__rooms_number-select">
+                                <i class="minus disabled"></i>
+                                <input type="number" class="no-spinners" value="1" readonly="" />
+                                <i class="plus"></i>
+                            </li>
+                        </ul>                    
+                        <div class="popup__rooms_number-details">
+                            <div class="show-details">Подробнее</div>
+                            <div class="price">500 грн/ночь</div>
+                            <div class="details-descr">
+                                <section class="bedtype">
+                                    <h4>Тип кровати</h4>
+                                    <ul class="bedtype__list clearfix double">
+                                        <li class="double">
+                                            <input checked="" data-type="double" type="radio" name="bedtype-2" id="double-2" />
+                                            <label for="double-2">Double</label>
+                                        </li>
+                                        <li class="twin">
+                                            <input type="radio" data-type="twin" name="bedtype-2" id="twin-2" />
+                                            <label for="twin-2">Twin</label>
+                                        </li>
+                                    </ul>                        
+                                </section>
+                                <section class="addoptions">
+                                    <h4>Дополнительные опции</h4>
+                                    <div class="addoptions__item">
+                                        <input type="checkbox" name="extra-bed" id="extra-bed-2" />
+                                        <label for="extra-bed-2">Дополнительная кровать</label>
+                                    </div>
+                                    <div class="addoptions__item">
+                                        <input type="checkbox" name="animals" id="animals-2" />
+                                        <label for="animals-2">Проживание с животными</label>
+                                    </div>
+                                </section>
+                                <section>
+                                    <h4>Описание номера</h4>
+                                    <div class="details-text">The offer includes accommodation in a room of the chosen category, breakfast 'a la carte' in Coffemania restaurant, Wi-Fi and gym access. Your booking is considered to be successful in case of a full payment for the first night at our hotel. </div>
+                                </section>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -508,16 +575,16 @@
                     <section class="popup__payment_form">
                         <h4>Персональные данные</h4>
                         <div class="popup__payment_form-input">
-                            <input type="text" placeholder="Ваше Имя" />
-                        </div>
-                        <div class="popup__payment_form-input">
-                            <input type="text" placeholder="Ваше Фамилия" />
-                        </div>
+                            <input type="text" placeholder="Ваше Имя Фамилия" />
+                        </div>                        
                         <div class="popup__payment_form-input">
                             <input type="mail" class="error" placeholder="Ваш Email" />
                         </div>
                         <div class="popup__payment_form-input">
                             <input type="mail" placeholder="Ваш телефон" />
+                        </div>
+                        <div class="popup__payment_form-input">
+                            <textarea name="" id="" placeholder="Ваш комментарий"></textarea>
                         </div>
                     </section>
                     <section class="popup__payment_basket">
@@ -558,7 +625,7 @@
         <script src="js/vendor/picker.js"></script>
         <script src="js/vendor/SmoothScroll.min.js"></script>
         <script src="js/vendor/picker.date.js"></script>                
-        <script src="js/main.js?version=5"></script>
+        <script src="js/main.js?version=6"></script>
         
     </body>
 </html>

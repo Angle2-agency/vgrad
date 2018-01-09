@@ -93,6 +93,16 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0; 
 }
+/* hide up/down arrows ("spinners") on input fields marked type="number" */
+.no-spinners {
+  -moz-appearance:textfield;
+}
+
+.no-spinners::-webkit-outer-spin-button,
+.no-spinners::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
@@ -826,7 +836,7 @@ article.castle {
   font: 24px/1 'Bodoni';
 }
 .roomselect {
-  margin-bottom: 100px;
+  margin-top: 100px;
 }
 .roomselect__description {
   width: 400px;
@@ -1599,7 +1609,7 @@ footer .copyright .right img {
   left: 0;
   bottom: 0;
 }
-section {
+.popupform section {
   margin-top: 40px;
 }
 .popupform h4 {
@@ -1619,6 +1629,9 @@ section {
   padding:0 25px 0 17px;
   background: url('../img/icon_arrow.svg') no-repeat 120px center / 7px 4px;
 
+}
+.picker__input--active {
+  background: url('../img/icon_arrow-hover.svg') no-repeat 120px center / 7px 4px!important;
 }
 .picker__holder {
   border-color: #ffdeb9;
@@ -1670,6 +1683,7 @@ section {
 }
 .typeofhotel__tabs_body {
   margin-top: 20px;
+  margin-bottom: 20px;
   overflow: hidden;
 }
 .typeofhotel__checkbox_title {
@@ -1934,7 +1948,7 @@ section {
   background-color: #e7e7e7;
 } 
 .popup__rooms_info {
-  margin-top: 13px;
+  
 }
 .popup__rooms_number {
   list-style: none;
@@ -2047,10 +2061,22 @@ section {
   font: 14px/1 'Gotham Pro';
   background: url(../img/icon_arrow.svg) no-repeat right center / 7px 4px;
   cursor: pointer;
+  transition: background 250ms ease;
+}
+.popup__rooms_number-details .show-details.show {
+  background: url(../img/icon_arrow-hover.svg) no-repeat right center / 7px 4px;
 }
 .popup__rooms_number-details .price {
  font: 14px/1 'Gotham Pro';
  float: right; 
+}
+.popup__rooms_number-details .details-descr {
+  width: 360px;
+  overflow: hidden;
+  display: none; 
+}
+.popup__rooms_number-details .details-descr .details-text {
+  font: 14px/24px 'Gotham Pro';
 }
 .popup__payment {
   width: 312px;
@@ -2067,40 +2093,58 @@ section {
   font: 14px/38px 'Gotham Pro';
   padding: 0 15px;
 }
+.popup__payment_form-input textarea {
+  width: 100%;
+  height: 80px;
+  background-color: #fff;
+  border: 1px solid #ffdebc;
+  font: 14px/38px 'Gotham Pro';
+  padding: 0 15px; 
+  resize: none;
+  outline: none;
+}
 .popup__payment_form-input input.error {
   border-color: #ee2a4a;
   background: url('../img/bg-input-error.png') no-repeat 295px center;
 }
-.popup__payment_form-input input::-webkit-input-placeholder {
+.popup__payment_form-input input::-webkit-input-placeholder,
+.popup__payment_form-input textarea::-webkit-input-placeholder {
   position: relative;
   top: 0;
   transition: all 250ms ease;
 }
-.popup__payment_form-input input:focus::-webkit-input-placeholder { /* Chrome/Opera/Safari */  
+.popup__payment_form-input input:focus::-webkit-input-placeholder,
+.popup__payment_form-input textarea:focus::-webkit-input-placeholder { /* Chrome/Opera/Safari */  
   top: -50px;  
 }
-.popup__payment_form-input input::-moz-placeholder { /* Firefox 19+ */
+.popup__payment_form-input input::-moz-placeholder,
+.popup__payment_form-input textarea::-moz-placeholder { /* Firefox 19+ */
   position: relative;
   top: 0;
   transition: all 1000ms ease;
 }
-.popup__payment_form-input input:focus::-moz-placeholder { /* Firefox 19+ */
+.popup__payment_form-input input:focus::-moz-placeholder,
+.popup__payment_form-input textarea:focus::-moz-placeholder { /* Firefox 19+ */
   top: -100px;  
 }
-.popup__payment_form-input input:focus:-ms-input-placeholder { /* IE 10+ */
+.popup__payment_form-input input:focus:-ms-input-placeholder,
+.popup__payment_form-input textarea:focus:-ms-input-placeholder { /* IE 10+ */
   position: relative;
   top: -100px;
   transition: all 1000ms ease;
 }
-.popup__payment_form-input input:-ms-input-placeholder { /* IE 10+ */  
+.popup__payment_form-input input:-ms-input-placeholder,
+.popup__payment_form-input textarea:-ms-input-placeholder { /* IE 10+ */  
   top: 0;  
 }
-.popup__payment_form-input input:-moz-placeholder { /* Firefox 18- */
+.popup__payment_form-input input:-moz-placeholder,
+.popup__payment_form-input textarea:-moz-placeholder { /* Firefox 18- */
   position: relative;
   top: 0;
   transition: all 1000ms ease; 
 }
-.popup__payment_form-input input:focus:-moz-placeholder { /* Firefox 18- */  
+.popup__payment_form-input input:focus:-moz-placeholder,
+.popup__payment_form-input textarea:focus:-moz-placeholder { /* Firefox 18- */  
   top: -100px;  
 }
 .popup__payment_basket-items {

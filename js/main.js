@@ -177,75 +177,23 @@ var app = {
 		});
 
 		$(document).scroll(app.scroller);
-
-		$('.typeofhotel__tabs li').click(function(e){
-			var target = $(this).attr('class');			
-			if(target == 'mini'){
-				TweenMax.to('.typeofhotel__tabs li.line', 0.4, {
-					ease: Power2.easeIn,
-					width : 312,
-					onComplete : function(){
-						TweenMax.to('.typeofhotel__tabs li.line', 0.4, {
-							ease: Power2.easeIn,
-							x : $('.typeofhotel__tabs li.mini').position().left
-						})
-					}
-				});
-				TweenMax.to('.typeofhotel__tabs_body-slider', 0.4, {
-					ease: Power2.easeIn,
-					x : -312,
-					delay : 0.4
-				});
-			}
-			if(target == 'standart'){
-				TweenMax.to('.typeofhotel__tabs li.line', 0.4, {
-					ease: Power2.easeIn,
-					x : 0,
-					onComplete : function(){
-						TweenMax.to('.typeofhotel__tabs li.line', 0.4, {
-							ease: Power2.easeIn,
-							width : $('.typeofhotel__tabs li.standart').width()
-						});			
-					}
-				});
-				TweenMax.to('.typeofhotel__tabs_body-slider', 0.4, {
-					ease: Power2.easeIn,
-					x : 0,
-					delay : 0.4
-				});
-			}
-		});
-
+		
 		$('.bedtype__list input').click(function(e){
-			var type = $(this).attr('id');
+			var type = $(this).attr('data-type');
 			if(type == 'double'){
 				$('.bedtype__list').removeClass('twin').addClass('double');
 			}else{
 				$('.bedtype__list').removeClass('double').addClass('twin');
 			}
-		});
-
-		$('.popup__rooms_select span').click(function(e) {			
-			if($('.popup__rooms_select ul').is(':hidden')){
-				$('.popup__rooms_select ul').fadeIn(150);
-			}else{
-				$('.popup__rooms_select ul').fadeOut(150);
-			}
-		});
-
-		$('.popup__rooms_select ul li').click(function(e) {
-			var type = $(this).attr('data-target');
-			$('.popup__rooms_select span b').html(type);
-			$('.popup__rooms_select ul').fadeOut(150);
-		});
+		});		
 
 		$('.popup__rooms_number-select i').click(function(e) {
-			var input = $('.popup__rooms_number-select input');
+			var input = $(this).closest('.popup__rooms_number-select').find('input');
 			var val = Number(input.val());
 			if($(this).hasClass('plus')){
 				val++;
 				input.val(val);
-				$('.popup__rooms_number-select .minus').removeClass('disabled');
+				$(this).closest('.popup__rooms_number-select').find('.minus').removeClass('disabled');				
 			}
 			if($(this).hasClass('minus') && !$(this).hasClass('disabled')){
 				val--;				
@@ -268,6 +216,16 @@ var app = {
 				$('html, body').removeAttr('style');
 			}});
 			TweenMax.to('#popupform', 0.8, {x : '0%', ease: Power2.easeIn});
+		});
+		$('.popup__rooms_number-details .show-details').click(function(e) {			
+			var block = $(this).closest('.popup__rooms_number-details').find('.details-descr');
+			if(block.is(':hidden')){
+				$(this).addClass('show');
+				block.slideDown(300);
+			}else{
+				$(this).removeClass('show');
+				block.slideUp(300);
+			}		
 		});
 	},
 
