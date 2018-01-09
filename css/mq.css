@@ -176,4 +176,53 @@
     margin: 30px auto;
     height: 54px;
   }
+  .popupform .wrapper {
+    width: 720px;
+    margin: auto;
+    padding: 60px 0;
+  }
+  .popup__options {
+    float: left;
+    width: 312px;
+    margin-right: 44px;
+    position: relative;
+    margin-left: 26px;
+  }
+  .popup__rooms {
+    float: right;
+    width: 312px;
+    margin-right: 0;
+  }
+  .popup__rooms_slider {
+    width: auto;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+  .popup__payment {
+    width: auto;
+    clear: both;
+    float: none;
+    padding-top: 80px;
+    margin-left: 44px;
+  }  
+  .popup__payment_form-input {
+    margin-bottom: 10px;    
+  }
+  .popup__payment_form {
+    width: 312px;
+    float: left;
+  }
+  .popup__payment_basket {
+    width: 312px;
+    float: right;
+  }
+  .popup__payment_basket-button {
+    clear: both;
+    text-align: center;
+    padding-top: 40px;
+  }
+  .popup__payment_basket-button button {
+    margin: auto;
+  }
 }
