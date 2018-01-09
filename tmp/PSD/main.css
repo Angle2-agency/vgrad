@@ -863,8 +863,8 @@ article.castle {
 }
 .roomselect__description_button a {
   display: block;
-  width: 255px;
-  height: 80px;
+  width: 253px;
+  height: 78px;
   background-color: #ffdeb9;
   border: 1px solid #ffdeb9;
   font: bold 11px/80px 'Gotham Pro';
@@ -1100,7 +1100,6 @@ article.castle {
   padding: 0;
   font: 72px/60px 'Bodoni';
   letter-spacing: -1px;
-  width: 300px;
 }
 .roomselect__description_text {
   margin: 0 0 60px 96px;
@@ -1593,7 +1592,6 @@ footer .copyright .right img {
   float: left;
   width: 312px;
   margin-right: 78px;
-  position: relative;
 }
 .popupform h3 {
   margin: 00;
@@ -1696,7 +1694,8 @@ footer .copyright .right img {
   padding: 0;
   list-style: none;
   overflow: hidden;
-  position: relative;  
+  position: relative;
+  width: 1000px;
 }
 .typeofhotel__tabs_body .mini,
 .typeofhotel__tabs_body .standart {
@@ -2068,7 +2067,7 @@ footer .copyright .right img {
   background: url(../img/icon_arrow-hover.svg) no-repeat right center / 7px 4px;
 }
 .popup__rooms_number-details .price {
- font: bold 14px/1 'Gotham Pro';
+ font: 14px/1 'Gotham Pro';
  float: right; 
 }
 .popup__rooms_number-details .details-descr {
@@ -2093,8 +2092,6 @@ footer .copyright .right img {
   border: 1px solid #ffdebc;
   font: 14px/38px 'Gotham Pro';
   padding: 0 15px;
-  display: block;
-  overflow: hidden;
 }
 .popup__payment_form-input textarea {
   width: 100%;
