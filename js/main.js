@@ -169,6 +169,21 @@ var app = {
 
 		$(document).scroll(app.scroller);
 		
+		$(document).on('mouseenter', '.topslider-button-prev, .topslider-button-next', function(e){
+			if(!$(this).hasClass('swiper-button-disabled'))$(this).closest('.swiper-container-horizontal').find('.topslider-button-prev i').hide();			
+			console.log($(this).closest('.swiper-wrapper'))
+		});
+		$(document).on('mouseleave', '.topslider-button-prev, .topslider-button-next', function(e){			
+			$(this).closest('.swiper-container-horizontal').find('.topslider-button-prev i').show();
+		});
+		$(document).on('mouseenter', '.main__slider-button-prev, .main__slider-button-next', function(e){
+			if(!$(this).hasClass('swiper-button-disabled'))$(this).closest('.swiper-container-horizontal').find('.main__slider-button-prev i').hide()
+			console.log($(this).closest('.swiper-wrapper'))
+		});
+		$(document).on('mouseleave', '.main__slider-button-prev, .main__slider-button-next', function(e){			
+			$(this).closest('.swiper-container-horizontal').find('.main__slider-button-prev i').show();
+		});
+
 		$(document).on('click', '.bedtype__list input', function(e){
 			var type = $(this).attr('data-type');
 			if(type == 'double'){
