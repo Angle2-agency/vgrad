@@ -181,15 +181,18 @@ var app = {
 		$(document).on('click', '.popup__rooms_number-select i', function(e) {
 			var input = $(this).closest('.popup__rooms_number-select').find('input');
 			var val = Number(input.val());
+			var roomid = $(this).closest('.popup__rooms_number-select').data('room');
 			if($(this).hasClass('plus')){
 				val++;
 				input.val(val);
 				$(this).closest('.popup__rooms_number-select').find('.minus').removeClass('disabled');				
+				addQuantity(roomid);
 			}
 			if($(this).hasClass('minus') && !$(this).hasClass('disabled')){
 				val--;				
 				input.val(val);
 				if(val == 1)$(this).addClass('disabled');
+				removeQuantity(roomid);
 			}
 		});
 

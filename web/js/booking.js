@@ -4,6 +4,7 @@ function toggleRoomView(checked, roomid, hotelid)
     if (false == checked) {
         $('#' + viewId).remove();
         $('#rooms-selected').text(parseInt($('#rooms-selected').text()) - 1);
+        removeFromBasket(roomid);
     } else {
         var hotel = hotelHash.hotels[hotelid];
         var room  = hotelHash.rooms[roomid];
@@ -30,7 +31,7 @@ function toggleRoomView(checked, roomid, hotelid)
         // rooms qnty
         html += '<ul class="popup__rooms_number clearfix">';
         html += '<li class="popup__rooms_number-title">Количество номеров</li>';
-        html += '<li class="popup__rooms_number-select">';
+        html += '<li class="popup__rooms_number-select" data-room="' + roomid + '">';
         html += '<i class="minus disabled"></i>';
         html += '<input type="number" class="no-spinners" value="1" readonly="" />';
         html += '<i class="plus"></i>';
@@ -48,11 +49,11 @@ function toggleRoomView(checked, roomid, hotelid)
         html += '<h4>Тип кровати</h4>';
         html += '<ul class="bedtype__list clearfix double">';
         html += '<li class="double">';
-        html += '<input checked="" data-type="double" type="radio" name="'+roomid+'bedtype" id="'+roomid+'-double" />';
+        html += '<input checked="checked" onclick="basket.rooms['+roomid+'].bed = \'Double\'; renderBasket();" data-type="double" type="radio" name="'+roomid+'bedtype" id="'+roomid+'-double" />';
         html += '<label for="'+roomid+'-double">Double</label>';
         html += '</li>';
         html += '<li class="twin">';
-        html += '<input checked="" data-type="twin" type="radio" name="'+roomid+'bedtype" id="'+roomid+'-twin" />';
+        html += '<input checked="" onclick="basket.rooms['+roomid+'].bed = \'Twin\'; renderBasket();" data-type="twin" type="radio" name="'+roomid+'bedtype" id="'+roomid+'-twin" />';
         html += '<label for="'+roomid+'-twin">Twin</label>';
         html += '</li>';
         html += '</ul>';
@@ -64,7 +65,7 @@ function toggleRoomView(checked, roomid, hotelid)
         for (var id in hotelHash.options) {
             var opt = hotelHash.options[id];
             html += '<div class="addoptions__item">';
-            html += '<input type="checkbox" name="opt-'+roomid+'-'+id+'" id="opt-'+roomid+'-'+id+'" />';
+            html += '<input onclick="$(this).is(\':checked\') ? addOptionToBasket('+roomid+', '+id+') : removeOptionFromBasket('+roomid+', '+id+');" type="checkbox" name="opt-'+roomid+'-'+id+'" id="opt-'+roomid+'-'+id+'" />';
             html += '<label for="opt-'+roomid+'-'+id+'">'+opt.name+'</label>';
             html += '</div>';
         };
@@ -79,5 +80,109 @@ function toggleRoomView(checked, roomid, hotelid)
 
         $('#room-info-holder').append($(html));
         $('#rooms-selected').text(parseInt($('#rooms-selected').text()) + 1);
+        addToBasket(roomid);
     }
+}
+
+var basket = {
+    rooms: {},
+    total: 0
+};
+
+function addToBasket(roomid)
+{
+    var room = hotelHash.rooms[roomid];
+    basket.rooms[roomid] = {
+        room: hotelHash.rooms[roomid],
+        qty: 1,
+        options: {},
+        total: room.price,
+        bed: 'Twin'
+    };
+    renderBasket();
+}
+
+function isInBasket(roomid)
+{
+    return obj.hasOwnProperty(roomid);
+}
+
+function removeFromBasket(roomid)
+{
+    basket.rooms[roomid] = null;
+    delete basket.rooms[roomid];
+    renderBasket();
+}
+
+function addOptionToBasket(roomid, optionid)
+{
+    basket.rooms[roomid].options[optionid] = hotelHash.options[optionid];
+    basket.rooms[roomid].total += hotelHash.options[optionid].price;
+    renderBasket();
+}
+
+function removeOptionFromBasket(roomid, optionid)
+{
+    delete basket.rooms[roomid].options[optionid];
+    basket.rooms[roomid].total -= hotelHash.options[optionid].price;   
+    renderBasket();
+}
+
+function addQuantity(roomid)
+{
+    basket.rooms[roomid].qty = basket.rooms[roomid].qty + 1;
+    basket.rooms[roomid].total  = basket.rooms[roomid].qty * basket.rooms[roomid].room.price;
+    renderBasket();
+}
+
+function removeQuantity(roomid)
+{
+    basket.rooms[roomid].qty = basket.rooms[roomid].qty - 1;
+    basket.rooms[roomid].total  = basket.rooms[roomid].qty * basket.rooms[roomid].room.price;
+    renderBasket(roomid);
+}
+
+function renderBasket()
+{
+    var html = '';
+    var holder = $('#basket-holder');
+    holder.find('.popup__payment_basket-items').remove();
+    holder.find('hr').remove();
+    var orderTotal = 0;
+    for (roomid in basket.rooms) {
+        var oroom = basket.rooms[roomid];
+        html += '<ul class="popup__payment_basket-items">';
+        html += '<li>';
+        html += '<span class="fl">Тип номера</span>';
+        html += '<b class="fr">' + oroom.room.name + ' ('+ oroom.qty +')</b>';
+        html += '</li>';
+        html += '<li>';
+        html += '<span class="fl">Тип кровати</span>';
+        html += '<b class="fr">' + oroom.bed + '</b>';
+        html += '</li>';
+        html += '<li>';
+        html += '<span class="fl">Стоимость доп.опций</span>';
+        var optionsTotal = 0;
+        for (oi in oroom.options) {
+            optionsTotal += oroom.options[oi].price;
+        }
+        html += '<b class="fr">' + optionsTotal + ' грн</b>';
+        html += '</li>';
+        html += '<li>';
+        html += '<span class="fl">Общая стоимость</span>';
+        html += '<b class="fr">' + oroom.total + ' грн</b>';
+        html += '</li>';   
+        html += '</ul>';
+        html += '<hr/>';
+        orderTotal += oroom.total;
+    }
+
+    html += '<ul class="popup__payment_basket-items">';
+    html += '<li>';
+    html += '<span class="fl">Общая стоимость</span>';
+    html += '<b class="fr">' + orderTotal + ' грн</b>';
+    html += '</li>';   
+    html += '</ul>';
+
+    holder.append($(html));
 }
