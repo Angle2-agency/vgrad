@@ -298,7 +298,7 @@ var app = {
 
     	app.ourclientsSlider = new Swiper('.ourclients__slider', {
 			speed : 600,
-			slidesPerView: $('body').width() > 1040 ? 5 : 3,
+			slidesPerView: $('body').width() > 1140 ? 5 : 3,
 			spaceBetween: 0,
       		navigation: {      			
         		nextEl: '#ourclients__slider-button-next',
