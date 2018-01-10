@@ -395,17 +395,17 @@ var app = {
 			formatSubmit: 'yyyy/mm/dd'
 		});
 		var pickFrom = $('#date-from').pickadate({
-			format: 'от dd.mm.yyyy',
-			min: new Date()
+			format: 'yyyy-mm-dd',
+			min: new Date(),
 		});
 		var pickTo = $('#date-to').pickadate({
-			format: 'до dd.mm.yyyy',
-			min: new Date()
+			format: 'yyyy-mm-dd',
+			min: new Date(),
 		});
 		app.data.pickFrom = pickFrom.pickadate('picker');
 		app.data.pickTo = pickTo.pickadate('picker');
-		//app.data.pickFrom.set('select', new Date());
-		//app.data.pickTo.set('select', new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
+		app.data.pickFrom.set('select', new Date());
+		app.data.pickTo.set('select', new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
 	},
 
 

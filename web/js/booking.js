@@ -86,8 +86,18 @@ function toggleRoomView(checked, roomid, hotelid)
 
 var basket = {
     rooms: {},
-    total: 0
+    total: 0,
+    nights: 1,
 };
+
+function setDates()
+{
+    var from = new Date($('#date-from').val());
+    var to = new Date($('#date-to').val());
+
+    basket.nights = Math.abs(to - from) / 86400000;
+    renderBasket();
+}
 
 function addToBasket(roomid)
 {
@@ -179,8 +189,8 @@ function renderBasket()
 
     html += '<ul class="popup__payment_basket-items">';
     html += '<li>';
-    html += '<span class="fl">Общая стоимость</span>';
-    html += '<b class="fr">' + orderTotal + ' грн</b>';
+    html += '<span class="fl">Общая стоимость (ночей: '+basket.nights+')</span>';
+    html += '<b class="fr">' + (orderTotal * basket.nights) + ' грн</b>';
     html += '</li>';   
     html += '</ul>';
 
