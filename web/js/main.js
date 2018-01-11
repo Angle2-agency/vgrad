@@ -169,6 +169,19 @@ var app = {
 
 		$(document).scroll(app.scroller);
 		
+		$(document).on('mouseenter', '.topslider-button-prev, .topslider-button-next', function(e){
+			if(!$(this).hasClass('swiper-button-disabled'))$(this).closest('.swiper-container-horizontal').find('.topslider-button-prev i').hide();
+		});
+		$(document).on('mouseleave', '.topslider-button-prev, .topslider-button-next', function(e){			
+			$(this).closest('.swiper-container-horizontal').find('.topslider-button-prev i').show();
+		});
+		$(document).on('mouseenter', '.main__slider-button-prev, .main__slider-button-next', function(e){
+			if(!$(this).hasClass('swiper-button-disabled'))$(this).closest('.swiper-container-horizontal').find('.main__slider-button-prev i').hide();
+		});
+		$(document).on('mouseleave', '.main__slider-button-prev, .main__slider-button-next', function(e){			
+			$(this).closest('.swiper-container-horizontal').find('.main__slider-button-prev i').show();
+		});
+
 		$(document).on('click', '.bedtype__list input', function(e){
 			var type = $(this).attr('data-type');
 			if(type == 'double'){
@@ -263,8 +276,10 @@ var app = {
 					$(this.$el).find('.roomselect__slider-pagination span.length').html(length < 10 ? '0'+length : length);
 				},
 				slideChange : function(){
+					var type = $(this.slides[this.activeIndex]).attr('data-type');
 					var slide = this.activeIndex + 1;
 					$(this.$el).find('.roomselect__slider-pagination span.current').html(slide < 10 ? '0'+slide : slide);
+					$(this.$el).closest('.roomselect').find('.roomselect__description_title').html(type);
 				}
 			}
     	});

@@ -229,6 +229,9 @@
   .popup__payment_basket-button button {
     margin: auto;
   }
+  .popup__rooms_slider .swiper-slide img {
+    width: 312px;        
+  }
 }
 
 @media screen and (max-width: 720px) {
@@ -656,5 +659,8 @@
   .popup__payment_basket-button {      
     padding-top: 0;
     margin-top: 40px;
+  }
+  .popup__rooms_slider .swiper-slide img {
+    width: 290px;
   }
 }
