@@ -28,9 +28,8 @@ class DbFixtureCommand extends ContainerAwareCommand
         $hotel->setName('Отель')
               ->setType('standart');
 
+        $imgRoot = '/img/hotels/standart/';
         $gallery = new RoomGallery();
-        $gallery->setImage('/img/roomselect-1.jpg')
-                ->setTitle('Test image');
 
         $rooms = $hotel->getRooms();
         $room = (new Room())->setName('Стандарт')
@@ -38,18 +37,19 @@ class DbFixtureCommand extends ContainerAwareCommand
                             ->setPrice(800)
                             ->setHotel($hotel);
         $image = clone $gallery;
+        $image->setImage($imgRoot . 'standart.jpg')
+              ->setTitle('Standart room');
+
         $image->setRoom($room);
         $room->getImages()->add($image);
-        $image = clone $gallery;
-        $image->setRoom($room);
-        $room->getImages()->add($image);
-        $rooms->add($room);
 
         $room = (new Room())->setName('Стандарт улучшеный')
                                 ->setType('standart-adv')
                                 ->setPrice(900)
                                 ->setHotel($hotel);
         $image = clone $gallery;
+        $image->setImage($imgRoot . 'standart.jpg')
+              ->setTitle('Standart room');
         $image->setRoom($room);
         $room->getImages()->add($image);
         $rooms->add($room);
@@ -60,6 +60,9 @@ class DbFixtureCommand extends ContainerAwareCommand
                                 ->setHotel($hotel);
         $image = clone $gallery;
         $image->setRoom($room);
+        $image->setImage($imgRoot . 'polu_lux_3.jpg')
+              ->setTitle('Halh lux');
+
         $room->getImages()->add($image);
         $rooms->add($room);             
 
@@ -70,6 +73,13 @@ class DbFixtureCommand extends ContainerAwareCommand
 
         $image = clone $gallery;    
         $image->setRoom($room);
+        $image->setImage($imgRoot . 'lux_s_djakuzi_5.jpg')
+              ->setTitle('Lux room');
+        $room->getImages()->add($image);
+        $image = clone $gallery;   
+        $image->setRoom($room);
+        $image->setImage($imgRoot . 'lux_s_kaminom1.jpg')
+              ->setTitle('Lux room');
         $room->getImages()->add($image);
         $rooms->add($room);
 
@@ -79,6 +89,13 @@ class DbFixtureCommand extends ContainerAwareCommand
                                 ->setHotel($hotel);
         $image = clone $gallery;    
         $image->setRoom($room);
+        $image->setImage($imgRoot . 'vip_s_djakuzi_6.jpg')
+              ->setTitle('VIP room');
+        $room->getImages()->add($image);
+        $image = clone $gallery;   
+        $image->setRoom($room);
+        $image->setImage($imgRoot . 'vip_s_kaminom2.jpg')
+              ->setTitle('VIP room');
         $room->getImages()->add($image);
         $rooms->add($room);
         
@@ -87,6 +104,8 @@ class DbFixtureCommand extends ContainerAwareCommand
         $hotel = new Hotel();
         $hotel->setName('Мини отель')
               ->setType('mini');
+
+        $imgRoot = '/img/hotels/mini/';
 
         $rooms = $hotel->getRooms();
 
@@ -97,15 +116,26 @@ class DbFixtureCommand extends ContainerAwareCommand
 
         $image = clone $gallery;    
         $image->setRoom($room);
+        $image->setImage($imgRoot . 'standart-double.jpg')
+              ->setTitle('Standart room');
         $room->getImages()->add($image);
+        $image = clone $gallery;   
+        $image->setRoom($room);
+        $image->setImage($imgRoot . 'standart-twin.jpg')
+              ->setTitle('Standart room');
+        $room->getImages()->add($image);
+
         $rooms->add($room);
 
         $room = (new Room())->setName('Полу люкс')
                                 ->setType('half-lux')
                                 ->setPrice(1200)
                                 ->setHotel($hotel);
-        $image = clone $gallery;    
+        $image = clone $gallery;
         $image->setRoom($room);
+        $image->setImage($imgRoot . 'half-lux.jpg')
+              ->setTitle('Halh lux');
+
         $room->getImages()->add($image);
         $rooms->add($room);
 
@@ -113,8 +143,11 @@ class DbFixtureCommand extends ContainerAwareCommand
                                 ->setType('lux')
                                 ->setPrice(1700)
                                 ->setHotel($hotel);
-        $image = clone $gallery;    
+
+        $image = clone $gallery;   
         $image->setRoom($room);
+        $image->setImage($imgRoot . 'lux_s_kaminom.jpeg')
+              ->setTitle('Lux room');
         $room->getImages()->add($image);
         $rooms->add($room);
 
@@ -122,8 +155,10 @@ class DbFixtureCommand extends ContainerAwareCommand
                                 ->setType('elite')
                                 ->setPrice(2000)
                                 ->setHotel($hotel);
-        $image = clone $gallery;    
+        $image = clone $gallery;   
         $image->setRoom($room);
+        $image->setImage($imgRoot . 'lux_s_kaminom.jpeg')
+              ->setTitle('Lux room');
         $room->getImages()->add($image);
         $rooms->add($room);
 
@@ -131,8 +166,10 @@ class DbFixtureCommand extends ContainerAwareCommand
                                 ->setType('dbl-elite')
                                 ->setPrice(2500)
                                 ->setHotel($hotel);
-        $image = clone $gallery;    
+        $image = clone $gallery;   
         $image->setRoom($room);
+        $image->setImage($imgRoot . 'lux_s_kaminom.jpeg')
+              ->setTitle('Lux room');
         $room->getImages()->add($image);
         $rooms->add($room);
 
@@ -140,8 +177,10 @@ class DbFixtureCommand extends ContainerAwareCommand
                                 ->setType('show-room')
                                 ->setPrice(2500)
                                 ->setHotel($hotel);
-        $image = clone $gallery;    
+        $image = clone $gallery;   
         $image->setRoom($room);
+        $image->setImage($imgRoot . 'Show-room.jpg')
+              ->setTitle('show room');
         $room->getImages()->add($image);
         $rooms->add($room);        
 
