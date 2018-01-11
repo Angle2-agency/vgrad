@@ -102,6 +102,7 @@
     position: absolute;
     right: 96px;
     bottom: -45px;
+    display: none;
   }
   .spaservices__slider .slide img {
     width: 720px;
@@ -228,6 +229,9 @@
   }
   .popup__payment_basket-button button {
     margin: auto;
+  }
+  .popup__rooms_slider .swiper-slide img {
+    width: 312px;        
   }
 }
 
@@ -382,6 +386,10 @@
     width: 60px;
     height: 60px;
     left: 60px;
+  }
+  .spaservices__slider .main__slider-button-prev {
+    left: auto;
+    right: 60px;
   }
   .roomselect__slider-pagination {
     display: none;
@@ -657,4 +665,7 @@
     padding-top: 0;
     margin-top: 40px;
   }
+  .popup__rooms_slider .swiper-slide img {
+    width: 290px;
+  }  
 }

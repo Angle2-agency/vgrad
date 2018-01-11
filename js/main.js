@@ -170,15 +170,13 @@ var app = {
 		$(document).scroll(app.scroller);
 		
 		$(document).on('mouseenter', '.topslider-button-prev, .topslider-button-next', function(e){
-			if(!$(this).hasClass('swiper-button-disabled'))$(this).closest('.swiper-container-horizontal').find('.topslider-button-prev i').hide();			
-			console.log($(this).closest('.swiper-wrapper'))
+			if(!$(this).hasClass('swiper-button-disabled'))$(this).closest('.swiper-container-horizontal').find('.topslider-button-prev i').hide();
 		});
 		$(document).on('mouseleave', '.topslider-button-prev, .topslider-button-next', function(e){			
 			$(this).closest('.swiper-container-horizontal').find('.topslider-button-prev i').show();
 		});
 		$(document).on('mouseenter', '.main__slider-button-prev, .main__slider-button-next', function(e){
-			if(!$(this).hasClass('swiper-button-disabled'))$(this).closest('.swiper-container-horizontal').find('.main__slider-button-prev i').hide()
-			console.log($(this).closest('.swiper-wrapper'))
+			if(!$(this).hasClass('swiper-button-disabled'))$(this).closest('.swiper-container-horizontal').find('.main__slider-button-prev i').hide();
 		});
 		$(document).on('mouseleave', '.main__slider-button-prev, .main__slider-button-next', function(e){			
 			$(this).closest('.swiper-container-horizontal').find('.main__slider-button-prev i').show();
@@ -196,15 +194,18 @@ var app = {
 		$(document).on('click', '.popup__rooms_number-select i', function(e) {
 			var input = $(this).closest('.popup__rooms_number-select').find('input');
 			var val = Number(input.val());
+			var roomid = $(this).closest('.popup__rooms_number-select').data('room');
 			if($(this).hasClass('plus')){
 				val++;
 				input.val(val);
 				$(this).closest('.popup__rooms_number-select').find('.minus').removeClass('disabled');				
+				addQuantity(roomid);
 			}
 			if($(this).hasClass('minus') && !$(this).hasClass('disabled')){
 				val--;				
 				input.val(val);
 				if(val == 1)$(this).addClass('disabled');
+				removeQuantity(roomid);
 			}
 		});
 
@@ -212,7 +213,7 @@ var app = {
 			TweenMax.to('.popupform__animation', 0.8, {x : '-200%', ease: Power2.easeIn, onComplete : function(){				
 				$('html, body').css({
 					overflow : 'hidden'
-				});
+				});				
 			}});
 			TweenMax.to('#popupform', 0.8, {x : '-100%', ease: Power2.easeIn});
 			return false;
@@ -274,9 +275,18 @@ var app = {
 					$(this.$el).find('.roomselect__slider-pagination span.current').html('01');
 					$(this.$el).find('.roomselect__slider-pagination span.length').html(length < 10 ? '0'+length : length);
 				},
-				slideChange : function(){
+				slideChange : function(){					
+					var type = $(this.slides[this.activeIndex]).attr('data-type');
+					var typeBlock = $(this.$el).closest('.roomselect').find('.roomselect__description_title');
 					var slide = this.activeIndex + 1;
 					$(this.$el).find('.roomselect__slider-pagination span.current').html(slide < 10 ? '0'+slide : slide);
+					if(type != typeBlock.text()){
+						TweenMax.to(typeBlock, 0.5, {y:30, opacity : 0, ease: Power3.easeIn});
+						setTimeout(function(){						
+							typeBlock.html(type);
+							TweenMax.fromTo(typeBlock, 0.5, {y : -30, opacity : 0}, {y : 0, opacity : 1, ease: Power3.easeOut});
+						}, 500)					
+					}					
 				}
 			}
     	});
@@ -407,17 +417,17 @@ var app = {
 			formatSubmit: 'yyyy/mm/dd'
 		});
 		var pickFrom = $('#date-from').pickadate({
-			format: 'от dd.mm.yyyy',
-			min: new Date()
+			format: 'yyyy-mm-dd',
+			min: new Date(),
 		});
 		var pickTo = $('#date-to').pickadate({
-			format: 'до dd.mm.yyyy',
-			min: new Date()
+			format: 'yyyy-mm-dd',
+			min: new Date(),
 		});
 		app.data.pickFrom = pickFrom.pickadate('picker');
 		app.data.pickTo = pickTo.pickadate('picker');
-		//app.data.pickFrom.set('select', new Date());
-		//app.data.pickTo.set('select', new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
+		app.data.pickFrom.set('select', new Date());
+		app.data.pickTo.set('select', new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
 	},
 
 
