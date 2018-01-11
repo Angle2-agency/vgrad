@@ -277,9 +277,16 @@ var app = {
 				},
 				slideChange : function(){
 					var type = $(this.slides[this.activeIndex]).attr('data-type');
+					var typeBlock = $(this.$el).closest('.roomselect').find('.roomselect__description_title');
 					var slide = this.activeIndex + 1;
 					$(this.$el).find('.roomselect__slider-pagination span.current').html(slide < 10 ? '0'+slide : slide);
-					$(this.$el).closest('.roomselect').find('.roomselect__description_title').html(type);
+					if(type != typeBlock.text()){
+						TweenMax.to(typeBlock, 0.5, {y:30, opacity : 0, ease: Power3.easeIn});
+						setTimeout(function(){						
+							typeBlock.html(type);
+							TweenMax.fromTo(typeBlock, 0.5, {y : -30, opacity : 0}, {y : 0, opacity : 1, ease: Power3.easeOut});
+						}, 500)					
+					}					
 				}
 			}
     	});

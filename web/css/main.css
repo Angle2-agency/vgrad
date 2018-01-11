@@ -865,7 +865,8 @@ article.castle {
 }
 .roomselect__description_title {
   margin: 0 0 30px 96px;
-  font: 24px/1 'Bodoni'; 
+  font: 24px/1 'Bodoni';
+  display: none; 
 }
 .roomselect__description_button {
   width: 255px;
