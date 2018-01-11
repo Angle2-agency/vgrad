@@ -80,6 +80,16 @@ function toggleRoomView(checked, roomid, hotelid)
 
         $('#room-info-holder').append($(html));
         $('#rooms-selected').text(parseInt($('#rooms-selected').text()) + 1);
+        // init slider for image
+        app.spaservicesSlider = new Swiper('.popup__rooms_slider', {
+           speed : 700,
+           parallax : false,
+           //loop : true,
+                navigation: {         
+                  nextEl: '.main__slider-button-next',
+                  prevEl: '.main__slider-button-prev',
+                }
+             });
         addToBasket(roomid);
     }
 }
