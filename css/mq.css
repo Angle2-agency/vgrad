@@ -233,6 +233,12 @@
   .popup__rooms_slider .swiper-slide img {
     width: 312px;        
   }
+  .uniqueoffers__title_image {
+    height: 269px;
+  }
+  .uniqueoffers__descr {
+   height: 269px; 
+  }
 }
 
 @media screen and (max-width: 720px) {
