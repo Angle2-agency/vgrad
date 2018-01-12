@@ -234,11 +234,27 @@ var app = {
 				block.slideUp(300);
 			}		
 		});
+		$('.uniqueoffers__descr_more').click(function(e) {
+			var more = $(this).closest('.uniqueoffers__title_image').find('.uniqueoffers__descr');			
+			var title = $(this).closest('li').find('.uniqueoffers__title');
+			TweenMax.to($(this), 0.3, {y : '100%', ease: Power2.easeIn});
+			TweenMax.to(title, 0.3, {opacity : 0, y : 30, ease: Power2.easeIn});
+			TweenMax.to(more, 0.5, {y : '100%', ease: Power2.easeIn});
+		});
+		$('.uniqueoffers__descr_close').click(function(e) {			
+			var more = $(this).closest('.uniqueoffers__descr');
+			var moreBut = $(this).closest('.uniqueoffers__title_image').find('.uniqueoffers__descr_more');
+			var title = $(this).closest('li').find('.uniqueoffers__title');			
+			TweenMax.to(more, 0.5, {y : '0%', ease: Power2.easeIn});
+			TweenMax.to(moreBut, 0.3, {y : '0%', ease: Power2.easeOut, delay : 0.4});
+			TweenMax.to(title, 0.3, {opacity : 1, y : 0, ease: Power2.easeOut, delay : 0.4});
+		});
+		
 	},
 
 	slidersInit : function(){
 		app.data.topSlider = new Swiper('.topslider', {
-			speed : 700,
+			speed : 400,
 			parallax : false,
 			//loop : true,
       		navigation: {      			
@@ -357,10 +373,10 @@ var app = {
 	mapInit : function(){
 		var mapOptions = {
 	        // How zoomed in you want the map to start at (always required)
-	        zoom: 17,
+	        zoom: 13,
 	        scrollwheel: false,
 	        // The latitude and longitude to center the map (always required)
-	        center: $('body').width() > 720 ? new google.maps.LatLng(50.606248, 30.469001) : new google.maps.LatLng(50.606211, 30.466009),
+	        center: $('body').width() > 720 ? new google.maps.LatLng(50.599415, 30.569079) : new google.maps.LatLng(50.6002866, 30.4727769),
 	        // How you would like to style the map. 
 	        // This is where you would paste any style found on Snazzy Maps.
 	        styles: [{"featureType":"all","elementType":"geometry.fill","stylers":[{"weight":"2.00"}]},{"featureType":"all","elementType":"geometry.stroke","stylers":[{"color":"#ededed"}]},{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#fff7ee"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#fff7ee"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#eeeeee"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#7b7b7b"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#ededed"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#070707"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]}]
@@ -369,19 +385,27 @@ var app = {
         // We are using a div with id="map" seen below in the <body>
         var mapElement = document.getElementById('map');
         // Create the Google Map using our element and options defined above
-        var map = new google.maps.Map(mapElement, mapOptions);
+        map = new google.maps.Map(mapElement, mapOptions);
         var image = {
             url : './img/icon_pin.svg',
             size : new google.maps.Size(28,34),
             anchor : new google.maps.Point(28,34),
             origin: new google.maps.Point(0, 0)
-        };
-        var marker = new google.maps.Marker(
+        };        
+        new google.maps.Marker(
             {
                 icon : image,
                 position : new google.maps.LatLng(50.606211, 30.466009),                                                
                 map : map,
-                title: 'Vishegrad'
+                title: 'ул.Спасская, 25, г. Вышгород'
+            }
+        );
+        new google.maps.Marker(
+            {
+                icon : image,
+                position : new google.maps.LatLng(50.592898, 30.485375),                                                
+                map : map,
+                title: 'ул.Шолуденко, 17а, г. Вышгород'
             }
         );
 	},
