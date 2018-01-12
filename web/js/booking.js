@@ -203,6 +203,45 @@ function renderBasket()
     html += '<b class="fr">' + (orderTotal * basket.nights) + ' грн</b>';
     html += '</li>';   
     html += '</ul>';
-
+    basket.total = orderTotal * basket.nights;
     holder.append($(html));
+}
+
+function placeOrder()
+{
+    $(['customer_name', 'customer_phone', 'customer_email']).each(function(i, f) {
+        $('#' + f).removeClass('error');
+    })
+    var data = {
+        name: $('#customer_name').val(),
+        email: $('#customer_email').val(),
+        phone: $('#customer_phone').val(),
+        comment: $('#order_description').val(),
+        basket: basket,
+        from: $('#date-from').val(),
+        to: $('#date-to').val()
+    }
+    
+    $.ajax({
+      type: "POST",
+      url: '/book',
+      data: data,
+      success: function (data) {
+        console.log(data);
+        if (data.errors) {
+            if (data.errors.indexOf('name') != -1) {
+                $('#customer_name').addClass('error');
+            }
+            if (data.errors.indexOf('phone') != -1) {
+                $('#customer_phone').addClass('error');
+            }
+            if (data.errors.indexOf('email') != -1) {
+                $('#customer_email').addClass('error');
+            }
+        } else {
+            document.location = data.goto;
+        }
+      },
+      dataType: 'json'
+    });
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Redirect</title>
+</head>
+<body onload="javascript:document.forms[0].submit()">
+<form action="https://secure.platononline.com/payment/auth" method="post">
+<input type="hidden" name="payment" value="CC" />
+<input type="hidden" name="key" value="{{ key }}" />
+<input type="hidden" name="url" value="{{ url }}" />
+<input type="hidden" name="data" value="{{ data }}" />
+<input type="hidden" name="sign" value="{{ sign }}" />
+</form>                                             
+</body>
+</html>

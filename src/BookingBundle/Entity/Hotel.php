@@ -32,6 +32,12 @@ class Hotel
     private $name;
 
     /**
+     * 
+     * @ORM\Column(type="string", length=100)
+     */
+    private $address;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=30)
@@ -125,6 +131,26 @@ class Hotel
     public function setRooms($rooms)
     {
         $this->rooms = $rooms;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     *
+     * @return self
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
 
         return $this;
     }

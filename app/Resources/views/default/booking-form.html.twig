@@ -68,16 +68,16 @@
             <section class="popup__payment_form">
                 <h4>Персональные данные</h4>
                 <div class="popup__payment_form-input">
-                    <input type="text" placeholder="Ваше Имя Фамилия" />
+                    <input type="text" placeholder="Ваше Имя Фамилия" id="customer_name"/>
                 </div>                        
                 <div class="popup__payment_form-input">
-                    <input type="mail" class="" placeholder="Ваш Email" />
+                    <input type="mail" class="" placeholder="Ваш Email" id="customer_email"/>
                 </div>
                 <div class="popup__payment_form-input">
-                    <input type="mail" placeholder="Ваш телефон" />
+                    <input type="mail" placeholder="Ваш телефон" id="customer_phone"/>
                 </div>
                 <div class="popup__payment_form-input">
-                    <textarea name="" id="" placeholder="Ваш комментарий"></textarea>
+                    <textarea name="" placeholder="Ваш комментарий" id="order_description"></textarea>
                 </div>
             </section>
             <section class="popup__payment_basket" id="basket-holder">
@@ -85,7 +85,7 @@
                 
             </section>
             <section class="popup__payment_basket-button">
-                <button data-target="popupform" data-text="Забронировать"></button>
+                <button data-target="popupform" data-text="Забронировать" onclick="return placeOrder();"></button>
             </section>
         </article>
     </div>
