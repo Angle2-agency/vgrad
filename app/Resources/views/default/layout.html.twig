@@ -96,7 +96,26 @@
                 <span class="arrow-down"></span>            
             </div>            
         </header>
-
+        <script type="text/javascript">
+            var need_to_show_success_modal = false;    
+        </script>
+        {% if order %}
+            <div id="thankyou" class="thankyou__modal">
+                <div class="thankyou__modal_msg">
+                    <div class="close" onclick="$('#thankyou').fadeOut(300);"></div>
+                    <h1>Спасибо!</h1>
+                    <div class="thankyou__modal_msg-txt">Вы успешно забронировали:</div>
+                    {% for room in basket.rooms %}
+                        <p>{{ room.room.name }} - {{ room.qty }}</p>
+                    {% endfor %}
+                    <div class="thankyou__modal_msg-txt">На общую сумму:</div>
+                    <p>{{ order.amount }} грн.</p>
+                </div>
+            </div>
+            <script type="text/javascript">
+                need_to_show_success_modal = true;    
+            </script>
+        {% endif %}
         <main>
             <article class="castle clearfix">
                 <div class="castle__photo">
@@ -418,6 +437,5 @@
         <script src="/js/vendor/picker.date.js"></script>                
         <script src="/js/main.js?version=5"></script>
         <script src="/js/booking.js?version=15"></script>
-        
     </body>
 </html>

@@ -70,6 +70,13 @@ class Order
      */
     private $amount;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */    
+    private $paymentId = '';
+
 
     /**
      * @var string
@@ -258,6 +265,26 @@ class Order
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPaymentId()
+    {
+        return $this->paymentId;
+    }
+
+    /**
+     * @param string $paymentId
+     *
+     * @return self
+     */
+    public function setPaymentId($paymentId)
+    {
+        $this->paymentId = $paymentId;
 
         return $this;
     }

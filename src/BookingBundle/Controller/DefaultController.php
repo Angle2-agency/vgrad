@@ -55,10 +55,19 @@ class DefaultController extends Controller
         }
         $jsonRepresentation = json_encode($jsonRepresentation);
 
+        $order = $decodedBasket = null;
+        if ($orderid = $request->get('ordered')) {
+            $ordersRepo = $em->getRepository(Order::class);
+
+            $order = $ordersRepo->findOneById($orderid);
+            $decodedBasket = json_decode($order->getBookingDetails(), true);
+        }
         return $this->render('default/layout.html.twig', [
             'hotels' => $hotels,
             'options' => $options,
             'json' => $jsonRepresentation,
+            'order' => $order,
+            'basket' => $decodedBasket,
         ]);
     }
 
@@ -147,10 +156,60 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/paid/{order}", name="paid")
+     * @Route("/paid/{orderid}", name="paid")
      */
     public function paid(Request $request)
     {
-        die('frv yng');
+        $order = $request->get('orderid');
+        $payment = $request->get('order');
+
+        $em = $this->getDoctrine()->getManager();
+        $ordersRepo = $em->getRepository(Order::class);
+        $order = $ordersRepo->findOneById($order);
+        
+        $order->setPaymentId($payment)
+              ->setStatus(Order::STATUS_PAID);
+
+        $em->persist($order);
+        $em->flush();
+
+        $this->sendEmailToCustomer($order->getEmail(), $order);
+        $this->sendEmailToAdmin($order);
+
+        return $this->redirect('/?ordered=' . $order->getId());
     }
+
+    private function sendEmailToCustomer($email, $order)
+    {
+        $transport = \Swift_SmtpTransport::newInstance('aspmx.l.google.com', 25)
+                      ->setUsername('vyshegradhotel@gmail.com')
+                      ->setPassword('fj9_i93jsnAc');
+        $mailer = \Swift_Mailer::newInstance($transport);
+        $name = $order->getName();
+        $onum = $order->getPaymentId();
+
+        $body = <<<EOM
+Уважаемый, {$name} <br />
+Спасибо за Ваш выбор! <br />
+Ваша бронь: {$onum} <br />
+В ближайшее время с вами свяжется администратор <br />
+гостиничного комплекса.<br />
+<br />
+-- <br />
+Администрация комплекса Vyshegrad <br />
+EOM;
+
+        $message = (new \Swift_Message('Бронь на сайте комплекса Vyshegrad'))
+                ->setFrom('vyshegradhotel@gmail.com')
+                ->setTo($email)
+                ->setBody($body, 'text/html');
+
+        $mailer->send($message);
+    }
+
+    private function sendEmailToAdmin($order)
+    {
+
+    }
+
 }
