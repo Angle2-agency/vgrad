@@ -2352,12 +2352,25 @@ footer .copyright .right img {
   list-style: none;
   margin: 0;
   padding: 0;
+  position: relative;
+}
+.popup__payment_basket-items::after {
+  content: "(Ваша оплата номера служит гарантией бронирования)";
+  font: 11px/1 'Gotham Pro';
+  letter-spacing: -0.2px;  
+  text-align: center;
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+
 }
 .popup__payment_basket-items li {
   overflow: hidden;
   margin-bottom: 20px;
   font: 14px/1 'Gotham Pro';
 }
+
 
 .popup__payment_basket-button button {
   display: block;
