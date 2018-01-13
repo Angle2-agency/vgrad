@@ -69,16 +69,10 @@ var app = {
 				TweenMax.to('.header__reservation', 0.7, {opacity : 1, y : 0, ease: Power2.easeIn, onComplete : function(){
 					app.eventsInit();
 					TweenMax.fromTo('.header__contacts', 0.5, {opacity : 0, x : 300}, {opacity : 1, x : 0});
-
+					TweenMax.fromTo('.header__contacts_social', 0.5, {opacity : 0, y : -300}, {opacity : 1, y : 0});
 					if (need_to_show_success_modal) {
 						$('#thankyou').fadeIn(300);
-					}
-
-					TweenMax.fromTo('.header__contacts_social', 0.5, {opacity : 0, y : -300}, {opacity : 1, y : 0});
-
-
-
-					
+					}					
 					TweenMax.to('.header__logo, .topslider-pagination', 0.7, {opacity : 1, delay : 0.5, onComplete : function(){						
 						TweenMax.to('#scroll-down', 0.7, {opacity : 1, onComplete : function(){
 							$('html').removeClass('start');
@@ -406,7 +400,7 @@ var app = {
         // We are using a div with id="map" seen below in the <body>
         var mapElement = document.getElementById('map');
         // Create the Google Map using our element and options defined above
-        map = new google.maps.Map(mapElement, mapOptions);
+        var map = new google.maps.Map(mapElement, mapOptions);
         var image = {
             url : './img/icon_pin.svg',
             size : new google.maps.Size(28,34),
