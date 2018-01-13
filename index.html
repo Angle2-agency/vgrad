@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="css/classic.css">
         <link rel="stylesheet" href="css/classic.date.css">
         <link rel="stylesheet" href="css/fonts.css">
-        <link rel="stylesheet" href="css/main.css?version=16">
+        <link rel="stylesheet" href="css/main.css?version=18">
         <link rel="stylesheet" href="css/mq.css">
     </head>
     <body>
@@ -105,8 +105,8 @@
         </header>
         <script type="text/javascript">
             var need_to_show_success_modal = false;    
-        </script>
-        {% if order %}
+        </script>        
+        <!--{% if order %}-->
             <div id="thankyou" class="thankyou__modal">
                 <div class="thankyou__modal_msg">
                     <div class="close" onclick="$('#thankyou').fadeOut(300);"></div>
@@ -122,14 +122,14 @@
             <script type="text/javascript">
                 need_to_show_success_modal = true;    
             </script>
-        {% endif %}
+        <!--{% endif %}-->    
         <main>
             <article class="castle clearfix">
                 <div class="castle__photo">
                     <img src="./img/castle-photo.png" alt="">
                 </div>
                 <div class="castle__text clearfix">
-                    <h3>Замок Вышеград</h3>
+                    <h3>Сеть отелей Вышеград</h3>
                     <div class="castle__text_desc">
                         Это комплекс обьединяющий в себе современный комфорт цивилизации со сказочным и таинственным духом средневековья.
                     </div>
@@ -172,10 +172,10 @@
                         <div class="swiper-slide slide" data-type="Полу люкс">
                             <img src="./img/hotels/standart/polu_lux_3.jpg" alt="">
                         </div>
-                        <div class="swiper-slide slide" data-type="Lux">
+                        <div class="swiper-slide slide" data-type="Люкс">
                             <img src="./img/hotels/standart/lux_s_djakuzi_5.jpg" alt="">
                         </div>
-                        <div class="swiper-slide slide" data-type="Lux">
+                        <div class="swiper-slide slide" data-type="Люкс">
                             <img src="./img/hotels/standart/lux_s_kaminom1.jpg" alt="">
                         </div>
                         <div class="swiper-slide slide" data-type="VIP">
@@ -190,16 +190,16 @@
                         <div class="swiper-slide slide" data-type="Стандарт (Мини отель)">
                             <img src="./img/hotels/mini/standart-double.jpg" alt="">
                         </div>
-                        <div class="swiper-slide slide" data-type="Show room (Мини отель)">
+                        <div class="swiper-slide slide" data-type="Шоурум (Мини отель)">
                             <img src="./img/hotels/mini/Show-room.jpg" alt="">
                         </div>
                         <div class="swiper-slide slide" data-type="Полу люкс (Мини отель)">
                             <img src="./img/hotels/mini/half-lux.jpg" alt="">
                         </div>
-                        <div class="swiper-slide slide" data-type="Lux (Мини отель)">
+                        <div class="swiper-slide slide" data-type="Люкс (Мини отель)">
                             <img src="./img/hotels/mini/lux.jpeg" alt="">
                         </div>
-                        <div class="swiper-slide slide" data-type="Lux (Мини отель)">
+                        <div class="swiper-slide slide" data-type="Люкс (Мини отель)">
                             <img src="./img/hotels/mini/lux_s_kaminom.jpeg" alt="">
                         </div>
                     </div>
@@ -233,6 +233,21 @@
                         <div class="slide swiper-slide">
                             <img src="./img/spa/5.jpg" alt="">
                         </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/spa/6.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/spa/7.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/spa/8.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/spa/9.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/spa/10.jpg" alt="">
+                        </div>
                     </div>
                     <div class="spaservices__slider-pagination">
                         <span class="current">03</span>
@@ -263,7 +278,7 @@
                                     Посещение SPA на целый день<br>
                                     Пн-Пт - 200 грн<br>
                                     Сб-Вс - 250 грн<br>
-                                    В стоимость входит : бассейн с морской водой, джакузи, хаммам, сауна, Релакс-зона, полотенечко, тапочки.
+                                    В стоимость входит : бассейн с морской водой, джакузи, хаммам, сауна, Релакс-зона, полотенце, тапочки.
                                 </span>
                             </div>
                             <div class="uniqueoffers__descr_more"></div>
@@ -286,7 +301,7 @@
                             </div>
                             <div class="uniqueoffers__descr_more"></div>
                         </div>                        
-                        <div class="uniqueoffers__title">Для компаний: конференции с поселением</div>                                                
+                        <div class="uniqueoffers__title">Спец предложение для конференций</div>
                     </li>
                     <li>                        
                         <div class="uniqueoffers__title_image">                            
@@ -294,16 +309,16 @@
                             <div class="uniqueoffers__descr">
                                 <div class="uniqueoffers__descr_close"><i></i></div>
                                 <span>
-                                    Вместительность до 500 гостей<br>
-                                    Первокласный SPA-комплекс на территории<br>
-                                    86 комфортных гостиничных номеров<br>
-                                    Готовый трансфер гостей.<br>
-                                    У нас шикарные <a href="https://www.facebook.com/497547333746506/photos/a.497547523746487.1073741838.497547333746506/541401369361102/?type=3&theater" target="_blank">банкетные залы</a> для организации <a href="http://www.svadba-vyshegrad.com/" target="_blank">свадеб</a> и других мероприятий.
+                                    - <a href="https://www.facebook.com/497547333746506/photos/a.497547523746487.1073741838.497547333746506/541401369361102/?type=3&theater" target="_blank">Банкетный</a> зал (250 чел)<br>
+                                    - Панорамный ресторан на 6 этаже (150 чел)<br>
+                                    - Панорамный ресторан с двориком (60 чел)<br>
+                                    - Главный ресторан (100 чел)<br>
+                                    - Вип - зал (20 чел)
                                 </span>
                             </div>
                             <div class="uniqueoffers__descr_more"></div>
                         </div>                        
-                        <div class="uniqueoffers__title">Банкеты высокого качества и отличной цене</div>                                                
+                        <div class="uniqueoffers__title">Банкеты высокого качества со скидкой до 20%</div>                                                
                     </li>
                 </ul>
             </article>
@@ -716,7 +731,7 @@
                             <li>
                                 <span class="fl">Общая стоимость</span>
                                 <b class="fr">1500 грн</b>
-                            </li>
+                            </li>                            
                         </ul>
                     </section>
                     <section class="popup__payment_basket-button">
@@ -736,6 +751,6 @@
         <script src="js/vendor/picker.js"></script>
         <script src="js/vendor/SmoothScroll.min.js"></script>
         <script src="js/vendor/picker.date.js"></script>                
-        <script src="js/main.js?version=16"></script>        
+        <script src="js/main.js?version=18"></script>        
     </body>
 </html>
