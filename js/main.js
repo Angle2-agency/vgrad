@@ -69,6 +69,16 @@ var app = {
 				TweenMax.to('.header__reservation', 0.7, {opacity : 1, y : 0, ease: Power2.easeIn, onComplete : function(){
 					app.eventsInit();
 					TweenMax.fromTo('.header__contacts', 0.5, {opacity : 0, x : 300}, {opacity : 1, x : 0});
+
+					if (need_to_show_success_modal) {
+						$('#thankyou').fadeIn(300);
+					}
+
+					TweenMax.fromTo('.header__contacts_social', 0.5, {opacity : 0, y : -300}, {opacity : 1, y : 0});
+
+
+
+					
 					TweenMax.to('.header__logo, .topslider-pagination', 0.7, {opacity : 1, delay : 0.5, onComplete : function(){						
 						TweenMax.to('#scroll-down', 0.7, {opacity : 1, onComplete : function(){
 							$('html').removeClass('start');
@@ -123,6 +133,11 @@ var app = {
 
 	scroller : function(){
 		var st = $(window).scrollTop();
+		if(st > 0){
+			$('.header__contacts').addClass('scroll');
+		}else{
+			$('.header__contacts').removeClass('scroll');
+		}
 		if(st > ($('article.castle').offset().top - ($(window).height() - ($(window).height() / 3))) && !app.data.animDone.castle){
 			app.data.animDone.castle = true;			
 			app.animate.castle();
@@ -249,7 +264,13 @@ var app = {
 			TweenMax.to(moreBut, 0.3, {y : '0%', ease: Power2.easeOut, delay : 0.4});
 			TweenMax.to(title, 0.3, {opacity : 1, y : 0, ease: Power2.easeOut, delay : 0.4});
 		});
-		
+		$('#to-map').click(function(e) {
+			var y = $('footer .contacts__info').offset().top - (($(window).height() - $('footer .contacts__info').height()) / 2)
+			console.log(y);
+			var body = $("html, body");
+			body.stop().animate({scrollTop:y}, 800, 'swing');
+			$(document).scrollTop(y);
+		});
 	},
 
 	slidersInit : function(){
@@ -376,7 +397,7 @@ var app = {
 	        zoom: 13,
 	        scrollwheel: false,
 	        // The latitude and longitude to center the map (always required)
-	        center: $('body').width() > 720 ? new google.maps.LatLng(50.599415, 30.569079) : new google.maps.LatLng(50.6002866, 30.4727769),
+	        center: $('body').width() > 720 ? new google.maps.LatLng(50.59865227, 30.52307374) : new google.maps.LatLng(50.6002866, 30.4727769),
 	        // How you would like to style the map. 
 	        // This is where you would paste any style found on Snazzy Maps.
 	        styles: [{"featureType":"all","elementType":"geometry.fill","stylers":[{"weight":"2.00"}]},{"featureType":"all","elementType":"geometry.stroke","stylers":[{"color":"#ededed"}]},{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#fff7ee"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#fff7ee"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#eeeeee"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#7b7b7b"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#ededed"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#070707"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]}]
@@ -395,7 +416,7 @@ var app = {
         new google.maps.Marker(
             {
                 icon : image,
-                position : new google.maps.LatLng(50.606211, 30.466009),                                                
+                position : new google.maps.LatLng(50.599370, 30.453973),
                 map : map,
                 title: 'ул.Спасская, 25, г. Вышгород'
             }
