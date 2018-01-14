@@ -81,6 +81,11 @@ textarea {
 
 a {
   text-decoration: none;
+  color: #fbb975;
+  text-decoration: none;  
+}
+a:hover {
+  text-decoration: underline;
 }
 
 input {
@@ -240,41 +245,90 @@ header {
 .header__contacts {
   list-style: none;
   margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 33px;
-  right: 325px;
+  padding: 0 70px;
+  position: fixed;
+  top: 0;
+  right: 255px;
   z-index: 5;
+  height: 80px;
 }
 .header__contacts li {
   float: left;
+  height: 80px;  
 }
 .header__contacts li.tel {
-  font: bold 11px/16px 'Gotham Pro';
+  font: 20px/80px 'Bodoni';
   color: #fff;
   margin-right: 65px;
+  letter-spacing: 4px;
+  position: relative;
+  z-index: 2;
 }
-.header__contacts li.f {
-  margin-right: 34px;
+.header__contacts li.to-map {
+  font: bold 10px/80px 'Gotham Pro';
+  color: #fff;  
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
 }
-.header__contacts li.f a {
+.header__contacts.scroll li.tel,
+.header__contacts.scroll li.to-map {
+  color: #373737;
+}
+.header__contacts li.bg {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transition: all 250ms ease-in;
+}
+.header__contacts.scroll li.bg {
+  top: 0;
+}
+.header__contacts li.to-map span {
+  cursor: pointer;
+  transition: color 300ms ease;
+}
+.header__contacts li.to-map span:hover {
+  color: #ffdeb9;
+}
+.header__contacts_social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 110px;
+  right: 60px;
+  z-index: 2;
+  opacity: 0;
+}
+.header__contacts_social li.f {
+  margin-bottom: 30px;
+}
+.header__contacts_social li.f a {
   display: block;
   width: 16px;
   height: 16px;
   background: url('../img/facebook.svg') no-repeat center / auto 14px;
   transition: all 300ms ease;
 }
-.header__contacts li.f a:hover {
+.header__contacts_social li.f a:hover {
  background: url('../img/facebook-hover.svg') no-repeat center / auto 14px; 
 }
-.header__contacts li.t a {
+.header__contacts_social li.t {
+  
+}
+.header__contacts_social li.t a {
   display: block;
   width: 16px;
   height: 16px;
   background: url('../img/instagram.svg') no-repeat center / auto 16px;
   transition: all 300ms ease;
 }
-.header__contacts li.t a:hover {
+.header__contacts_social li.t a:hover {
  background: url('../img/instagram-hover.svg') no-repeat center / auto 16px; 
 }
 .topslider {
@@ -1637,7 +1691,7 @@ footer .contacts .contacts__info {
   left: 50%;
   top: 50%;
   transform: translate(0, -50%);
-  padding: 35px 60px;
+  padding: 33px 60px;
 }
 footer .contacts .contacts__info .label {
   font: 300 14px/1 'Gotham Pro';
@@ -1645,7 +1699,7 @@ footer .contacts .contacts__info .label {
 }
 footer .contacts .contacts__info .info {
   font: 24px/1 'Bodoni';
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 footer .copyright {
   width: 1140px;
@@ -2228,13 +2282,14 @@ footer .copyright .right img {
 }
 .popup__payment_form-input {
   margin-bottom: 10px;
+  overflow: hidden;
 }
 .popup__payment_form-input input {
   width: 100%;
   height: 38px;
   background-color: #fff;
   border: 1px solid #ffdebc;
-  font: 14px/38px 'Gotham Pro';
+  font: 14px/1 'Gotham Pro';
   padding: 0 15px;
   display: block;
   overflow: hidden;
@@ -2297,12 +2352,25 @@ footer .copyright .right img {
   list-style: none;
   margin: 0;
   padding: 0;
+  position: relative;
+}
+.popup__payment_basket-items::after {
+  content: "(Ваша оплата номера служит гарантией бронирования)";
+  font: 11px/1 'Gotham Pro';
+  letter-spacing: -0.2px;  
+  text-align: center;
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+
 }
 .popup__payment_basket-items li {
   overflow: hidden;
   margin-bottom: 20px;
   font: 14px/1 'Gotham Pro';
 }
+
 
 .popup__payment_basket-button button {
   display: block;

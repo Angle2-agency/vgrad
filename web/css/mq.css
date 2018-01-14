@@ -259,15 +259,19 @@
     transition: all .3s ease-in-out;
     z-index: 2;
   }
-  .header__contacts {    
-    top: 23px;
-    right: 95px;    
-  }
+  .header__contacts {        
+    right: 60px;
+    height: 60px;
+  }  
   .header__contacts li.tel {
-    margin-right: 40px;
+    display: none;
   }
-  .header__contacts li.f {
-    margin-right: 28px;
+  .header__contacts li {
+    line-height: 60px!important;
+  }
+  .header__contacts_social {
+    right: 22px;
+    top: 100px;
   }
   .header__logo {
     width: 100px;
@@ -674,4 +678,11 @@
   .popup__rooms_slider .swiper-slide img {
     width: 290px;
   }  
+  .thankyou__modal_msg {
+    width: 90%;
+  }
+  .thankyou__modal_msg h1 {    
+    padding: 0 0 30px 0;
+    font: 36px/1 'Bodoni';    
+}
 }
