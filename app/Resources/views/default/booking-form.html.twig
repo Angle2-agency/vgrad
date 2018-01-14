@@ -16,16 +16,15 @@
             </section>
             <section class="typeofhotel">
                 {% for hotel in hotels %}                        
-                    <h4 class="{{ hotel.type }}">{{ hotel.name }}</h4>
+                    <h4 class="{{ hotel.type }}">{{ hotel.name }} ({{ hotel.address }})</h4>
                     <div class="typeofhotel__tabs_body">
                         <div class="typeofhotel__checkbox_title">Выберите тип номера</div>
                         <ul class="typeofhotel__tabs_body-slider">
                             <li class="{{ hotel.type }}">
                                 <div class="typeofhotel__checkbox_list">
                                     {% set roomsTotal = hotel.rooms|length%}
-                                    {% set fl = hotel.rooms[:roomsTotal/2|round]%}
+                                    {% set fl = hotel.rooms[:(roomsTotal/2)|round]%}
                                     {% set rl = hotel.rooms[fl|length:] %}
-
                                     <ul class="fl">
                                         {% for room in fl %}
                                             <li>

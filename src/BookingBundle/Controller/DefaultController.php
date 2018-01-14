@@ -131,7 +131,7 @@ class DefaultController extends Controller
         $ordersRepo = $em->getRepository(Order::class);
         $order = $ordersRepo->findOneById($request->get('order'));
 
-        $key = 'ANQCAMCWUY';
+        $key = 'Q4C5UNYD8V';
 
         $data = base64_encode(json_encode(array(
             'amount' => number_format($order->getAmount(),2, '.', ''),
@@ -144,7 +144,7 @@ class DefaultController extends Controller
             'CC'.
             strrev($data).
             strrev($return).
-            strrev('fpDFKy9anC9t0vudb0Z4v4CPnbbWnMvs')
+            strrev('trGpWczHJYtU87bq76u4unE7A18ccFua')
         ));
 
         return $this->render('default/payment-form.html.twig', [
@@ -181,7 +181,7 @@ class DefaultController extends Controller
 
     private function sendEmailToCustomer($email, $order)
     {
-        $transport = \Swift_SmtpTransport::newInstance('aspmx.l.google.com', 25)
+        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 25)
                       ->setUsername('vyshegradhotel@gmail.com')
                       ->setPassword('fj9_i93jsnAc');
         $mailer = \Swift_Mailer::newInstance($transport);
@@ -204,7 +204,7 @@ EOM;
                 ->setTo($email)
                 ->setBody($body, 'text/html');
 
-        $mailer->send($message);
+        //$mailer->send($message);
     }
 
     private function sendEmailToAdmin($order)

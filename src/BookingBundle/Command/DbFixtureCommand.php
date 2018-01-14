@@ -26,7 +26,8 @@ class DbFixtureCommand extends ContainerAwareCommand
 
         $hotel = new Hotel();
         $hotel->setName('Отель')
-              ->setType('standart');
+              ->setType('standart')
+              ->setAddress('Вышгород, ул. Спасская 25');
 
         $imgRoot = '/img/hotels/standart/';
         $gallery = new RoomGallery();
@@ -42,7 +43,7 @@ class DbFixtureCommand extends ContainerAwareCommand
 
         $image->setRoom($room);
         $room->getImages()->add($image);
-
+        $rooms->add($room);
         $room = (new Room())->setName('Стандарт улучшеный')
                                 ->setType('standart-adv')
                                 ->setPrice(900)
@@ -103,7 +104,8 @@ class DbFixtureCommand extends ContainerAwareCommand
 
         $hotel = new Hotel();
         $hotel->setName('Мини отель')
-              ->setType('mini');
+              ->setType('mini')
+              ->setAddress('Вышгород, ул. Шолуденко 17а');
 
         $imgRoot = '/img/hotels/mini/';
 
