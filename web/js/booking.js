@@ -200,7 +200,8 @@ function renderBasket()
     html += '<ul class="popup__payment_basket-items">';
     html += '<li>';
     html += '<span class="fl">Общая стоимость (ночей: '+basket.nights+')</span>';
-    html += '<b class="fr">' + (orderTotal * basket.nights) + ' грн</b>';
+    html += '<b class="fr">' + (orderTotal * basket.nights) + ' грн</b> <br/>';
+    html += '<small>(Ваша оплата номера служит гарантией бронирования)</small>';
     html += '</li>';   
     html += '</ul>';
     basket.total = orderTotal * basket.nights;

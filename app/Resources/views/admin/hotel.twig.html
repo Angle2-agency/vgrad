@@ -1,0 +1,108 @@
+{% include 'admin/header.twig.html' %}
+<div class="row-fluid">
+&nbsp;
+{% for message in app.flashes('info') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+</div>
+
+{% for room in hotel.rooms %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h3>{{ room.name }}</h3><hr/>
+        <form method="POST" action="/admin/hotels/updateroom/{{ room.id }}"> 
+          <div class="form-group">
+            <label for="name">Заголовок</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ room.name }}">
+          </div>
+          <div class="form-group">
+            <label for="content">Описание</label>
+            <textarea id="content" class="form-control" name="content">{{ room.description }}</textarea>
+          </div>
+          <div class="form-group">
+            <label for="price">Стоимость/ночь</label>
+            <input type="text" class="form-control" id="price" name="price" value="{{ room.price }}">
+          </div>
+          {% if (room.images|length) > 0 %}
+              <div class="row">
+                {% for image in room.images %}
+                    <div class="col-lg-3" id="image-{{image.id}}">
+                        <img src="{{ image.image }}" alt="" class="img-thumbnail">
+                        <button class="btn btn-sm btn-danger" onclick="location.href='/admin/hotels/destroyimage/{{image.id}}';return false;" style="position:absolute;top:15px;right:30px;"><span class="oi oi-circle-x"></span></button>
+                    </div>
+                {% endfor %}
+            </div>
+           {% endif %}
+           <div class="row">&nbsp;</div>
+          <button class="btn btn-default" onclick="addImageModal({{room.id}}); return false;"><span class="oi oi-plus"></span> Добавить картинку</button>
+          <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+
+<div class="modal fade" tabindex="-1" role="dialog" id="addImageModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Добавление картинки</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/admin/hotels/rooms/uploadimage" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="">
+          <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" class="form-control" id="title" name="title">
+          </div>
+          <div class="form-group">
+            <label for="image">Картинка</label>
+            <input type="file" class="form-control-file" id="image" name="image">
+          </div>
+          <div class="form-group">
+            <label for="description">Описание</label>
+            <textarea id="description" class="form-control" name="description"></textarea>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+function addImageModal(id)
+{
+    $("#addImageModal").modal();
+
+    $("#addImageModal").on('shown.bs.modal', function () {
+       $(this).find('textarea[name="description"]').summernote({
+            height: 100,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['misc', ['codeview']]
+              ]
+          });
+        $(this).find('input[name="id"]').val(id);
+    });
+    $('#addImageModal').on('hidden.bs.modal', function () {
+        $(this).find('textarea[name="description"]').summernote('destroy');
+        $('#addImageModal').off('shown.bs.modal');
+    });
+}
+</script>
+
+{% include 'admin/footer.twig.html' %}

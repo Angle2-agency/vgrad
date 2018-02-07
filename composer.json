@@ -5,6 +5,7 @@
     "autoload": {
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
+            "AdminBundle\\": "src/AdminBundle",
             "Angleto\\BookingBundle\\": "src/BookingBundle"
         },
         "classmap": [

@@ -12,6 +12,8 @@ use Angleto\BookingBundle\Entity\Hotel;
 use Angleto\BookingBundle\Entity\Options;
 use Angleto\BookingBundle\Entity\Order;
 
+use AdminBundle\Entity\ContentBlock;
+
 class DefaultController extends Controller
 {
     /**
@@ -22,6 +24,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $hotelsRepo = $em->getRepository(Hotel::class);
         $optionsRepo = $em->getRepository(Options::class);
+        $blocksRepo = $em->getRepository(ContentBlock::class);
 
         $hotels = $hotelsRepo->findAll();
         $options = $optionsRepo->findAll();
@@ -62,12 +65,18 @@ class DefaultController extends Controller
             $order = $ordersRepo->findOneById($orderid);
             $decodedBasket = json_decode($order->getBookingDetails(), true);
         }
+        $formedBlocks = [];
+        $blocks = $blocksRepo->findAll();
+        foreach ($blocks as $block) {
+            $formedBlocks[$block->getIdentifier()] = $block;
+        }
         return $this->render('default/layout.html.twig', [
             'hotels' => $hotels,
             'options' => $options,
             'json' => $jsonRepresentation,
             'order' => $order,
             'basket' => $decodedBasket,
+            'blocks' => $formedBlocks,
         ]);
     }
 
@@ -106,6 +115,7 @@ class DefaultController extends Controller
         $order->setName($data['name'])
               ->setEmail($data['email'])
               ->setPhone($data['phone'])
+              ->setComment($data['comment'])
               ->setDateFrom(new \DateTime($data['from']))
               ->setDateTo(new \DateTime($data['to']))
               ->setBookingDetails(json_encode($data['basket']))
@@ -181,12 +191,33 @@ class DefaultController extends Controller
 
     private function sendEmailToCustomer($email, $order)
     {
-        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 25)
+        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
                       ->setUsername('vyshegradhotel@gmail.com')
                       ->setPassword('fj9_i93jsnAc');
         $mailer = \Swift_Mailer::newInstance($transport);
         $name = $order->getName();
         $onum = $order->getPaymentId();
+
+        $rooms = '';
+
+        $details = json_decode($order->getBookingDetails(), true);
+        foreach ($details['rooms'] as $room) {
+            $rooms .= 'Категория номера - ' . $room['room']['name'] . '(' . $room['qty'] . ')<br/>';
+            $rooms .= 'Тип кровати - ' . $room['bed'] . '<br/>';
+            $rooms .= 'Стоимость номера - ' . $room['room']['price'] . 'грн. (' . $room['room']['price'] . ' * ' . $details['nights'] . ' = ' . ($room['room']['price'] * $details['nights'] * $room['qty']) . 'грн.) <br/>';
+            $opts = [];
+            $optsTotal = 0;
+            foreach (@$room['options'] ?: [] as $option) {
+                $opts[] = $option['name'];
+                $optsTotal += $option['price'];
+            }
+            if (count($opts)) {
+                $rooms .= 'Дополнительные опции - ' . join(', ', $opts). '<br/>';
+                $rooms .= 'Стоимость доп. опций - ' . $optsTotal . 'грн. <br/>';
+            }
+            $rooms .= 'Итого за номер - ' . (($room['room']['price'] * $room['qty']) + $optsTotal) . 'грн. <br/>';
+            $rooms .= '<hr/>';
+        }
 
         $body = <<<EOM
 Уважаемый, {$name} <br />
@@ -195,6 +226,9 @@ class DefaultController extends Controller
 В ближайшее время с вами свяжется администратор <br />
 гостиничного комплекса.<br />
 <br />
+<br />
+Данные по заказу: <br/>
+{$rooms}
 -- <br />
 Администрация комплекса Vyshegrad <br />
 EOM;
@@ -204,12 +238,63 @@ EOM;
                 ->setTo($email)
                 ->setBody($body, 'text/html');
 
-        //$mailer->send($message);
+        $mailer->send($message);
     }
 
     private function sendEmailToAdmin($order)
     {
+        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
+                      ->setUsername('vyshegradhotel@gmail.com')
+                      ->setPassword('fj9_i93jsnAc');
+        $mailer = \Swift_Mailer::newInstance($transport);
+        $name = $order->getName();
+        $phone = $order->getPhone();
+        $email = $order->getEmail();
+        $dateFrom = $order->getDateFrom()->format('d-m-Y');
+        $dateTo = $order->getDateTo()->format('d-m-Y');
+        $total = $order->getAmount();
 
+        $rooms = '';
+
+        $details = json_decode($order->getBookingDetails(), true);
+        foreach ($details['rooms'] as $room) {
+            $rooms .= 'Категория номера - ' . $room['room']['name'] . '(Кол-во номеров:' . $room['qty'] . ')<br/>';
+            $rooms .= 'Тип кровати - ' . $room['bed'] . '<br/>';
+            $rooms .= 'Стоимость номера - ' . $room['room']['price'] . 'грн. (' . $room['room']['price'] . ' x ' . $room['qty'] . ' x ' . $details['nights'] . ' ночей = ' . ($room['room']['price'] * $details['nights'] * $room['qty']) . 'грн.) <br/>';
+            $opts = [];
+            $optsTotal = 0;
+            foreach (@$room['options'] ?: [] as $option) {
+                $opts[] = $option['name'];
+                $optsTotal += $option['price'];
+            }
+            if (count($opts)) {
+                $rooms .= 'Дополнительные опции - ' . join(', ', $opts). '<br/>';
+                $rooms .= 'Стоимость доп. опций - ' . $optsTotal . 'грн. <br/>';
+            }
+            $rooms .= 'Итого за номер - ' . (($room['room']['price'] * $room['qty']) + $optsTotal) . 'грн. <br/>';
+            $rooms .= '<hr/>';
+        }
+        $comment = $order->getComment();
+        $body = <<<EOM
+ФИО гостя - {$name} <br/>
+Номер телефона - {$phone} <br/>
+Email - {$email} <br/>
+{$rooms} <br/>
+
+Комментарий клиента - {$comment}
+Дата заезда - {$dateFrom} </br>
+Дата выезда - {$dateTo} <br/>
+<br/>
+Общая сумма {$total} грн.<br/>
+EOM;
+
+        $message = (new \Swift_Message('Бронь на сайте #' . $order->getId()))
+                ->setFrom('vyshegradhotel@gmail.com')
+                ->setTo('hotelvyshegrad@ukr.net')
+                ->setBcc('novikovbh@gmail.com')
+                ->setBody($body, 'text/html');
+
+        $mailer->send($message);
     }
 
 }

@@ -52,38 +52,16 @@
             </ul>            
             <div class="swiper-container topslider">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide topslider__slide" id="first">
-                        <div class="topslider__slide_bg">
-                            <div class="topslider__slide_bg-img" style="background-image: url('./img/slides/1.jpg');"></div>                            
+                    {% for image in blocks['FIRST_BLOCK'].images %}
+                        <div class="swiper-slide topslider__slide" id="first">
+                            <div class="topslider__slide_bg">
+                                <div class="topslider__slide_bg-img" style="background-image: url('{{ image.image }}');"></div>                            
+                            </div>
+                            <h1 class="topslider__slide_title">
+                                <div class="topslider__slide_title-animation">{{ image.title|raw}}</div>
+                            </h1>
                         </div>
-                        <h1 class="topslider__slide_title">
-                            <div class="topslider__slide_title-animation">Ваш комфортный<br>загородный<br>отдых</div>
-                        </h1>
-                    </div>
-                    <div class="swiper-slide topslider__slide">
-                        <div class="topslider__slide_bg">
-                            <div class="topslider__slide_bg-img" style="background-image: url('./img/slides/2.jpg');"></div>                            
-                        </div>
-                        <h1 class="topslider__slide_title">
-                            <div class="topslider__slide_title-animation">Ваш комфортный<br>загородный<br>отдых</div>
-                        </h1>
-                    </div>
-                    <div class="swiper-slide topslider__slide">
-                        <div class="topslider__slide_bg">
-                            <div class="topslider__slide_bg-img" style="background-image: url('./img/slides/3.jpg');"></div>                            
-                        </div>
-                        <h1 class="topslider__slide_title">
-                            <div class="topslider__slide_title-animation">Ваш комфортный<br>загородный<br>отдых</div>
-                        </h1>
-                    </div>
-                    <div class="swiper-slide topslider__slide">
-                        <div class="topslider__slide_bg">
-                            <div class="topslider__slide_bg-img" style="background-image: url('./img/slides/4.jpg');"></div>                            
-                        </div>
-                        <h1 class="topslider__slide_title">
-                            <div class="topslider__slide_title-animation">Ваш комфортный<br>загородный<br>отдых</div>
-                        </h1>
-                    </div>
+                    {% endfor %}
                 </div>
                 <!-- If we need pagination -->
                 <div class="topslider-pagination">
@@ -128,33 +106,27 @@
                     <img src="./img/castle-photo.png" alt="">
                 </div>
                 <div class="castle__text clearfix">
-                    <h3>Сеть отелей Вышеград</h3>
+                    <h3>{{ blocks['SECOND_BLOCK'].title }}</h3>
                     <div class="castle__text_desc">
-                        Это комплекс обьединяющий в себе современный комфорт цивилизации со сказочным и таинственным духом средневековья.
+                        {{ blocks['SECOND_BLOCK'].content | raw }}
                     </div>
                 </div>
             </article>
             <article class="surrounding">
-                <h2>Окружим Вас</h2>
+                <h2>{{ blocks['THIRD_BLOCK'].title }}</h2>
                 <ul>
-                    <li>
-                        <img src="./img/surrounding-1.jpg" alt="">
-                        <div class="surrounding__title">Индвидуальным подходом</div>
-                    </li>
-                    <li>
-                        <img src="./img/surrounding-2.jpg" alt="">
-                        <div class="surrounding__title">Домашним уютом</div>
-                    </li>
-                    <li>
-                        <img src="./img/surrounding-3.jpg" alt="">
-                        <div class="surrounding__title">Безопасностью</div>
-                    </li>
+                    {% for image in blocks['THIRD_BLOCK'].images %}
+                        <li>
+                            <img src="{{ image.image }}" alt="">
+                            <div class="surrounding__title">{{ image.title }}</div>
+                        </li>
+                    {%  endfor %}
                 </ul>
             </article>
             <article class="roomselect clearfix" data-text="Тип Стандарт">
                 <section class="roomselect__description">
-                    <h2>Выбор номеров</h2>
-                    <div class="roomselect__description_text">Cделает ваш отдых действительно индивидуальным!</div>
+                    <h2>{{ blocks['ROOMS'].title }}</h2>
+                    <div class="roomselect__description_text">{{ blocks['ROOMS'].content | raw }}</div>
                     <div class="roomselect__description_title">Стандарт</div>
                     <div class="roomselect__description_button">
                         <a href="" data-target="popupform" data-text="Забронировать"></a>
@@ -162,45 +134,11 @@
                 </section>
                 <section class="roomselect__slider">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide slide" data-type="Стандарт">
-                            <img src="./img/hotels/standart/standart.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="Стандарт Улучшенный">
-                            <img src="./img/hotels/standart/standart.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="Полу люкс">
-                            <img src="./img/hotels/standart/polu_lux_3.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="Люкс">
-                            <img src="./img/hotels/standart/lux_s_djakuzi_5.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="Люкс">
-                            <img src="./img/hotels/standart/lux_s_kaminom1.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="VIP">
-                            <img src="./img/hotels/standart/vip_s_djakuzi_6.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="VIP">
-                            <img src="./img/hotels/standart/vip_s_kaminom2.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="Стандарт (Мини отель)">
-                            <img src="./img/hotels/mini/standart-twin.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="Стандарт (Мини отель)">
-                            <img src="./img/hotels/mini/standart-double.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="Шоурум (Мини отель)">
-                            <img src="./img/hotels/mini/Show-room.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="Полу люкс (Мини отель)">
-                            <img src="./img/hotels/mini/half-lux.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="Люкс (Мини отель)">
-                            <img src="./img/hotels/mini/lux.jpeg" alt="">
-                        </div>
-                        <div class="swiper-slide slide" data-type="Люкс (Мини отель)">
-                            <img src="./img/hotels/mini/lux_s_kaminom.jpeg" alt="">
-                        </div>
+                        {% for image in blocks['ROOMS'].images %}
+                            <div class="swiper-slide slide" data-type="{{ image.title }}">
+                                <img src="{{ image.image }}" alt="{{ image.title }}">
+                            </div>
+                        {% endfor %}
                     </div>
                     <div class="roomselect__slider-pagination">
                         <span class="current">01</span>
@@ -217,36 +155,11 @@
             <article class="spaservices clearfix" data-text="Тип Стандарт">
                 <section class="spaservices__slider">
                     <div class="swiper-wrapper">
-                        <div class="slide swiper-slide">
-                            <img src="./img/spa/1.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/spa/2.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/spa/3.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/spa/4.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/spa/5.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/spa/6.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/spa/7.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/spa/8.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/spa/9.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/spa/10.jpg" alt="">
-                        </div>
+                        {% for image in blocks['SPA'].images %}
+                            <div class="slide swiper-slide">
+                                <img src="{{ image.image }}" alt="{{ image.title }}">
+                            </div>
+                        {% endfor %}
                     </div>
                     <div class="spaservices__slider-pagination">
                         <span class="current">03</span>
@@ -260,65 +173,29 @@
                     <div class="main__slider-button-next"></div>
                 </section>
                 <section class="spaservices__description">
-                    <h2>Spa Услуги</h2>
-                    <div class="roomselect__description_text">Cделает ваш отдых действительно индивидуальным!</div>
+                    <h2>{{ blocks['SPA'].title }}</h2>
+                    <div class="roomselect__description_text">{{ blocks['SPA'].content | raw }}</div>
                     <div class="roomselect__description_title">Тип Стандарт</div>                    
                 </section>
             </article>
             <article class="uniqueoffers">
-                <h2>Уникальные предложения</h2>
+                <h2>{{ blocks['UNIQUE'].title }}</h2>
                 <ul>
-                    <li>                        
-                        <div class="uniqueoffers__title_image">                            
-                        <img src="./img/uniqueoffers-1.jpg" alt="">
-                            <div class="uniqueoffers__descr">
-                                <div class="uniqueoffers__descr_close"><i></i></div>
-                                <span>
-                                    Посещение SPA на целый день<br>
-                                    Пн-Пт - 200 грн<br>
-                                    Сб-Вс - 250 грн<br>
-                                    В стоимость входит : бассейн с морской водой, джакузи, хаммам, сауна, Релакс-зона, полотенце, тапочки.
-                                </span>
-                            </div>
-                            <div class="uniqueoffers__descr_more"></div>
-                        </div>                        
-                        <div class="uniqueoffers__title">Уникальное предложение от Spa</div>                                                
-                    </li>
-                    <li>                        
-                        <div class="uniqueoffers__title_image">                            
-                        <img src="./img/uniqueoffers-2.jpg" alt="">
-                            <div class="uniqueoffers__descr">
-                                <div class="uniqueoffers__descr_close"><i></i></div>
-                                <span>
-                                    Эксклюзивно. Качественно. Доступно.<br>
-                                    5 залов до 250 чел<br>
-                                    84 номера для поселения<br>
-                                    Качественное обслуживание<br>
-                                    Блюда от Шеф - повара ,,Вышеград" с 18-ти летним опытом работы<br>
-                                    Для нас нет нечего невозможного!
-                                </span>
-                            </div>
-                            <div class="uniqueoffers__descr_more"></div>
-                        </div>                        
-                        <div class="uniqueoffers__title">Спец предложение для конференций</div>
-                    </li>
-                    <li>                        
-                        <div class="uniqueoffers__title_image">                            
-                        <img src="./img/uniqueoffers-3.jpg" alt="">
-                            <div class="uniqueoffers__descr">
-                                <div class="uniqueoffers__descr_close"><i></i></div>
-                                <span>
-                                    - <a href="https://www.facebook.com/497547333746506/photos/a.497547523746487.1073741838.497547333746506/541401369361102/?type=3&theater" target="_blank">Банкетный</a> зал (250 чел)<br>
-                                    - Панорамный ресторан на 6 этаже (150 чел)<br>
-                                    - Панорамный ресторан с двориком (60 чел)<br>
-                                    - Главный ресторан (100 чел)<br>
-                                    - Вип - зал (20 чел)
-                                </span>
-                            </div>
-                            <div class="uniqueoffers__descr_more"></div>
-                        </div>                        
-                        <div class="uniqueoffers__title">Банкеты высокого качества со скидкой до 20%</div>                                                
-                    </li>
+                    {% for image in blocks['UNIQUE'].images %}
+                        <li>                        
+                            <div class="uniqueoffers__title_image">                            
+                            <img src="{{ image.image }}" alt="{{ image.title }}">
+                                <div class="uniqueoffers__descr">
+                                    <div class="uniqueoffers__descr_close"><i></i></div>
+                                    <span>
+                                        {{ image.description | raw}}
+                                    </span>
+                                </div>
+                                <div class="uniqueoffers__descr_more"></div>
+                            </div>                        
+                            <div class="uniqueoffers__title">{{ image.title }}</div>                                                
+                        </li>
+                    {% endfor %}
                 </ul>
             </article>
             <article class="ourclients">
@@ -378,11 +255,11 @@
             </article>
             <article class="walking clearfix">
                 <div class="walking__photo">
-                    <img src="./img/castle-photo.png" alt="">
+                    <img src="{{ blocks['WALK'].images[0].image }}" alt="{{ blocks['WALK'].images[0].title }}">
                 </div>
                 <div class="walking__descr">
-                    <h2>Прогулки<br> для Вас</h2>
-                    <div class="walking__descr_text">Настоящий замок со средневековой архитектурой. Уединенность и тихий отдых на лоне природы с видом на тихую гладь местного озера.</div>
+                    <h2>{{ blocks['WALK'].title }}</h2>
+                    <div class="walking__descr_text">{{ blocks['WALK'].content | raw}}</div>
                 </div>
             </article>
             <article class="reviews clearfix">
@@ -427,14 +304,7 @@
             <section class="contacts">
                 <div id="map"></div>
                 <div class="contacts__info">
-                    <div class="label">Звоните нам</div>
-                    <div class="info">044 331 75 75</div>
-                    <div class="info" style="margin-top: -10px;">044 579 22 21</div>                    
-                    <div class="label">E - mail адрес</div>
-                    <div class="info">hotelvyshegrad@gmail.com</div>
-                    <div class="label">Наш адрес</div>
-                    <div class="info">ул.Спасская, 25, г. Вышгород</div>
-                    <div class="info" style="margin-top: -10px;">ул.Шолуденко, 17а, г. Вышгород</div>
+                    {{ blocks['CONTACTS'].content | raw }}
                 </div>
             </section>
             <section class="copyright clearfix">

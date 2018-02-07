@@ -1,0 +1,412 @@
+{% include 'admin/header.twig.html' %}
+<div class="row-fluid">
+&nbsp;
+{% for message in app.flashes('info') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h3>Первый блок</h3><hr/>
+        <div class="row">
+            {% if blocks['FIRST_BLOCK'].images %}
+                {% set iter = 0 %}
+                {% for image in blocks['FIRST_BLOCK'].images %}
+                    <div class="col-lg-3" id="image-{{image.id}}">
+                        <img src="{{ image.image }}" alt="" class="img-thumbnail">
+                        <p>{{ image.title | raw}}</p>
+                        <div style="display:none">
+                          <span id="title">{{image.title}}</span>
+                          <span id="descr">{{image.description}}</span>
+                        </div>
+                        <button class="btn btn-sm btn-danger" onclick="location.href='/admin/landing/destroyimage/{{image.id}}';return false;" style="position:absolute;top:15px;right:30px;"><span class="oi oi-circle-x"></span></button>
+                        <button class="btn btn-sm btn-primary" onclick="updateImageModal({{image.id}});return false;" style="position:absolute;top:15px;right:70px;"><span class="oi oi-pencil"></span></button>
+                        
+                        {% if iter > 0 %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/left'; return false;" style="position:absolute;top:15px;left:30px;"><span class="oi oi-arrow-circle-left"></span></button>
+                        {% endif %}
+                        {% if iter < (blocks['FIRST_BLOCK'].images | length - 1) %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/right'; return false;" style="position:absolute;top:15px;left:70px;"><span class="oi oi-arrow-circle-right"></span></button>
+                        {% endif %}
+                    </div>
+                    {% set iter = iter + 1 %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="row">&nbsp;</div>
+        <button type="submit" class="btn btn-default" onclick="addImageModal('FIRST_BLOCK');"><span class="oi oi-plus"></span> Добавить картинку</button>
+    </div>
+</div>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h3>Второй блок</h3><hr/>
+        <form method="POST" action="/admin/landing/save"> 
+          <input type="hidden" name="block" value="SECOND_BLOCK" />
+          <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ blocks['SECOND_BLOCK'].title }}">
+          </div>
+          <div class="form-group">
+            <label for="content">Описание</label>
+            <textarea id="content" class="form-control" name="content">{{ blocks['SECOND_BLOCK'].content }}</textarea>
+          </div>
+          {% if blocks['SECOND_BLOCK'].images|length > 0 %}
+            <div class="row">
+                <div class="col-lg-3">
+                    <img src="{{ blocks['SECOND_BLOCK'].images[0].image }}" alt="" class="img-thumbnail">
+                    <button class="btn btn-sm btn-danger" onclick="location.href='/admin/landing/destroyimage/{{blocks['SECOND_BLOCK'].images[0].id}}';return false;" style="position:absolute;top:15px;right:30px;"><span class="oi oi-circle-x"></span></button>
+                </div>
+            </div>
+           {% endif %}
+           <div class="row">&nbsp;</div>
+           {% if (blocks['SECOND_BLOCK'].images|length) < 1 %}
+            <button class="btn btn-default" onclick="addImageModal('SECOND_BLOCK'); return false;"><span class="oi oi-plus"></span> Добавить картинку</button>
+           {% endif %}
+          <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        </form>
+    </div>
+</div>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h3>Третий блок</h3><hr/>
+        <form  method="POST" action="/admin/landing/save">
+          <input type="hidden" name="block" value="THIRD_BLOCK" />
+          <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input class="form-control" id="title" name="title" value="{{ blocks['THIRD_BLOCK'].title }}">
+          </div>
+          {% if (blocks['THIRD_BLOCK'].images|length) > 0 %}
+              <div class="row">
+                {% set iter = 0 %}
+                {% for image in blocks['THIRD_BLOCK'].images %}
+                    <div class="col-lg-3" id="image-{{image.id}}">
+                        <img src="{{ image.image }}" alt="" class="img-thumbnail">
+                        <p>{{ image.title | raw}}</p>
+                        <div style="display:none">
+                          <span id="title">{{image.title}}</span>
+                          <span id="descr">{{image.description}}</span>
+                        </div>
+                        <button class="btn btn-sm btn-danger" onclick="location.href='/admin/landing/destroyimage/{{image.id}}';return false;" style="position:absolute;top:15px;right:30px;"><span class="oi oi-circle-x"></span></button>
+                        <button class="btn btn-sm btn-primary" onclick="updateImageModal({{image.id}});return false;" style="position:absolute;top:15px;right:70px;"><span class="oi oi-pencil"></span></button>
+                        
+                        {% if iter > 0 %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/left'; return false;" style="position:absolute;top:15px;left:30px;"><span class="oi oi-arrow-circle-left"></span></button>
+                        {% endif %}
+                        {% if iter < (blocks['THIRD_BLOCK'].images | length - 1) %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/right'; return false;" style="position:absolute;top:15px;left:70px;"><span class="oi oi-arrow-circle-right"></span></button>
+                        {% endif %}
+                    </div>
+                    {% set iter = iter + 1 %}    
+                {% endfor %}
+            </div>
+           {% endif %}
+           {% if (blocks['THIRD_BLOCK'].images|length) < 3 %}
+                <button class="btn btn-default" onclick="addImageModal('THIRD_BLOCK'); return false;"><span class="oi oi-plus"></span> Добавить картинку</button>
+           {% endif %}
+          <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        </form>
+    </div>
+</div>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h3>Выбор номеров</h3><hr/>
+        <form method="POST" action="/admin/landing/save">
+          <input type="hidden" name="block" value="ROOMS" />
+          <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ blocks['ROOMS'].title }}">
+          </div>
+          <div class="form-group">
+            <label for="content">Описание</label>
+            <textarea id="content" class="form-control" name="content">{{ blocks['ROOMS'].content }}</textarea>
+          </div>
+          <div class="row">
+            {% if blocks['ROOMS'].images %}
+                {% set iter = 0 %}
+                {% for image in blocks['ROOMS'].images %}
+                    <div class="col-lg-3" id="image-{{image.id}}">
+                        <img src="{{ image.image }}" alt="" class="img-thumbnail">
+                        <p>{{ image.title | raw}}</p>
+                        <div style="display:none">
+                          <span id="title">{{image.title}}</span>
+                          <span id="descr">{{image.description}}</span>
+                        </div>
+                        <button class="btn btn-sm btn-danger" onclick="location.href='/admin/landing/destroyimage/{{image.id}}';return false;" style="position:absolute;top:15px;right:30px;"><span class="oi oi-circle-x"></span></button>
+                        <button class="btn btn-sm btn-primary" onclick="updateImageModal({{image.id}});return false;" style="position:absolute;top:15px;right:70px;"><span class="oi oi-pencil"></span></button>
+                        
+                        {% if iter > 0 %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/left'; return false;" style="position:absolute;top:15px;left:30px;"><span class="oi oi-arrow-circle-left"></span></button>
+                        {% endif %}
+                        {% if iter < (blocks['ROOMS'].images | length - 1) %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/right'; return false;" style="position:absolute;top:15px;left:70px;"><span class="oi oi-arrow-circle-right"></span></button>
+                        {% endif %}
+                    </div>
+                    {% set iter = iter + 1 %}   
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="row">&nbsp;</div>
+          <button class="btn btn-default" onclick="addImageModal('ROOMS'); return false;"><span class="oi oi-plus"></span> Добавить картинку</button>
+          <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        </form>
+    </div>
+</div>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h3>SPA</h3><hr/>
+        <form method="POST" action="/admin/landing/save">
+          <input type="hidden" name="block" value="SPA" />
+          <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ blocks['SPA'].title }}">
+          </div>
+          <div class="form-group">
+            <label for="content">Описание</label>
+            <textarea id="content" class="form-control" name="content">{{ blocks['SPA'].content }}</textarea>
+          </div>
+          <div class="row">
+            {% if blocks['SPA'].images %}
+                {% set iter = 0 %}
+                {% for image in blocks['SPA'].images %}
+                    <div class="col-lg-3" id="image-{{image.id}}">
+                        <img src="{{ image.image }}" alt="" class="img-thumbnail">
+                        <div style="display:none">
+                          <span id="title">{{image.title}}</span>
+                          <span id="descr">{{image.description}}</span>
+                        </div>
+                        <button class="btn btn-sm btn-danger" onclick="location.href='/admin/landing/destroyimage/{{image.id}}';return false;" style="position:absolute;top:15px;right:30px;"><span class="oi oi-circle-x"></span></button>
+                        <button class="btn btn-sm btn-primary" onclick="updateImageModal({{image.id}});return false;" style="position:absolute;top:15px;right:70px;"><span class="oi oi-pencil"></span></button>
+                        
+                        {% if iter > 0 %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/left'; return false;" style="position:absolute;top:15px;left:30px;"><span class="oi oi-arrow-circle-left"></span></button>
+                        {% endif %}
+                        {% if iter < (blocks['SPA'].images | length - 1) %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/right'; return false;" style="position:absolute;top:15px;left:70px;"><span class="oi oi-arrow-circle-right"></span></button>
+                        {% endif %}
+                    </div>
+                    {% set iter = iter + 1 %}  
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="row">&nbsp;</div>
+          <button class="btn btn-default" onclick="addImageModal('SPA'); return false;"><span class="oi oi-plus"></span> Добавить картинку</button>
+          <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        </form>
+    </div>
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h3>Уникальные предложения</h3><hr/>
+        <form method="POST" action="/admin/landing/save">
+          <input type="hidden" name="block" value="UNIQUE" />
+          <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ blocks['UNIQUE'].title }}">
+          </div>
+          {% if (blocks['UNIQUE'].images|length) > 0 %}
+              <div class="row">
+                {% if blocks['UNIQUE'].images %}
+                    {% set iter = 0 %}
+                    {% for image in blocks['UNIQUE'].images %}
+                        <div class="col-lg-3" id="image-{{image.id}}">
+                            <img src="{{ image.image }}" alt="" class="img-thumbnail">
+                            <p>{{ image.title | raw}}</p>
+                          <div style="display:none">
+                            <span id="title">{{image.title}}</span>
+                            <span id="descr">{{image.description}}</span>
+                          </div>
+                          <button class="btn btn-sm btn-danger" onclick="location.href='/admin/landing/destroyimage/{{image.id}}';return false;" style="position:absolute;top:15px;right:30px;"><span class="oi oi-circle-x"></span></button>
+                          <button class="btn btn-sm btn-primary" onclick="updateImageModal({{image.id}});return false;" style="position:absolute;top:15px;right:70px;"><span class="oi oi-pencil"></span></button>
+                          
+                          {% if iter > 0 %}
+                            <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/left'; return false;" style="position:absolute;top:15px;left:30px;"><span class="oi oi-arrow-circle-left"></span></button>
+                          {% endif %}
+                          {% if iter < (blocks['UNIQUE'].images | length - 1) %}
+                            <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/right'; return false;" style="position:absolute;top:15px;left:70px;"><span class="oi oi-arrow-circle-right"></span></button>
+                          {% endif %}
+                      </div>
+                      {% set iter = iter + 1 %}   
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="row">&nbsp;</div>
+            {% if (blocks['UNIQUE'].images|length) < 3 %}
+                <button class="btn btn-default" onclick="addImageModal('UNIQUE'); return false;"><span class="oi oi-plus"></span> Добавить картинку</button>
+            {% endif %}
+          <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        </form>
+    </div>
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h3>Прогулки для Вас</h3><hr/>
+        <form method="POST" action="/admin/landing/save">
+          <input type="hidden" name="block" value="WALK" />
+          <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input class="form-control" id="title" name="title" value="{{ blocks['WALK'].title }}">
+          </div>
+          <div class="form-group">
+            <label for="content">Описание</label>
+            <textarea id="content" class="form-control" name="content">{{ blocks['WALK'].content }}</textarea>
+          </div>
+          {% if blocks['WALK'].images|length > 0 %}
+               <div class="row">
+                <div class="col-lg-3">
+                    <img src="{{ blocks['WALK'].images[0].image }}" alt="" class="img-thumbnail">
+                    <button class="btn btn-sm btn-danger" onclick="location.href='/admin/landing/destroyimage/{{blocks['WALK'].images[0].id}}';return false;" style="position:absolute;top:15px;right:30px;"><span class="oi oi-circle-x"></span></button>
+                </div>
+               </div>
+           {% endif %}
+           <div class="row">&nbsp;</div>
+           {% if (blocks['WALK'].images[0]|length) < 1 %}
+                <button class="btn btn-default" onclick="addImageModal('WALK'); return false;"><span class="oi oi-plus"></span> Добавить картинку</button>
+           {% endif %}
+          <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        </form>
+    </div>
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h3>Контакты</h3><hr/>
+        <form method="POST" action="/admin/landing/save">
+          <input type="hidden" name="block" value="CONTACTS" />
+          <div class="form-group">
+            <label for="content">Описание</label>
+            <textarea id="content" class="form-control" name="content">{{ blocks['CONTACTS'].content }}</textarea>
+          </div>
+          <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="addImageModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Добавление картинки</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/admin/landing/uploadimage" enctype="multipart/form-data">
+          <input type="hidden" name="block" value="">
+          <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" class="form-control" id="title" name="title">
+          </div>
+          <div class="form-group">
+            <label for="image">Картинка</label>
+            <input type="file" class="form-control-file" id="image" name="image">
+          </div>
+          <div class="form-group">
+            <label for="description">Описание</label>
+            <textarea id="description" class="form-control" name="description"></textarea>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="updateImageModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Изменение картинки</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/admin/landing/updateimage">
+          <input type="hidden" name="id" value="">
+          <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" class="form-control" id="title" name="title">
+          </div>
+          <div class="form-group">
+            <label for="description">Описание</label>
+            <textarea id="description" class="form-control" name="description"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+function addImageModal(block)
+{
+    $("#addImageModal").modal();
+
+    $("#addImageModal").on('shown.bs.modal', function () {
+       $(this).find('textarea[name="description"]').summernote({
+            height: 100,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['misc', ['codeview']]
+              ]
+          });
+        $(this).find('input[name="block"]').val(block);
+    });
+    $('#addImageModal').on('hidden.bs.modal', function () {
+        $(this).find('textarea[name="description"]').summernote('destroy');
+        $('#addImageModal').off('shown.bs.modal');
+    });
+}
+function updateImageModal(imageid)
+{
+    $("#updateImageModal").modal();
+
+    $("#updateImageModal").on('shown.bs.modal', function () {
+       var imageblock = $('#image-' + imageid);
+       $(this).find('input[name="id"]').val(imageid);
+       $(this).find('input[name="title"]').val(imageblock.find('#title').text());
+       $(this).find('textarea[name="description"]').val(imageblock.find('#descr').text() || '');
+       $(this).find('textarea[name="description"]').summernote({
+            height: 100,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['misc', ['codeview']]
+              ]
+          });
+    });
+    $('#updateImageModal').on('hidden.bs.modal', function () {
+        $(this).find('textarea[name="description"]').val('');
+        $(this).find('textarea[name="description"]').summernote('destroy');
+        $("#updateImageModal").off('shown.bs.modal');
+    });
+}
+</script>
+</script>
+
+{% include 'admin/footer.twig.html' %}

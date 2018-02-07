@@ -14,6 +14,12 @@ services:
         # if you need to do this, you can override this setting on individual services
         public: false
 
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
+        public:    false
+        arguments:
+            - 'mysql:host=%database_host%;dbname=%database_name%'
+            - { db_username: '%database_user%', db_password: '%database_password%', db_table: sessions }
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

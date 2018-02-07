@@ -65,6 +65,12 @@ class Order
     private $bookingDetails;        
 
     /**
+     * @ORM\Column(type="text")
+     * @var string
+     */
+    private $comment = '';
+
+    /**
      * 
      * @ORM\Column(type="float")
      */
@@ -285,6 +291,26 @@ class Order
     public function setPaymentId($paymentId)
     {
         $this->paymentId = $paymentId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     *
+     * @return self
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
 
         return $this;
     }
