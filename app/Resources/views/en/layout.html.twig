@@ -1,0 +1,323 @@
+<!doctype html>
+<html class="start" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Замок-отель Вышеград</title>
+        <meta name="description" content="Отель под Киевом - Вышеград 4*. 86 номеров, банкетные залы, SPA. Забронироват номер в отеле можно по телефону (044) 331-75-75">       
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+        <link rel="icon" href="./favicon.ico" type="image/x-icon">
+        
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/swiper.min.css">
+        <link rel="stylesheet" href="/css/classic.css">
+        <link rel="stylesheet" href="/css/classic.date.css">
+        <link rel="stylesheet" href="/css/fonts.css">
+        <link rel="stylesheet" href="/css/main.css?version=16">
+        <link rel="stylesheet" href="/css/mq.css">
+    </head>
+    <body>
+        <div id="loader">            
+            <div class="logo"></div>
+            <div class="bg"></div>
+        </div>
+        <header>
+            <div class="header__logo">
+                <img src="./img/logo_vgrad.svg" alt="">
+            </div>
+            <div class="header__reservation">
+                <a href="" data-target="popupform" data-text="Book now"></a>
+            </div>
+            <ul class="header__contacts clearfix">
+                <li class="tel">044 331 75 75</li>
+                <li class="to-map">
+                    <span id="to-map">Контакты</span>
+                </li>
+                <li class="bg"></li>
+            </ul>
+            <ul class="header__contacts_social">
+                <li class="f">
+                    <a href="https://www.facebook.com/%D0%A1%D0%B5%D1%82%D1%8C-%D0%9E%D1%82%D0%B5%D0%BB%D0%B5%D0%B9-%D0%92%D1%8B%D1%88%D0%B5%D0%B3%D1%80%D0%B0%D0%B4-497547333746506/" target="_blank"></a>
+                </li>
+                <li class="t">
+                    <a href="https://www.instagram.com/hotelvyshegrad/" target="_blank"></a>
+                </li>
+            </ul>            
+            <div class="swiper-container topslider">
+                <div class="swiper-wrapper">
+                    {% for image in blocks['FIRST_BLOCK'].images %}
+                        <div class="swiper-slide topslider__slide" id="first">
+                            <div class="topslider__slide_bg">
+                                <div class="topslider__slide_bg-img" style="background-image: url('{{ image.image }}');"></div>                            
+                            </div>
+                            <h1 class="topslider__slide_title">
+                                <div class="topslider__slide_title-animation">{{ image.title|raw}}</div>
+                            </h1>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- If we need pagination -->
+                <div class="topslider-pagination">
+                    <span class="current"></span>
+                    <i>/</i>
+                    <span class="length"></span>
+                </div>
+             
+                <!-- If we need navigation buttons -->
+                <div class="topslider-button-prev">
+                    <i></i>
+                </div>
+                <div class="topslider-button-next"></div>
+            </div>
+            <div id="scroll-down">
+                <span class="arrow-down"></span>            
+            </div>            
+        </header>
+        <script type="text/javascript">
+            var need_to_show_success_modal = false;    
+        </script>
+        {% if order %}
+            <div id="thankyou" class="thankyou__modal">
+                <div class="thankyou__modal_msg">
+                    <div class="close" onclick="$('#thankyou').fadeOut(300);"></div>
+                    <h1>Спасибо!</h1>
+                    <div class="thankyou__modal_msg-txt">Вы успешно забронировали:</div>
+                    {% for room in basket.rooms %}
+                        <p>{{ room.room.name }} - {{ room.qty }}</p>
+                    {% endfor %}
+                    <div class="thankyou__modal_msg-txt">На общую сумму:</div>
+                    <p>{{ order.amount }} грн.</p>
+                </div>
+            </div>
+            <script type="text/javascript">
+                need_to_show_success_modal = true;    
+            </script>
+        {% endif %}
+        {% if subscribed %}
+            <div id="thankyou" class="thankyou__modal">
+                <div class="thankyou__modal_msg">
+                    <div class="close" onclick="$('#thankyou').fadeOut(300);"></div>
+                    <h1>Спасибо!</h1>
+                    <div class="thankyou__modal_msg-txt">Вы успешно подписались на обновления</div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                need_to_show_success_modal = true;    
+            </script>
+        {% endif %}
+        <main>
+            <article class="castle clearfix">
+                <div class="castle__photo">
+                    <img src="./img/castle-photo.png" alt="">
+                </div>
+                <div class="castle__text clearfix">
+                    <h3>{{ blocks['SECOND_BLOCK'].title }}</h3>
+                    <div class="castle__text_desc">
+                        {{ blocks['SECOND_BLOCK'].content | raw }}
+                    </div>
+                </div>
+            </article>
+            <article class="surrounding">
+                <h2>{{ blocks['THIRD_BLOCK'].title }}</h2>
+                <ul>
+                    {% for image in blocks['THIRD_BLOCK'].images %}
+                        <li>
+                            <img src="{{ image.image }}" alt="">
+                            <div class="surrounding__title">{{ image.title }}</div>
+                        </li>
+                    {%  endfor %}
+                </ul>
+            </article>
+            <article class="roomselect clearfix" data-text="Тип Стандарт">
+                <section class="roomselect__description">
+                    <h2>{{ blocks['ROOMS'].title }}</h2>
+                    <div class="roomselect__description_text">{{ blocks['ROOMS'].content | raw }}</div>
+                    <div class="roomselect__description_title">Стандарт</div>
+                    <div class="roomselect__description_button">
+                        <a href="" data-target="popupform" data-text="Book Now"></a>
+                    </div>
+                </section>
+                <section class="roomselect__slider">
+                    <div class="swiper-wrapper">
+                        {% for image in blocks['ROOMS'].images %}
+                            <div class="swiper-slide slide" data-type="{{ image.title }}">
+                                <img src="{{ image.image }}" alt="{{ image.title }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="roomselect__slider-pagination">
+                        <span class="current">01</span>
+                        <i>/</i>
+                        <span class="length">07</span>
+                    </div>             
+                    <!-- If we need navigation buttons -->
+                    <div class="main__slider-button-prev">
+                        <i></i>
+                    </div>
+                    <div class="main__slider-button-next"></div>
+                </section>
+            </article>
+            <article class="spaservices clearfix" data-text="Тип Стандарт">
+                <section class="spaservices__slider">
+                    <div class="swiper-wrapper">
+                        {% for image in blocks['SPA'].images %}
+                            <div class="slide swiper-slide">
+                                <img src="{{ image.image }}" alt="{{ image.title }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="spaservices__slider-pagination">
+                        <span class="current">03</span>
+                        <i>/</i>
+                        <span class="length">07</span>
+                    </div>             
+                    <!-- If we need navigation buttons -->
+                    <div class="main__slider-button-prev">
+                        <i></i>
+                    </div>
+                    <div class="main__slider-button-next"></div>
+                </section>
+                <section class="spaservices__description">
+                    <h2>{{ blocks['SPA'].title }}</h2>
+                    <div class="roomselect__description_text">{{ blocks['SPA'].content | raw }}</div>
+                    <div class="roomselect__description_title">Тип Стандарт</div>                    
+                </section>
+            </article>
+            <article class="uniqueoffers">
+                <h2>{{ blocks['UNIQUE'].title }}</h2>
+                <ul>
+                    {% for image in blocks['UNIQUE'].images %}
+                        <li>                        
+                            <div class="uniqueoffers__title_image">                            
+                            <img src="{{ image.image }}" alt="{{ image.title }}">
+                                <div class="uniqueoffers__descr">
+                                    <div class="uniqueoffers__descr_close"><i></i></div>
+                                    <span>
+                                        {{ image.description | raw}}
+                                    </span>
+                                </div>
+                                <div class="uniqueoffers__descr_more"></div>
+                            </div>                        
+                            <div class="uniqueoffers__title">{{ image.title }}</div>                                                
+                        </li>
+                    {% endfor %}
+                </ul>
+            </article>
+            <article class="ourclients">
+                <h2>Our clients</h2>
+                <div class="ourclients__text">Которые любят у нас проводить время</div>
+                <div class="ourclients__slider_output">
+                    <section class="ourclients__slider clearfix">
+                        <div class="swiper-wrapper">
+                            {% for image in blocks['PARTNERS'].images %}
+                                <div class="slide swiper-slide">
+                                    <img src="{{ image.image }}" alt="{{ image.title }}">
+                                </div>
+                            {% endfor %}
+                        </div>                    
+                    </section>
+                    <div class="main__slider-button-prev" id="ourclients__slider-button-prev"></div>
+                    <div class="main__slider-button-next" id="ourclients__slider-button-next"></div>
+                </div>                
+            </article>
+            <article class="subscribe">
+                <ul class="clearfix">
+                    <li class="left">Подпишитесь чтобы не пропустить уникальные предложения от нас</li>
+                    <li class="right clearfix">
+                        <form method="POST" action="/subscribe">
+                            <div class="subscribe__input">
+                                <input type="mail" name="email" required="required" placeholder="Enter E-mail" />
+                            </div>
+                            <div class="subscribe__button">
+                                <button type="submit" data-text="subscribe"></button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </article>
+            <article class="walking clearfix">
+                <div class="walking__photo">
+                    <img src="{{ blocks['WALK'].images[0].image }}" alt="{{ blocks['WALK'].images[0].title }}">
+                </div>
+                <div class="walking__descr">
+                    <h2>{{ blocks['WALK'].title }}</h2>
+                    <div class="walking__descr_text">{{ blocks['WALK'].content | raw}}</div>
+                </div>
+            </article>
+            <article class="reviews clearfix">
+                <div class="reviews__descr">
+                    <h2>Отзывы наших постояльцев</h2>
+                    <div class="reviews__descr_text">Некоторых из них, мы уже знаем 12 лет!</div>
+                </div>
+                <section class="reviews__slider">
+                    <div class="swiper-wrapper">
+                        <div class="slide swiper-slide">
+                            <img src="./img/reviews.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/reviews.jpg" alt="">
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./img/reviews.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="reviews__slider-pagination">
+                        <span class="current">03</span>
+                        <i>/</i>
+                        <span class="length">07</span>
+                    </div>
+                    <div class="main__slider-button-prev">
+                        <i></i>
+                    </div>
+                    <div class="main__slider-button-next"></div>
+                </section>                
+            </article>
+            <article class="enjoy clearfix">
+                <div class="enjoy__text">
+                    <h2>Насладитесь отдыхом,</h2>
+                    <div class="enjoy__sub">а об остальном мы позаботимся!</div>
+                </div>                
+                <div class="enjoy__button" data-target="popupform" data-text="Book now">
+                    <i></i>
+                </div>
+            </article>             
+        </main>
+        <footer>
+            <section class="contacts">
+                <div id="map"></div>
+                <div class="contacts__info">
+                    {{ blocks['CONTACTS'].content | raw }}
+                </div>
+            </section>
+            <section class="copyright clearfix">
+                <div class="left">© 2017 Отельный комплекс ‘’Вышеград‘’</div>
+                <div class="right">by                    
+                    <img src="./img/angle2.svg" alt="">
+                </div>
+            </section>
+        </footer>
+
+
+
+        {% include 'en/booking-form.html.twig' %}
+        
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUWZntLXuZ1JC6BFkXMpQNGrYw6aIj22E"></script>
+        <script src="/js/vendor/swiper.min.js"></script>
+        <script src="/js/vendor/TweenMax.min.js"></script>
+        <script src="/js/vendor/picker.js"></script>
+        <script src="/js/vendor/SmoothScroll.min.js"></script>
+        <script src="/js/vendor/picker.date.js"></script>                
+        <script src="/js/main.js?version=5"></script>
+        <script src="/js/booking.js?version=16"></script>
+    </body>
+</html>

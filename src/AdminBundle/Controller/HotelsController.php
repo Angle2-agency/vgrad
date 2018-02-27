@@ -3,15 +3,17 @@
 namespace AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Angleto\BookingBundle\Entity\Hotel;
+use Angleto\BookingBundle\Entity\HotelEn;
 use Angleto\BookingBundle\Entity\Room;
+use Angleto\BookingBundle\Entity\RoomEn;
 use Angleto\BookingBundle\Entity\RoomGallery;
+use Angleto\BookingBundle\Entity\RoomGalleryEn;
 
-class HotelsController extends Controller
+class HotelsController extends LangualController
 {
     /**
      * @Route("/admin/hotels/{hotel}")
@@ -20,8 +22,11 @@ class HotelsController extends Controller
     public function index(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository(Hotel::class);
-
+        $repo = $em->getRepository(
+            $this->getLang() == self::LANG_EN
+            ? HotelEn::class    
+            : Hotel::class
+        );
         $hotel = $repo->findOneByType($request->get('hotel'));
 
         return $this->render('admin/hotel.twig.html', [
@@ -37,7 +42,11 @@ class HotelsController extends Controller
     public function updateroom(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository(Room::class);
+        $repo = $em->getRepository(
+            $this->getLang() == self::LANG_EN
+            ? RoomEn::class    
+            : Room::class
+        );
 
         $room = $repo->findOneById($request->get('id'));
         $room->setName($request->get('name') ?: '')
@@ -61,7 +70,11 @@ class HotelsController extends Controller
     public function upload(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository(Room::class);
+        $repo = $em->getRepository(
+            $this->getLang() == self::LANG_EN
+            ? RoomEn::class    
+            : Room::class
+        );
         $room = $repo->findOneById($request->get('id'));
         
         $image = $request->files->get('image');
@@ -69,7 +82,10 @@ class HotelsController extends Controller
         $savePath = sprintf('%s/web/img/hotels/%s', $this->get('kernel')->getProjectDir(), $room->getHotel()->getType());
         $image->move($savePath, $image->getClientOriginalName());
         
-        $image = new RoomGallery();
+        $image = $this->getLang() == self::LANG_EN
+            ? new RoomGalleryEn
+            : new RoomGallery;
+
         $image->setTitle($request->get('title'))
               ->setDescription($request->get('description'));
 
@@ -94,7 +110,10 @@ class HotelsController extends Controller
     public function destroyImage(Request $request)
     {   
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository(RoomGallery::CLASS);
+        $repo = $em->getRepository($this->getLang() == self::LANG_EN
+            ? RoomGalleryEn::class    
+            : RoomGallery::class
+        );
         $image = $repo->findOneById($request->get('id'));
         $room = $image->getRoom();
         $em->remove($image);

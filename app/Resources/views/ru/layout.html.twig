@@ -100,6 +100,18 @@
                 need_to_show_success_modal = true;    
             </script>
         {% endif %}
+        {% if subscribed %}
+            <div id="thankyou" class="thankyou__modal">
+                <div class="thankyou__modal_msg">
+                    <div class="close" onclick="$('#thankyou').fadeOut(300);"></div>
+                    <h1>Спасибо!</h1>
+                    <div class="thankyou__modal_msg-txt">Вы успешно подписались на обновления</div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                need_to_show_success_modal = true;    
+            </script>
+        {% endif %}
         <main>
             <article class="castle clearfix">
                 <div class="castle__photo">
@@ -204,36 +216,11 @@
                 <div class="ourclients__slider_output">
                     <section class="ourclients__slider clearfix">
                         <div class="swiper-wrapper">
-                            <div class="slide swiper-slide">
-                                <img src="./img/clients/1.png" alt="">
-                            </div>
-                            <div class="slide swiper-slide">
-                                <img src="./img/clients/2.png" alt="">
-                            </div>
-                            <div class="slide swiper-slide">
-                                <img src="./img/clients/3.png" alt="">
-                            </div>
-                            <div class="slide swiper-slide">
-                                <img src="./img/clients/4.png" alt="">
-                            </div>
-                            <div class="slide swiper-slide">
-                                <img src="./img/clients/5.png" alt="">
-                            </div>
-                            <div class="slide swiper-slide">
-                                <img src="./img/clients/demyc.png" alt="">
-                            </div>
-                            <div class="slide swiper-slide">
-                                <img src="./img/clients/olerom.png" alt="">
-                            </div>
-                            <div class="slide swiper-slide">
-                                <img src="./img/clients/schaller.png" alt="">
-                            </div>
-                            <div class="slide swiper-slide">
-                                <img src="./img/clients/stihl.png" alt="">
-                            </div>
-                            <div class="slide swiper-slide">
-                                <img src="./img/clients/succes_group.png" alt="">
-                            </div>
+                            {% for image in blocks['PARTNERS'].images %}
+                                <div class="slide swiper-slide">
+                                    <img src="{{ image.image }}" alt="{{ image.title }}">
+                                </div>
+                            {% endfor %}
                         </div>                    
                     </section>
                     <div class="main__slider-button-prev" id="ourclients__slider-button-prev"></div>
@@ -244,12 +231,14 @@
                 <ul class="clearfix">
                     <li class="left">Подпишитесь чтобы не пропустить уникальные предложения от нас</li>
                     <li class="right clearfix">
-                        <div class="subscribe__input">
-                            <input type="mail" placeholder="Введите E-mail" />
-                        </div>
-                        <div class="subscribe__button">
-                            <button data-text="подписаться"></button>
-                        </div>
+                        <form method="POST" action="/subscribe">
+                            <div class="subscribe__input">
+                                <input type="mail" name="email" required="required" placeholder="Введите E-mail" />
+                            </div>
+                            <div class="subscribe__button">
+                                <button type="submit" data-text="подписаться"></button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
             </article>
@@ -317,7 +306,7 @@
 
 
 
-        {% include 'default/booking-form.html.twig' %}
+        {% include 'ru/booking-form.html.twig' %}
         
         
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>

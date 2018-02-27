@@ -272,7 +272,38 @@
         </form>
     </div>
 </div>
-
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h3>Партнеры</h3><hr/>
+        <div class="row">
+            {% if blocks['PARTNERS'].images %}
+                {% set iter = 0 %}
+                {% for image in blocks['PARTNERS'].images %}
+                    <div class="col-lg-3" id="image-{{image.id}}">
+                        <img src="{{ image.image }}" alt="" class="img-thumbnail">
+                        <p>{{ image.title | raw}}</p>
+                        <div style="display:none">
+                          <span id="title">{{image.title}}</span>
+                          <span id="descr">{{image.description}}</span>
+                        </div>
+                        <button class="btn btn-sm btn-danger" onclick="location.href='/admin/landing/destroyimage/{{image.id}}';return false;" style="position:absolute;top:15px;right:30px;"><span class="oi oi-circle-x"></span></button>
+                        <button class="btn btn-sm btn-primary" onclick="updateImageModal({{image.id}});return false;" style="position:absolute;top:15px;right:70px;"><span class="oi oi-pencil"></span></button>
+                        
+                        {% if iter > 0 %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/left'; return false;" style="position:absolute;top:15px;left:30px;"><span class="oi oi-arrow-circle-left"></span></button>
+                        {% endif %}
+                        {% if iter < (blocks['PARTNERS'].images | length - 1) %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/right'; return false;" style="position:absolute;top:15px;left:70px;"><span class="oi oi-arrow-circle-right"></span></button>
+                        {% endif %}
+                    </div>
+                    {% set iter = iter + 1 %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="row">&nbsp;</div>
+        <button type="submit" class="btn btn-default" onclick="addImageModal('PARTNERS');"><span class="oi oi-plus"></span> Добавить картинку</button>
+    </div>
+</div>
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h3>Контакты</h3><hr/>

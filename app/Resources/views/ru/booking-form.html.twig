@@ -1,0 +1,84 @@
+ <div class="popupform" id="popupform">            
+    <div class="popupform__close"></div>
+    <div class="wrapper clearfix">
+        <article class="popup__options">
+            <h3>Задайте параметры</h3>
+            <section class="popup__options_block">
+                <h4>Дата заезда и выезда</h4>
+                <div class="clearfix">
+                    <div class="calendar fl">
+                        <input type="text" id="date-from" name="" placeholder="от"  onchange="setDates();">
+                    </div>
+                    <div class="calendar fr">
+                        <input type="text" id="date-to" name=""  placeholder="до" onchange="setDates();">
+                    </div>
+                </div>
+            </section>
+            <section class="typeofhotel">
+                {% for hotel in hotels %}                        
+                    <h4 class="{{ hotel.type }}">{{ hotel.name }} ({{ hotel.address }})</h4>
+                    <div class="typeofhotel__tabs_body">
+                        <div class="typeofhotel__checkbox_title">Выберите тип номера</div>
+                        <ul class="typeofhotel__tabs_body-slider">
+                            <li class="{{ hotel.type }}">
+                                <div class="typeofhotel__checkbox_list">
+                                    {% set roomsTotal = hotel.rooms|length%}
+                                    {% set fl = hotel.rooms[:(roomsTotal/2)|round]%}
+                                    {% set rl = hotel.rooms[fl|length:] %}
+                                    <ul class="fl">
+                                        {% for room in fl %}
+                                            <li>
+                                                <input onclick="toggleRoomView($(this).is(':checked'), {{ room.id }}, {{ hotel.id }});" type="checkbox" name="{{ room.type }}" id="room-{{ room.id }}" />
+                                                <label for="room-{{room.id}}">{{ room.name }}</label>    
+                                            </li>
+                                        {% endfor %}
+                                    </ul>    
+                                    <ul class="fr">
+                                        {% for room in rl %}
+                                            <li>
+                                                <input onclick="toggleRoomView($(this).is(':checked'), {{ room.id }}, {{ hotel.id }});" type="checkbox" name="{{ room.type }}" id="room-{{ room.id }}" />
+                                                <label for="room-{{room.id}}">{{ room.name }}</label>    
+                                            </li>
+                                        {% endfor %}
+                                    </ul> 
+                                </div>                                                                   
+                            </li>                                
+                        </ul>
+                    </div>
+                {% endfor %}
+            </section>                    
+        </article>
+        <article class="popup__rooms" id="room-info-holder">
+            <h3>Выбранных номеров: <span id="rooms-selected">0</span></h3>                    
+        </article>
+        <article class="popup__payment">
+            <h3>Оплата</h3>
+            <section class="popup__payment_form">
+                <h4>Персональные данные</h4>
+                <div class="popup__payment_form-input">
+                    <input type="text" placeholder="Ваше Имя Фамилия" id="customer_name"/>
+                </div>                        
+                <div class="popup__payment_form-input">
+                    <input type="mail" class="" placeholder="Ваш Email" id="customer_email"/>
+                </div>
+                <div class="popup__payment_form-input">
+                    <input type="mail" placeholder="Ваш телефон" id="customer_phone"/>
+                </div>
+                <div class="popup__payment_form-input">
+                    <textarea name="" placeholder="Ваш комментарий" id="order_description"></textarea>
+                </div>
+            </section>
+            <section class="popup__payment_basket" id="basket-holder">
+                <h4>Ваша корзина</h4>
+                
+            </section>
+            <section class="popup__payment_basket-button">
+                <button data-target="popupform" data-text="Забронировать" onclick="return placeOrder();"></button>
+            </section>
+        </article>
+    </div>
+</div>
+<script type="text/javascript">
+var hotelHash = {{ json|raw }};
+</script>
+<div class="popupform__animation"></div>

@@ -3,14 +3,15 @@
 namespace AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use AdminBundle\Entity\ContentBlock;
+use AdminBundle\Entity\ContentBlockEn;
 use AdminBundle\Entity\ContentBlockImage;
+use AdminBundle\Entity\ContentBlockImageEn;
 
-class LandingController extends Controller
+class LandingController extends LangualController
 {
     /**
      * @Route("/admin")
@@ -27,7 +28,11 @@ class LandingController extends Controller
     public function index(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $blocksRepo = $em->getRepository(ContentBlock::class);
+        $blocksRepo = $em->getRepository(
+            $this->getLang() == self::LANG_EN
+            ? ContentBlockEn::class    
+            : ContentBlock::class
+        );
         $formated = [];
         $blocks = $blocksRepo->findAll();
         foreach ($blocks as $block) {
@@ -48,7 +53,11 @@ class LandingController extends Controller
     public function save(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository(ContentBlock::CLASS);
+        $repo = $em->getRepository(
+            $this->getLang() == self::LANG_EN
+            ? ContentBlockEn::class    
+            : ContentBlock::class
+        );
 
         $block = $repo->findOneByIdentifier($request->get('block'));
 
@@ -71,7 +80,11 @@ class LandingController extends Controller
     public function destroyImage(Request $request)
     {   
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository(ContentBlockImage::CLASS);
+        $repo = $em->getRepository(
+            $this->getLang() == self::LANG_EN
+            ? ContentBlockImageEn::class
+            : ContentBlockImage::class
+        );
         $image = $repo->findOneById($request->get('id'));
         $block = $image->getBlock();
         $em->remove($image);
@@ -101,7 +114,11 @@ class LandingController extends Controller
     public function upload(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository(ContentBlock::class);
+        $repo = $em->getRepository(
+            $this->getLang() == self::LANG_EN
+            ? ContentBlockEn::class    
+            : ContentBlock::class
+        );
         $block = $repo->findOneByIdentifier($request->get('block'));
         
         $lastPosition = -1;
@@ -114,6 +131,9 @@ class LandingController extends Controller
         $savePath = sprintf('%s/web/img/uploads', $this->get('kernel')->getProjectDir());
         $image->move($savePath, $image->getClientOriginalName());
         $image = new ContentBlockImage();
+        $image = $this->getLang() == self::LANG_EN
+            ? new ContentBlockImageEn()    
+            : new ContentBlockImage();
         $image->setTitle($request->get('title'))
               ->setDescription($request->get('description'))
               ->setPosition($lastPosition + 1);
@@ -138,7 +158,11 @@ class LandingController extends Controller
     public function updateimage(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository(ContentBlockImage::CLASS);
+        $repo = $em->getRepository(
+            $this->getLang() == self::LANG_EN
+            ? ContentBlockImageEn::class    
+            : ContentBlockImage::class
+        );
 
         $image = $repo->findOneById($request->get('id'));
         $image->setTitle($request->get('title'))
@@ -160,7 +184,11 @@ class LandingController extends Controller
     public function moveimage(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository(ContentBlockImage::CLASS);
+        $repo = $em->getRepository(
+            $this->getLang() == self::LANG_EN
+            ? ContentBlockImageEn::class    
+            : ContentBlockImage::class
+        );
 
         $image = $repo->findOneById($request->get('id'));
         $nearest = null;

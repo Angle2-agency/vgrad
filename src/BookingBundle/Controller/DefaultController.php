@@ -8,23 +8,43 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Angleto\BookingBundle\Entity\Subscriber;
 use Angleto\BookingBundle\Entity\Hotel;
+use Angleto\BookingBundle\Entity\HotelEn;
 use Angleto\BookingBundle\Entity\Options;
+use Angleto\BookingBundle\Entity\OptionsEn;
 use Angleto\BookingBundle\Entity\Order;
 
 use AdminBundle\Entity\ContentBlock;
+use AdminBundle\Entity\ContentBlockEn;
+
+use DateTime;
 
 class DefaultController extends Controller
 {
+    const LANG_RU  = 'ru';
+    const LANG_EN = 'en';
+    const LANG_DEFAULT = self::LANG_RU;
+    
     /**
      * @Route("/", name="home")
      */
     public function indexAction(Request $request)
     {
+        return $this->buildPage($request);
+    }
+
+    protected function buildPage(Request $request)
+    {
+        $lang = $request->get('lang');
+        if (empty($lang) || !in_array($lang, [self::LANG_RU, self::LANG_EN])) {
+            $lang = self::LANG_DEFAULT;
+        }
+
         $em = $this->getDoctrine()->getManager();
-        $hotelsRepo = $em->getRepository(Hotel::class);
-        $optionsRepo = $em->getRepository(Options::class);
-        $blocksRepo = $em->getRepository(ContentBlock::class);
+        $hotelsRepo = $em->getRepository($lang == self::LANG_EN ? HotelEn::class : Hotel::class );
+        $optionsRepo = $em->getRepository($lang == self::LANG_EN ? OptionsEn::class : Options::class);
+        $blocksRepo = $em->getRepository($lang == self::LANG_EN ? ContentBlockEn::class : ContentBlock::class);
 
         $hotels = $hotelsRepo->findAll();
         $options = $optionsRepo->findAll();
@@ -70,13 +90,14 @@ class DefaultController extends Controller
         foreach ($blocks as $block) {
             $formedBlocks[$block->getIdentifier()] = $block;
         }
-        return $this->render('default/layout.html.twig', [
+        return $this->render($lang . '/layout.html.twig', [
             'hotels' => $hotels,
             'options' => $options,
             'json' => $jsonRepresentation,
             'order' => $order,
             'basket' => $decodedBasket,
             'blocks' => $formedBlocks,
+            'subscribed' => $request->get('subscribed', false)
         ]);
     }
 
@@ -131,6 +152,36 @@ class DefaultController extends Controller
         return new JsonResponse($response);
     }
 
+    /**
+     * @Route("/subscribe", name="home_subscribe")
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function subscribeAction(Request $request)
+    {
+        $email = $request->get('email');
+
+        if (!empty($email) && $email = filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $subscriber = new Subscriber();
+            $subscriber->setEmail($email)
+                       ->setDate(new DateTime('now'));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($subscriber);
+            $em->flush();
+            $em->clear();
+        }
+        return $this->redirect('/?subscribed=true');
+    }
+    
+    /**
+     * @Route("/{lang}", name="home_lang")
+     */
+    public function langualAction(Request $request)
+    {
+        return $this->buildPage($request);
+    }
+    
     /**
      * 
      * @Route("/payment/{order}", name="payment")
