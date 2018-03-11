@@ -1,16 +1,16 @@
 <?php
 
-namespace AdminBundle\Entity;
+namespace Angleto\BookingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ContentBlockImage
+ * RoomGalleryEn
  *
- * @ORM\Table(name="content_block_image")
- * @ORM\Entity(repositoryClass="AdminBundle\Repository\ContentBlockImageRepository")
+ * @ORM\Table(name="room_gallery_ua")
+ * @ORM\Entity(repositoryClass="Angleto\BookingBundle\Repository\RoomGalleryRepositoryUa")
  */
-class ContentBlockImage
+class RoomGalleryUa
 {
     /**
      * @var int
@@ -24,38 +24,31 @@ class ContentBlockImage
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=255)
+     * @ORM\Column(name="description", type="text")
      */
-    private $image = '';
+    private $description = '';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true)
+     * @ORM\Column(name="image", type="string", length=255)
      */
-    private $description;
+    private $image;
 
     /**
-     * @var ContentBlock
      * 
-     * @ORM\ManyToOne(targetEntity="ContentBlock", inversedBy="images")
+     * @var Room
+     *
+     * @ORM\ManyToOne(targetEntity="RoomUa", inversedBy="images")
      */
-    private $block;
-
-    /**
-     * @var int image order position
-     * 
-     * @ORM\Column(name="position", type="integer", nullable=false)
-     */
-    private $position = 0;
-
+    private $room;
 
     /**
      * Get id
@@ -72,7 +65,7 @@ class ContentBlockImage
      *
      * @param string $title
      *
-     * @return ContentBlockImage
+     * @return RoomGallery
      */
     public function setTitle($title)
     {
@@ -96,7 +89,7 @@ class ContentBlockImage
      *
      * @param string $description
      *
-     * @return ContentBlockImage
+     * @return RoomGallery
      */
     public function setDescription($description)
     {
@@ -116,37 +109,11 @@ class ContentBlockImage
     }
 
     /**
-     * @return ContentBlock
-     */
-    public function getBlock()
-    {
-        return $this->block;
-    }
-
-    /**
-     * @param ContentBlock $block
+     * Set image
      *
-     * @return self
-     */
-    public function setBlock(ContentBlock $block)
-    {
-        $this->block = $block;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
      * @param string $image
      *
-     * @return self
+     * @return RoomGallery
      */
     public function setImage($image)
     {
@@ -156,21 +123,31 @@ class ContentBlockImage
     }
 
     /**
-     * @return int image order position
+     * Get image
+     *
+     * @return string
      */
-    public function getPosition()
+    public function getImage()
     {
-        return $this->position;
+        return $this->image;
     }
 
     /**
-     * @param int image order position $position
+     * @return room
+     */
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    /**
+     * @param room $room
      *
      * @return self
      */
-    public function setPosition($position)
+    public function setRoom(RoomUa $room)
     {
-        $this->position = $position;
+        $this->room = $room;
 
         return $this;
     }

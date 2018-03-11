@@ -1,0 +1,24 @@
+{% include 'admin/header.twig.html' %}
+<div class="row-fluid">
+    <div class="container">
+        <table class="table table-inverse">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Email</th>
+              <th>Дата подписки</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sub in list%}
+                <tr>
+                  <th scope="row">{{ sub.id }}</th>
+                  <td>{{ sub.email }}</td>
+                  <td>{{ sub.date | date("d-m-Y") }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>
+{% include 'admin/footer.twig.html' %}

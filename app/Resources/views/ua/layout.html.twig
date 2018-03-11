@@ -33,12 +33,12 @@
                 <img src="./img/logo_vgrad.svg" alt="">
             </div>
             <div class="header__reservation">
-                <a href="" data-target="popupform" data-text="Забронировать"></a>
+                <a href="" data-target="popupform" data-text="Забронювати"></a>
             </div>
             <ul class="header__contacts clearfix">
                 <li class="tel">044 331 75 75</li>
                 <li class="to-map">
-                    <span id="to-map">Контакты</span>
+                    <span id="to-map">Контакти</span>
                 </li>
                 <li class="bg"></li>
             </ul>
@@ -88,11 +88,11 @@
                 <div class="thankyou__modal_msg">
                     <div class="close" onclick="$('#thankyou').fadeOut(300);"></div>
                     <h1>Спасибо!</h1>
-                    <div class="thankyou__modal_msg-txt">Вы успешно забронировали:</div>
+                    <div class="thankyou__modal_msg-txt">Вы успішно забронювали:</div>
                     {% for room in basket.rooms %}
                         <p>{{ room.room.name }} - {{ room.qty }}</p>
                     {% endfor %}
-                    <div class="thankyou__modal_msg-txt">На общую сумму:</div>
+                    <div class="thankyou__modal_msg-txt">На загальну суму:</div>
                     <p>{{ order.amount }} грн.</p>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                 <div class="thankyou__modal_msg">
                     <div class="close" onclick="$('#thankyou').fadeOut(300);"></div>
                     <h1>Спасибо!</h1>
-                    <div class="thankyou__modal_msg-txt">Вы успешно подписались на обновления</div>
+                    <div class="thankyou__modal_msg-txt">Вы успішно підписались на оновления</div>
                 </div>
             </div>
             <script type="text/javascript">
@@ -141,7 +141,7 @@
                     <div class="roomselect__description_text">{{ blocks['ROOMS'].content | raw }}</div>
                     <div class="roomselect__description_title">Стандарт</div>
                     <div class="roomselect__description_button">
-                        <a href="" data-target="popupform" data-text="Забронировать"></a>
+                        <a href="" data-target="popupform" data-text="Забронювати"></a>
                     </div>
                 </section>
                 <section class="roomselect__slider">
@@ -211,8 +211,8 @@
                 </ul>
             </article>
             <article class="ourclients">
-                <h2>Наши Клиенты</h2>
-                <div class="ourclients__text">Которые любят у нас проводить время</div>
+                <h2>Наші Клиєнти</h2>
+                <div class="ourclients__text">Які люблять проводити в нас час</div>
                 <div class="ourclients__slider_output">
                     <section class="ourclients__slider clearfix">
                         <div class="swiper-wrapper">
@@ -229,7 +229,7 @@
             </article>
             <article class="subscribe">
                 <ul class="clearfix">
-                    <li class="left">Подпишитесь чтобы не пропустить уникальные предложения от нас</li>
+                    <li class="left">Підпишиться щоб не пропустити унікальні пропозиції</li>
                     <li class="right clearfix">
                         <form method="POST" action="/subscribe">
                             <div class="subscribe__input">
@@ -277,10 +277,10 @@
             </article>
             <article class="enjoy clearfix">
                 <div class="enjoy__text">
-                    <h2>Насладитесь отдыхом,</h2>
-                    <div class="enjoy__sub">а об остальном мы позаботимся!</div>
+                    <h2>Насолоджуйтесь відпочинком,</h2>
+                    <div class="enjoy__sub">а про решту ми потурбуємось!</div>
                 </div>                
-                <div class="enjoy__button" data-target="popupform" data-text="Забронировать">
+                <div class="enjoy__button" data-target="popupform" data-text="Забронювати">
                     <i></i>
                 </div>
             </article>             
@@ -293,7 +293,7 @@
                 </div>
             </section>
             <section class="copyright clearfix">
-                <div class="left">© {{ "now"|date("Y") }} Отельный комплекс ‘’Вышеград‘’</div>
+                <div class="left">© {{ "now"|date("Y") }} Готельный комплекс ‘’Вишеград‘’</div>
                 <div class="right">by                    
                     <img src="./img/angle2.svg" alt="">
                 </div>
@@ -301,7 +301,7 @@
         </footer>
 
 
-        {% include 'ru/booking-form.html.twig' %}
+        {% include 'ua/booking-form.html.twig' %}
 
         <div id="disturbance_modal" class="thankyou__modal">
             <div class="thankyou__modal_msg">

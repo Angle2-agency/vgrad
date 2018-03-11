@@ -8,10 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Angleto\BookingBundle\Entity\Hotel;
 use Angleto\BookingBundle\Entity\HotelEn;
+use Angleto\BookingBundle\Entity\HotelUa;
 use Angleto\BookingBundle\Entity\Room;
 use Angleto\BookingBundle\Entity\RoomEn;
+use Angleto\BookingBundle\Entity\RoomUa;
 use Angleto\BookingBundle\Entity\RoomGallery;
 use Angleto\BookingBundle\Entity\RoomGalleryEn;
+use Angleto\BookingBundle\Entity\RoomGalleryUa;
 
 class HotelsController extends LangualController
 {
@@ -23,14 +26,13 @@ class HotelsController extends LangualController
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(
-            $this->getLang() == self::LANG_EN
-            ? HotelEn::class    
-            : Hotel::class
+            $this->getHotelClass()
         );
         $hotel = $repo->findOneByType($request->get('hotel'));
 
         return $this->render('admin/hotel.twig.html', [
             'hotel' => $hotel,
+            'lang' => $this->getLang(),
         ]);
     }   
 
@@ -43,9 +45,7 @@ class HotelsController extends LangualController
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(
-            $this->getLang() == self::LANG_EN
-            ? RoomEn::class    
-            : Room::class
+            $this->getRoomClass()
         );
 
         $room = $repo->findOneById($request->get('id'));
@@ -71,9 +71,7 @@ class HotelsController extends LangualController
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(
-            $this->getLang() == self::LANG_EN
-            ? RoomEn::class    
-            : Room::class
+            $this->getRoomClass()
         );
         $room = $repo->findOneById($request->get('id'));
         
@@ -82,9 +80,7 @@ class HotelsController extends LangualController
         $savePath = sprintf('%s/web/img/hotels/%s', $this->get('kernel')->getProjectDir(), $room->getHotel()->getType());
         $image->move($savePath, $image->getClientOriginalName());
         
-        $image = $this->getLang() == self::LANG_EN
-            ? new RoomGalleryEn
-            : new RoomGallery;
+        $image = $this->getRoomGallery();
 
         $image->setTitle($request->get('title'))
               ->setDescription($request->get('description'));
@@ -125,4 +121,54 @@ class HotelsController extends LangualController
         
         return $this->redirect('/admin/hotels/' . $room->getHotel()->getType());
     }
+
+    private function getHotelClass()
+    {
+        switch ($this->getLang()) {
+            case self::LANG_EN:
+                return HotelEn::class;
+            break;
+            case self::LANG_UA:
+                return HotelUa::class;
+            break;
+            case self::LANG_RU:
+            default:
+                return Hotel::class;
+            break;
+        }
+    }
+
+    private function getRoomClass()
+    {
+        switch ($this->getLang()) {
+            case self::LANG_EN:
+                return RoomEn::class;
+            break;
+            case self::LANG_UA:
+                return RoomUa::class;
+            break;
+            case self::LANG_RU:
+            default:
+                return Room::class;
+            break;
+        }
+    }
+
+    private function getRoomGallery()
+    {
+        switch ($this->getLang()) {
+            case self::LANG_EN:
+                return new RoomGalleryEn;
+            break;
+            case self::LANG_UA:
+                return new RoomGalleryUa;
+            break;
+            case self::LANG_RU:
+            default:
+                return new RoomGallery;
+            break;
+        }
+    }
+
+
 }

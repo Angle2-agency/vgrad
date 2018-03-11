@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ContentBlockImage
  *
- * @ORM\Table(name="content_block_image")
- * @ORM\Entity(repositoryClass="AdminBundle\Repository\ContentBlockImageRepository")
+ * @ORM\Table(name="content_block_image_ua")
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\ContentBlockImageRepositoryUa")
  */
-class ContentBlockImage
+class ContentBlockImageUa
 {
     /**
      * @var int
@@ -45,7 +45,7 @@ class ContentBlockImage
     /**
      * @var ContentBlock
      * 
-     * @ORM\ManyToOne(targetEntity="ContentBlock", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="ContentBlockUa", inversedBy="images")
      */
     private $block;
 
@@ -128,7 +128,7 @@ class ContentBlockImage
      *
      * @return self
      */
-    public function setBlock(ContentBlock $block)
+    public function setBlock(ContentBlockUa $block)
     {
         $this->block = $block;
 

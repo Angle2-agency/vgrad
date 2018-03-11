@@ -30,7 +30,14 @@ function toggleRoomView(checked, roomid, hotelid)
 
         // rooms qnty
         html += '<ul class="popup__rooms_number clearfix">';
-        html += '<li class="popup__rooms_number-title">Количество номеров</li>';
+        if (lang == 'ru') {
+            html += '<li class="popup__rooms_number-title">Количество номеров</li>';    
+        } else if (lang == 'en') {
+            html += '<li class="popup__rooms_number-title">Rooms quantity</li>';
+        } else {
+            html += '<li class="popup__rooms_number-title">Кількість номерів</li>';
+        }
+        
         html += '<li class="popup__rooms_number-select" data-room="' + roomid + '">';
         html += '<i class="minus disabled"></i>';
         html += '<input type="number" class="no-spinners" value="1" readonly="" />';
@@ -40,13 +47,29 @@ function toggleRoomView(checked, roomid, hotelid)
 
         // details
         html += '<div class="popup__rooms_number-details">';
-        html += '<div class="show-details">Подробнее</div>';
-        html += '<div class="price">' + room.price + ' грн/ночь</div>';
+        if (lang == 'ru') {
+            html += '<div class="show-details">Подробнее</div>';    
+            html += '<div class="price">' + room.price + ' грн/ночь</div>';
+        } else if (lang == 'en') {
+            html += '<div class="show-details">More</div>';
+            html += '<div class="price">' + room.price + ' uah/night</div>';
+        } else {
+            html += '<div class="show-details">Детальніше</div>';    
+            html += '<div class="price">' + room.price + ' грн/ночь</div>';
+        }
+        
         html += '<div class="details-descr">';
         
         // bad type
         html += '<section class="bedtype">';
-        html += '<h4>Тип кровати</h4>';
+        if (lang == 'ru') {
+            html += '<h4>Тип кровати</h4>';    
+        } else if (lang == 'en') {
+            html += '<h4>Bed type</h4>';    
+        } else {
+            html += '<h4>Тип ліжка</h4>';    
+        }
+        
         html += '<ul class="bedtype__list clearfix double">';
         html += '<li class="double">';
         html += '<input checked="checked" onclick="basket.rooms['+roomid+'].bed = \'Double\'; renderBasket();" data-type="double" type="radio" name="'+roomid+'bedtype" id="'+roomid+'-double" />';
@@ -61,7 +84,13 @@ function toggleRoomView(checked, roomid, hotelid)
         
         // options
         html += '<section class="addoptions">';
-        html += '<h4>Дополнительные опции</h4>';
+        if (lang == 'ru') {
+            html += '<h4>Дополнительные опции</h4>';
+        } else if (lang == 'en') {
+            html += '<h4>Additional options</h4>';
+        } else {
+            html += '<h4>Додаткові опції</h4>';
+        }
         for (var id in hotelHash.options) {
             var opt = hotelHash.options[id];
             html += '<div class="addoptions__item">';
@@ -73,7 +102,14 @@ function toggleRoomView(checked, roomid, hotelid)
         
         // descr
         html += '<section>';
-        html += '<h4>Описание номера</h4>';
+        if (lang == 'ru') {
+            html += '<h4>Описание номера</h4>';    
+        } else if (lang == 'en') {
+            html += '<h4>Room description</h4>';    
+        } else {
+            html += '<h4>Опис номера</h4>';    
+        }
+        
         html += '<div class="details-text">' + room.description + '</div>'
         html += '</section>';
         html += '</div>';
@@ -173,15 +209,33 @@ function renderBasket()
         var oroom = basket.rooms[roomid];
         html += '<ul class="popup__payment_basket-items">';
         html += '<li>';
-        html += '<span class="fl">Тип номера</span>';
+        if (lang == 'ru') {
+            html += '<span class="fl">Тип номера</span>';
+        } else if (lang == 'en') {
+            html += '<span class="fl">Room type</span>';
+        } else {
+            html += '<span class="fl">Тип номера</span>';
+        }
         html += '<b class="fr">' + oroom.room.name + ' ('+ oroom.qty +')</b>';
         html += '</li>';
         html += '<li>';
-        html += '<span class="fl">Тип кровати</span>';
+        if (lang == 'ru') {
+            html += '<span class="fl">Тип кровати</span>';
+        } else if (lang == 'en') {
+            html += '<span class="fl">Bed type</span>';
+        } else {
+            html += '<span class="fl">Тип ліжка</span>';
+        }
         html += '<b class="fr">' + oroom.bed + '</b>';
         html += '</li>';
         html += '<li>';
-        html += '<span class="fl">Стоимость доп.опций</span>';
+        if (lang == 'ru') {
+            html += '<span class="fl">Стоимость доп.опций</span>';
+        } else if (lang == 'en') {
+            html += '<span class="fl">Additional options cost</span>';
+        } else {
+            html += '<span class="fl">Вартість доп.опцій</span>';
+        }
         var optionsTotal = 0;
         for (oi in oroom.options) {
             optionsTotal += oroom.options[oi].price;
@@ -189,7 +243,13 @@ function renderBasket()
         html += '<b class="fr">' + optionsTotal + ' грн</b>';
         html += '</li>';
         html += '<li>';
-        html += '<span class="fl">Общая стоимость</span>';
+        if (lang == 'ru') {
+            html += '<span class="fl">Общая стоимость</span>';
+        } else if (lang == 'en') {
+            html += '<span class="fl">Total</span>';
+        } else {
+            html += '<span class="fl">Загальна вартість</span>';
+        }
         html += '<b class="fr">' + oroom.total + ' грн</b>';
         html += '</li>';   
         html += '</ul>';
@@ -199,9 +259,21 @@ function renderBasket()
 
     html += '<ul class="popup__payment_basket-items">';
     html += '<li>';
-    html += '<span class="fl">Общая стоимость (ночей: '+basket.nights+')</span>';
-    html += '<b class="fr">' + (orderTotal * basket.nights) + ' грн</b> <br/>';
-    html += '<small>(Ваша оплата номера служит гарантией бронирования)</small>';
+    if (lang == 'ru') {
+        html += '<span class="fl">Общая стоимость (ночей: '+basket.nights+')</span>';    
+        html += '<b class="fr">' + (orderTotal * basket.nights) + ' грн</b> <br/>';
+        html += '<small>(Ваша оплата номера служит гарантией бронирования)</small>';
+    } else if (lang == 'en') {
+        html += '<span class="fl">Total (nights: '+basket.nights+')</span>';    
+        html += '<b class="fr">' + (orderTotal * basket.nights) + ' uah</b> <br/>';
+        html += '<small>(Your payment is guarantees your reservation)</small>';
+    } else {
+        html += '<span class="fl">Загальна вартість (ночей: '+basket.nights+')</span>';    
+        html += '<b class="fr">' + (orderTotal * basket.nights) + ' грн</b> <br/>';
+        html += '<small>(Ваша оплата номера є гарантією бронювання)</small>';
+    }
+    
+    
     html += '</li>';   
     html += '</ul>';
     basket.total = orderTotal * basket.nights;

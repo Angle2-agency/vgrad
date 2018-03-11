@@ -11,6 +11,7 @@ class LangualController extends Controller
 {
     const LANG_RU  = 'ru';
     const LANG_EN = 'en';
+    const LANG_UA = 'ua';
     const LANG_DEFAULT = self::LANG_RU;
 
     /**
@@ -20,7 +21,7 @@ class LangualController extends Controller
     public function setLangAction(Request $request)
     {
         $lang = $request->get('lang');
-        if (empty($lang) || !in_array($lang, [self::LANG_RU, self::LANG_EN])) {
+        if (empty($lang) || !in_array($lang, [self::LANG_RU, self::LANG_EN, self::LANG_UA])) {
             $lang = self::LANG_DEFAULT;
         }
         $this->container->get('session')->set('__ADMIN_LANG__', $lang);

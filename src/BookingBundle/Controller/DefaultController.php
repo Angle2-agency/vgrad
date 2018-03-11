@@ -11,12 +11,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Angleto\BookingBundle\Entity\Subscriber;
 use Angleto\BookingBundle\Entity\Hotel;
 use Angleto\BookingBundle\Entity\HotelEn;
+use Angleto\BookingBundle\Entity\HotelUa;
 use Angleto\BookingBundle\Entity\Options;
 use Angleto\BookingBundle\Entity\OptionsEn;
+use Angleto\BookingBundle\Entity\OptionsUa;
 use Angleto\BookingBundle\Entity\Order;
 
 use AdminBundle\Entity\ContentBlock;
 use AdminBundle\Entity\ContentBlockEn;
+use AdminBundle\Entity\ContentBlockUa;
 
 use DateTime;
 
@@ -24,6 +27,7 @@ class DefaultController extends Controller
 {
     const LANG_RU  = 'ru';
     const LANG_EN = 'en';
+    const LANG_UA = 'ua';
     const LANG_DEFAULT = self::LANG_RU;
     
     /**
@@ -37,14 +41,29 @@ class DefaultController extends Controller
     protected function buildPage(Request $request)
     {
         $lang = $request->get('lang');
-        if (empty($lang) || !in_array($lang, [self::LANG_RU, self::LANG_EN])) {
+        if (empty($lang) || !in_array($lang, [self::LANG_RU, self::LANG_EN, self::LANG_UA])) {
             $lang = self::LANG_DEFAULT;
         }
 
         $em = $this->getDoctrine()->getManager();
-        $hotelsRepo = $em->getRepository($lang == self::LANG_EN ? HotelEn::class : Hotel::class );
-        $optionsRepo = $em->getRepository($lang == self::LANG_EN ? OptionsEn::class : Options::class);
-        $blocksRepo = $em->getRepository($lang == self::LANG_EN ? ContentBlockEn::class : ContentBlock::class);
+        $hotel = Hotel::class;
+        $options = Options::class;
+        $contentBlock = ContentBlock::class;
+        switch ($lang) {
+            case self::LANG_EN:
+                $hotel = HotelEn::class;
+                $options = OptionsEn::class;
+                $contentBlock = ContentBlockEn::class;
+            break;
+            case self::LANG_UA:
+                $hotel = HotelUa::class;
+                $options = OptionsUa::class;
+                $contentBlock = ContentBlockUa::class;
+            break;
+        }
+        $hotelsRepo = $em->getRepository($hotel);
+        $optionsRepo = $em->getRepository($options);
+        $blocksRepo = $em->getRepository($contentBlock);
 
         $hotels = $hotelsRepo->findAll();
         $options = $optionsRepo->findAll();

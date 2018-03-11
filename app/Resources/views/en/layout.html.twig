@@ -38,7 +38,7 @@
             <ul class="header__contacts clearfix">
                 <li class="tel">044 331 75 75</li>
                 <li class="to-map">
-                    <span id="to-map">Контакты</span>
+                    <span id="to-map">Contact us</span>
                 </li>
                 <li class="bg"></li>
             </ul>
@@ -87,13 +87,13 @@
             <div id="thankyou" class="thankyou__modal">
                 <div class="thankyou__modal_msg">
                     <div class="close" onclick="$('#thankyou').fadeOut(300);"></div>
-                    <h1>Спасибо!</h1>
-                    <div class="thankyou__modal_msg-txt">Вы успешно забронировали:</div>
+                    <h1>Thank you!</h1>
+                    <div class="thankyou__modal_msg-txt">You sucessfully booked:</div>
                     {% for room in basket.rooms %}
                         <p>{{ room.room.name }} - {{ room.qty }}</p>
                     {% endfor %}
-                    <div class="thankyou__modal_msg-txt">На общую сумму:</div>
-                    <p>{{ order.amount }} грн.</p>
+                    <div class="thankyou__modal_msg-txt">Total:</div>
+                    <p>{{ order.amount }} uah.</p>
                 </div>
             </div>
             <script type="text/javascript">
@@ -104,8 +104,8 @@
             <div id="thankyou" class="thankyou__modal">
                 <div class="thankyou__modal_msg">
                     <div class="close" onclick="$('#thankyou').fadeOut(300);"></div>
-                    <h1>Спасибо!</h1>
-                    <div class="thankyou__modal_msg-txt">Вы успешно подписались на обновления</div>
+                    <h1>Thank you!</h1>
+                    <div class="thankyou__modal_msg-txt">You sucessfully subscribed for updatesß</div>
                 </div>
             </div>
             <script type="text/javascript">
@@ -139,7 +139,7 @@
                 <section class="roomselect__description">
                     <h2>{{ blocks['ROOMS'].title }}</h2>
                     <div class="roomselect__description_text">{{ blocks['ROOMS'].content | raw }}</div>
-                    <div class="roomselect__description_title">Стандарт</div>
+                    <div class="roomselect__description_title">Standart</div>
                     <div class="roomselect__description_button">
                         <a href="" data-target="popupform" data-text="Book Now"></a>
                     </div>
@@ -212,13 +212,13 @@
             </article>
             <article class="ourclients">
                 <h2>Our clients</h2>
-                <div class="ourclients__text">Которые любят у нас проводить время</div>
+                <div class="ourclients__text"></div>
                 <div class="ourclients__slider_output">
                     <section class="ourclients__slider clearfix">
                         <div class="swiper-wrapper">
                             {% for image in blocks['PARTNERS'].images %}
                                 <div class="slide swiper-slide">
-                                    <img src="{{ image.image }}" alt="{{ image.title }}">
+                                    <a href="{{ image.title }}"><img src="{{ image.image }}" alt="{{ image.title }}"></a>
                                 </div>
                             {% endfor %}
                         </div>                    
@@ -229,7 +229,7 @@
             </article>
             <article class="subscribe">
                 <ul class="clearfix">
-                    <li class="left">Подпишитесь чтобы не пропустить уникальные предложения от нас</li>
+                    <li class="left">Subscribe for unique offers</li>
                     <li class="right clearfix">
                         <form method="POST" action="/subscribe">
                             <div class="subscribe__input">
@@ -253,20 +253,16 @@
             </article>
             <article class="reviews clearfix">
                 <div class="reviews__descr">
-                    <h2>Отзывы наших постояльцев</h2>
-                    <div class="reviews__descr_text">Некоторых из них, мы уже знаем 12 лет!</div>
+                    <h2>{{ blocks['FEEDBACK'].title }}</h2>
+                    <div class="reviews__descr_text">{{ blocks['FEEDBACK'].content | raw }}</div>
                 </div>
                 <section class="reviews__slider">
                     <div class="swiper-wrapper">
-                        <div class="slide swiper-slide">
-                            <img src="./img/reviews.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/reviews.jpg" alt="">
-                        </div>
-                        <div class="slide swiper-slide">
-                            <img src="./img/reviews.jpg" alt="">
-                        </div>
+                        {% for video in blocks['FEEDBACK'].images %}
+                            <div class="slide swiper-slide">
+                                {{ video.title|raw }}
+                            </div>
+                        {% endfor %}
                     </div>
                     <div class="reviews__slider-pagination">
                         <span class="current">03</span>
@@ -281,8 +277,8 @@
             </article>
             <article class="enjoy clearfix">
                 <div class="enjoy__text">
-                    <h2>Насладитесь отдыхом,</h2>
-                    <div class="enjoy__sub">а об остальном мы позаботимся!</div>
+                    <h2>Enjoy your vacation!</h2>
+                    <div class="enjoy__sub"></div>
                 </div>                
                 <div class="enjoy__button" data-target="popupform" data-text="Book now">
                     <i></i>
@@ -297,7 +293,7 @@
                 </div>
             </section>
             <section class="copyright clearfix">
-                <div class="left">© 2017 Отельный комплекс ‘’Вышеград‘’</div>
+                <div class="left">© {{ "now"|date("Y") }} Vyshegrad</div>
                 <div class="right">by                    
                     <img src="./img/angle2.svg" alt="">
                 </div>
@@ -308,7 +304,17 @@
 
         {% include 'en/booking-form.html.twig' %}
         
-        
+        <div id="disturbance_modal" class="thankyou__modal">
+            <div class="thankyou__modal_msg">
+                <div class="close" onclick="$('#disturbance_modal').fadeOut(300);"></div>
+                <h2>Service is temporarily unavailable!</h2>
+                <p>In order to reserve your stay contact us by one of the following phone numbers:</p>
+                <p>Hotel: +380 44 331 75 75 / 095 274 40 90</p>
+                <p>Mini-hotel: +380 50 380 90 09</p>
+                <p>Email: hotelvyshegrad@ukr.net</p>
+            </div>
+        </div>
+
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUWZntLXuZ1JC6BFkXMpQNGrYw6aIj22E"></script>

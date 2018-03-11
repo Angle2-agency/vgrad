@@ -306,6 +306,42 @@
 </div>
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
+        <h3>Отзывы</h3><hr/>
+        <form method="POST" action="/admin/landing/save">
+          <input type="hidden" name="block" value="FEEDBACK" />
+          <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input class="form-control" id="title" name="title" value="{{ blocks['FEEDBACK'].title }}">
+          </div>
+          <div class="form-group">
+            <label for="content">Описание</label>
+            <textarea id="content" class="form-control" name="content">{{ blocks['FEEDBACK'].content }}</textarea>
+          </div>
+          {% if blocks['FEEDBACK'].images|length > 0 %}
+               {% set iter = 0 %}
+                {% for image in blocks['FEEDBACK'].images %}
+                    <div class="col-lg-3" id="image-{{image.id}}">
+                        {{ image.title | raw}}
+                        <button class="btn btn-sm btn-danger" onclick="location.href='/admin/landing/destroyimage/{{image.id}}';return false;" style="position:absolute;top:15px;right:30px;"><span class="oi oi-circle-x"></span></button>
+                        
+                        {% if iter > 0 %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/left'; return false;" style="position:absolute;top:15px;left:30px;"><span class="oi oi-arrow-circle-left"></span></button>
+                        {% endif %}
+                        {% if iter < (blocks['FEEDBACK'].images | length - 1) %}
+                          <button class="btn btn-sm btn-info" onclick="location.href='/admin/landing/image/{{image.id}}/move/right'; return false;" style="position:absolute;top:15px;left:70px;"><span class="oi oi-arrow-circle-right"></span></button>
+                        {% endif %}
+                    </div>
+                    {% set iter = iter + 1 %}
+                {% endfor %}
+           {% endif %}
+           <div class="row">&nbsp;</div>
+           <button class="btn btn-default" onclick="addImageModal('FEEDBACK', true); return false;"><span class="oi oi-plus"></span> Добавить видео</button>
+           <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        </form>
+    </div>
+</div>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
         <h3>Контакты</h3><hr/>
         <form method="POST" action="/admin/landing/save">
           <input type="hidden" name="block" value="CONTACTS" />
@@ -384,12 +420,46 @@
   </div>
 </div>
 
-<script type="text/javascript">
-function addImageModal(block)
-{
-    $("#addImageModal").modal();
+<div class="modal fade" tabindex="-1" role="dialog" id="addVideoModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Добавление Видео</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/admin/landing/uploadimage" enctype="multipart/form-data">
+          <input type="hidden" name="block" value="">
+          <input type="hidden" name="isvideo" value="1">
+          <div class="form-group">
+            <label for="title">Код видео</label>
+            <input type="text" class="form-control" id="title" name="title">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><span class="oi oi-check"></span> Соханить</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-    $("#addImageModal").on('shown.bs.modal', function () {
+<script type="text/javascript">
+
+function addImageModal(block, isVideo = false)
+{
+    var modal = "#addImageModal";
+    if (!isVideo) {
+      modal = "#addImageModal";
+    } else {
+      modal = "#addVideoModal";
+    }
+    $(modal).modal();  
+        
+    $(modal).on('shown.bs.modal', function () {
        $(this).find('textarea[name="description"]').summernote({
             height: 100,
             toolbar: [
@@ -404,12 +474,12 @@ function addImageModal(block)
           });
         $(this).find('input[name="block"]').val(block);
     });
-    $('#addImageModal').on('hidden.bs.modal', function () {
+    $(modal).on('hidden.bs.modal', function () {
         $(this).find('textarea[name="description"]').summernote('destroy');
         $('#addImageModal').off('shown.bs.modal');
     });
 }
-function updateImageModal(imageid)
+function updateImageModal(imageid, isVideo = false)
 {
     $("#updateImageModal").modal();
 

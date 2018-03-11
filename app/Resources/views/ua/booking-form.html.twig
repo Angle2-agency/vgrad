@@ -1,11 +1,11 @@
-<script type="text/javascript">var lang='ru';</script>
+<script type="text/javascript">var lang='ua';</script>
  <div class="popupform" id="popupform">            
     <div class="popupform__close"></div>
     <div class="wrapper clearfix">
         <article class="popup__options">
-            <h3>Задайте параметры</h3>
+            <h3>Задайте параметри</h3>
             <section class="popup__options_block">
-                <h4>Дата заезда и выезда</h4>
+                <h4>Дата заїзду та виїзду</h4>
                 <div class="clearfix">
                     <div class="calendar fl">
                         <input type="text" id="date-from" name="" placeholder="от"  onchange="setDates();">
@@ -19,7 +19,7 @@
                 {% for hotel in hotels %}                        
                     <h4 class="{{ hotel.type }}">{{ hotel.name }} ({{ hotel.address }})</h4>
                     <div class="typeofhotel__tabs_body">
-                        <div class="typeofhotel__checkbox_title">Выберите тип номера</div>
+                        <div class="typeofhotel__checkbox_title">Виберіть тип номеру</div>
                         <ul class="typeofhotel__tabs_body-slider">
                             <li class="{{ hotel.type }}">
                                 <div class="typeofhotel__checkbox_list">
@@ -50,12 +50,12 @@
             </section>                    
         </article>
         <article class="popup__rooms" id="room-info-holder">
-            <h3>Выбранных номеров: <span id="rooms-selected">0</span></h3>                    
+            <h3>Вибраних номерів: <span id="rooms-selected">0</span></h3>                    
         </article>
         <article class="popup__payment">
             <h3>Оплата</h3>
             <section class="popup__payment_form">
-                <h4>Персональные данные</h4>
+                <h4>Персональні дані</h4>
                 <div class="popup__payment_form-input">
                     <input type="text" placeholder="Ваше Имя Фамилия" id="customer_name"/>
                 </div>                        

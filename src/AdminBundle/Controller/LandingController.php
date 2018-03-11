@@ -8,8 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 use AdminBundle\Entity\ContentBlock;
 use AdminBundle\Entity\ContentBlockEn;
+use AdminBundle\Entity\ContentBlockUa;
 use AdminBundle\Entity\ContentBlockImage;
 use AdminBundle\Entity\ContentBlockImageEn;
+use AdminBundle\Entity\ContentBlockImageUa;
 
 class LandingController extends LangualController
 {
@@ -29,9 +31,7 @@ class LandingController extends LangualController
     {
         $em = $this->getDoctrine()->getManager();
         $blocksRepo = $em->getRepository(
-            $this->getLang() == self::LANG_EN
-            ? ContentBlockEn::class    
-            : ContentBlock::class
+            $this->getContentBlockClass()
         );
         $formated = [];
         $blocks = $blocksRepo->findAll();
@@ -41,6 +41,7 @@ class LandingController extends LangualController
 
         return $this->render('admin/landing.html.twig', [
             'blocks' => $formated,
+            'lang' => $this->getLang()
         ]);
     }
 
@@ -54,9 +55,7 @@ class LandingController extends LangualController
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(
-            $this->getLang() == self::LANG_EN
-            ? ContentBlockEn::class    
-            : ContentBlock::class
+            $this->getContentBlockClass()
         );
 
         $block = $repo->findOneByIdentifier($request->get('block'));
@@ -81,9 +80,7 @@ class LandingController extends LangualController
     {   
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(
-            $this->getLang() == self::LANG_EN
-            ? ContentBlockImageEn::class
-            : ContentBlockImage::class
+            $this->getContentImageClass()
         );
         $image = $repo->findOneById($request->get('id'));
         $block = $image->getBlock();
@@ -115,9 +112,7 @@ class LandingController extends LangualController
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(
-            $this->getLang() == self::LANG_EN
-            ? ContentBlockEn::class    
-            : ContentBlock::class
+            $this->getContentBlockClass()
         );
         $block = $repo->findOneByIdentifier($request->get('block'));
         
@@ -125,20 +120,19 @@ class LandingController extends LangualController
         if (!$block->getImages()->isEmpty()) {
             $lastPosition = $block->getImages()->last()->getPosition();
         }
-        
-        $image = $request->files->get('image');
-        $webName = sprintf('/img/uploads/%s', $image->getClientOriginalName());
-        $savePath = sprintf('%s/web/img/uploads', $this->get('kernel')->getProjectDir());
-        $image->move($savePath, $image->getClientOriginalName());
-        $image = new ContentBlockImage();
-        $image = $this->getLang() == self::LANG_EN
-            ? new ContentBlockImageEn()    
-            : new ContentBlockImage();
+        if (!$request->get('isvideo')) {
+            $image = $request->files->get('image');
+            $webName = sprintf('/img/uploads/%s', $image->getClientOriginalName());
+            $savePath = sprintf('%s/web/img/uploads', $this->get('kernel')->getProjectDir());
+            $image->move($savePath, $image->getClientOriginalName());
+        }
+        $image = $this->getContentBlockImage();
         $image->setTitle($request->get('title'))
               ->setDescription($request->get('description'))
               ->setPosition($lastPosition + 1);
-
-        $image->setImage($webName);
+        if (isset($webName)) {
+            $image->setImage($webName);
+        }
         $image->setBlock($block);
         $block->getImages()->add($image);
 
@@ -159,9 +153,7 @@ class LandingController extends LangualController
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(
-            $this->getLang() == self::LANG_EN
-            ? ContentBlockImageEn::class    
-            : ContentBlockImage::class
+            $this->getContentImageClass()
         );
 
         $image = $repo->findOneById($request->get('id'));
@@ -185,9 +177,7 @@ class LandingController extends LangualController
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(
-            $this->getLang() == self::LANG_EN
-            ? ContentBlockImageEn::class    
-            : ContentBlockImage::class
+            $this->getContentImageClass()
         );
 
         $image = $repo->findOneById($request->get('id'));
@@ -222,5 +212,53 @@ class LandingController extends LangualController
         $this->addFlash('info', 'Позиция успешно изменена');
         
         return $this->redirect('/admin/landing');
+    }
+
+    private function getContentBlockClass()
+    {
+        switch ($this->getLang()) {
+            case self::LANG_EN:
+                return ContentBlockEn::class;
+            break;
+            case self::LANG_UA:
+                return ContentBlockUA::class;
+            break;
+            case self::LANG_RU:
+            default:
+                return ContentBlock::class;
+            break;
+        }
+    }
+
+    private function getContentBlockImage()
+    {
+        switch ($this->getLang()) {
+            case self::LANG_EN:
+                return new ContentBlockImageEn();
+            break;
+            case self::LANG_UA:
+                return new ContentBlockImageUa();
+            break;
+            case self::LANG_RU:
+            default:
+                return new ContentBlockImage();
+            break;
+        }
+    }
+
+    private function getContentImageClass()
+    {
+        switch ($this->getLang()) {
+            case self::LANG_EN:
+                return ContentBlockImageEn::class;
+            break;
+            case self::LANG_UA:
+                return ContentBlockImageUa::class;
+            break;
+            case self::LANG_RU:
+            default:
+                return ContentBlockImage::class;
+            break;
+        }
     }
 }
