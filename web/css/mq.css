@@ -260,14 +260,23 @@
     z-index: 2;
   }
   .header__contacts {        
-    right: 60px;
+    right: 38px;
     height: 60px;
+  }
+  .header__contacts li.lang span {
+    cursor: default;
   }  
+  .header__contacts li.lang span::after {    
+    top: 20px;    
+}
   .header__contacts li.tel {
     display: none;
+  }  
+  .header__contacts li.to-map {
+    margin-right: 40px;
   }
   .header__contacts li {
-    line-height: 60px!important;
+    line-height: 60px!important;    
   }
   .header__contacts_social {
     right: 22px;
