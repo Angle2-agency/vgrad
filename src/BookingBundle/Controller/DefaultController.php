@@ -185,10 +185,14 @@ class DefaultController extends Controller
             $subscriber->setEmail($email)
                        ->setDate(new DateTime('now'));
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($subscriber);
-            $em->flush();
-            $em->clear();
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($subscriber);
+                $em->flush();
+                $em->clear();
+            } catch (\Exception $e) {
+                // do nothing
+            }
         }
         return $this->redirect('/?subscribed=true');
     }
