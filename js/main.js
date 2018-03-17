@@ -171,8 +171,9 @@ var app = {
 	},
 	eventsInit : function(){
 		$(document).click(function(e) {
-			if ($(e.target).closest(".popup__rooms_select").length) return;
-			$('.popup__rooms_select ul').fadeOut(150);			
+			if ($(e.target).closest(".popup__rooms_select").length || $(e.target).closest(".header__contacts li.lang").length) return;
+			$('.popup__rooms_select ul').fadeOut(150);
+			$('.header__contacts li.lang').removeClass('show');
 			e.stopPropagation();
 		});
 
@@ -264,6 +265,14 @@ var app = {
 			var body = $("html, body");
 			body.stop().animate({scrollTop:y}, 800, 'swing');
 			$(document).scrollTop(y);
+		});
+		$('#langs').click(function(e) {
+			if(!$(this).hasClass('show')){
+				$(this).addClass('show');	
+			}else{
+				$(this).removeClass('show');	
+			}
+			
 		});
 	},
 

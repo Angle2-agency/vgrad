@@ -245,7 +245,7 @@ header {
 .header__contacts {
   list-style: none;
   margin: 0;
-  padding: 0 70px;
+  padding: 0 62px;
   position: fixed;
   top: 0;
   right: 255px;
@@ -264,7 +264,7 @@ header {
   position: relative;
   z-index: 2;
 }
-.header__contacts li.to-map {
+.header__contacts li.lang {
   font: bold 10px/80px 'Gotham Pro';
   color: #fff;  
   letter-spacing: 2px;
@@ -272,8 +272,70 @@ header {
   position: relative;
   z-index: 2;
 }
+.header__contacts li.lang span {
+  display: inline-block;
+  padding-right: 15px;
+  position: relative;
+  cursor: pointer;
+  transition: color 300ms ease;
+}
+.header__contacts li.lang.show span {
+  color: #ffdebc;
+}
+.header__contacts li.lang span::after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: url('../img/icon_lang-w.svg') no-repeat center;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  transition: all 300ms ease;
+}
+.header__contacts li.lang.show span::after {
+  background: url('../img/icon_lang-h.svg') no-repeat center;
+  transform: rotate(180deg);
+}
+.header__contacts.scroll li.lang span::after {
+  background: url('../img/icon_lang-b.svg') no-repeat center;
+}
+.header__contacts li.lang .lang-list {
+  background-color: #fff;
+  position: absolute;
+  right: -3px;
+  top: -60px;
+  padding: 7px 0;
+  opacity: 0;
+  transition: all 300ms ease;
+}
+.header__contacts li.lang.show .lang-list {
+  top: 60px;
+  opacity: 1;
+}
+.header__contacts li.lang .lang-list a {
+  display: block;
+  line-height: 24px;
+  color: #000;
+  padding: 0 17px;
+  text-decoration: none;
+  transition: all 300ms ease;
+}
+.header__contacts li.lang .lang-list a:hover {
+  color: #ffdeb9;
+}
+.header__contacts li.to-map {
+  font: bold 10px/80px 'Gotham Pro';
+  color: #fff;  
+  letter-spacing: 2px;
+  margin-right: 70px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+}
 .header__contacts.scroll li.tel,
-.header__contacts.scroll li.to-map {
+.header__contacts.scroll li.to-map,
+.header__contacts.scroll li.lang span {
   color: #373737;
 }
 .header__contacts li.bg {
