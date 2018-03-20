@@ -604,14 +604,14 @@
   }
   footer {
     margin-top: 120px;
-    padding-top: 300px;
+    padding-top: 370px;
   }
   footer .contacts .contacts__info {
     width: 100%;
-    height: 300px;    
+    height: 370px;    
     box-shadow: none;    
     left: 0;
-    top: -300px;
+    top: -370px;
     transform: translate(0, 0);
     padding: 0px 15px 40px 15px;
   }
